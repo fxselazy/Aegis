@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.mycompany.agis;
+package account;
 
 import java.util.Objects;
+import person.Person;
 
-/**
- *
- * @author Lenovo
- */
-class Account {
+public class Account {
+
     private long Id;
     private String password;
     private Person person;
@@ -24,6 +17,9 @@ class Account {
         this.position = position;
     }
 
+//    public Account(Account account) {
+//        super(account);
+//    }
     @Override
     public int hashCode() {
         int hash = 7;
@@ -56,6 +52,5 @@ class Account {
         }
         return true;
     }
-    
-    
+
 }
