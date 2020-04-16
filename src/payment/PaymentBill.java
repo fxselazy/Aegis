@@ -1,8 +1,9 @@
+package payment;
 
-package javaapplication3;
-
+import service.RegisterCourses;
 
 public class PaymentBill extends RegisterCourses {
+
     private double totalPay;
     private RegisterCourses registerCourses;
 
@@ -10,6 +11,5 @@ public class PaymentBill extends RegisterCourses {
     public String toString() {
         return "PaymentBill{" + "totalPay=" + totalPay + ", registerCourses=" + registerCourses + '}';
     }
-    
-    
+
 }
