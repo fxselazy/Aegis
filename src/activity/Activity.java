@@ -1,10 +1,9 @@
-
-package javaapplication3;
+package activity;
 
 import java.time.LocalDate;
 
-
 public class Activity {
+
     private LocalDate hour;
     private String nameOfActivity;
 
@@ -21,5 +20,5 @@ public class Activity {
     public String toString() {
         return "Activity{" + "hour=" + hour + ", nameOfActivity=" + nameOfActivity + '}';
     }
-    
+
 }
