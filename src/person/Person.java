@@ -1,45 +1,54 @@
-package Person;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.agis;
 
+/**
+ *
+ * @author Lenovo
+ */
 public class Person {
-    
     private long Id;
-    private String Firstname;
-    private String Lastname;
+    private String FirstName;
+    private String LastName;
 
-    public Person(long Id, String Firstname, String Lastname) {
+    public Person(long Id, String FirstName, String LastName) {
         this.Id = Id;
-        this.Firstname = Firstname;
-        this.Lastname = Lastname;
+        this.FirstName = FirstName;
+        this.LastName = LastName;
     }
 
     public long getId() {
         return Id;
     }
 
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
     public void setId(long Id) {
         this.Id = Id;
     }
 
-    public String getFirstname() {
-        return Firstname;
+    public void setFirstName(String FirstName) {
+        this.FirstName = FirstName;
     }
 
-    public void setFirstname(String Firstname) {
-        this.Firstname = Firstname;
-    }
-
-    public String getLastname() {
-        return Lastname;
-    }
-
-    public void setLastname(String Lastname) {
-        this.Lastname = Lastname;
+    public void setLastName(String LastName) {
+        this.LastName = LastName;
     }
 
     @Override
     public String toString() {
-        return "Person{" + "Id=" + Id + ", Firstname=" + Firstname + ", Lastname=" + Lastname + '}';
+        return "Person{" + "Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + '}';
     }
+    
     
     
 }
