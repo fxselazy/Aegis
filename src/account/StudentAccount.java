@@ -1,25 +1,51 @@
-package account;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.agis;
 
-import policy.Policy;
-import service.RegisterCourse;
-
-public class StudentAccount extends Account implements Policy {
-    
-    private RegisterCourses[] myRegisterCourses = new RegisterCourse[]; 
-    private int courseCount;
-    private Activity[] myActivity = new Activity[];
-    private PaymentBill[] myPaymentBill = new PaymentBill[];
+/**
+ *
+ * @author Lenovo
+ */
+public class StudentAccount extends Account{
+    private RegisterCourses[] registerCourses;
+    private int coursesCount;
+    private Activity[] activity;
+    private PaymentBill[] paymentBill;
     private PaymentStatus paymentStatus;
     private int myActivityHour;
-    
-    
-    
-    public StudentAccount(Account account) {
-        super(account);
+
+    public RegisterCourses[] getMyRegisterCourses() {
+        return registerCourses;
     }
-    
-    public RegisterCourses[] getMyRegisteredCourses(){
+
+    public String getCountOfCourseForRegister() {
+        int x = paymentStatus.MAX_COURSES - coursesCount;
         
+        if(this.coursesCount < 3){
+            return  "You must register at least " + (x - 4) +" times";
+        }if(this.coursesCount == 7){
+            return "Your courses to rigister are max.";
+        }
+        return "You can register for " + x +  " more times.";
     }
-   
+
+    public PaymentBill[] getPaymentBill() {
+        return paymentBill;
+    }
+
+    public PaymentStatus checkPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public int getMyActivityHour() {
+        return myActivityHour;
+    }
+    
+    
+    
+    
+    
 }
