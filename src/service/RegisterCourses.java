@@ -8,18 +8,13 @@ import person.Person;
 
 public class RegisterCourses extends StudentAccount {
 
-    private StudentAccount studentAccount;
+    private StudentAccount[] studentAccount;
     private Courses[] courses;
     private int count;
     private double TotalPay;
 
-//    public RegisterCourses(StudentAccount studentAccount,Courses courses) {
-//
-//    }
-//    public RegisterCourses(Account account) {
-//        super(account);
-//    }
-//    public RegisterCourses(long Id, String password, Person person, Position position) {
-//        super(Id, password, person, position);
-//    }
+    public RegisterCourses(long Id, String password, Person person, Position position) {
+        super(Id, password, person, position);
+    }
+
 }
