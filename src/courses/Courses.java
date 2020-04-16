@@ -1,5 +1,4 @@
-
-package javaapplication3;
+package courses;
 
 public class Courses {
 
@@ -28,6 +27,5 @@ public class Courses {
     public String toString() {
         return "Courses{" + "subject=" + subject + ", credits=" + credits + ", cost=" + cost + '}';
     }
-    
-    
+
 }
