@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.mycompany.agis;
+package person;
 
-/**
- *
- * @author Lenovo
- */
 public class Person {
+
     private long Id;
     private String FirstName;
     private String LastName;
@@ -48,7 +40,5 @@ public class Person {
     public String toString() {
         return "Person{" + "Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + '}';
     }
-    
-    
-    
+
 }
