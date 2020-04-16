@@ -1,29 +1,61 @@
-package account;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.agis;
 
-import Person.Person;
 import java.util.Objects;
 
-public class Account {
-    private long id;
+/**
+ *
+ * @author Lenovo
+ */
+class Account {
+    private long Id;
     private String password;
-    private Position position;
     private Person person;
+    private Position position;
 
-    public Account(long Id, String Password, Position position, Person person) {
-        this.id = id;
+    public Account(long Id, String password, Person person, Position position) {
+        this.Id = Id;
         this.password = password;
-        this.position = position;
         this.person = person;
+        this.position = position;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Account other = (Account) obj;
+        if (this.Id != other.Id) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.person, other.person)) {
+            return false;
+        }
+        if (this.position != other.position) {
+            return false;
+        }
+        return true;
     }
     
-    public Account(Account account){
-        this.id=account.id;
-        this.password=account.password;
-        this.person=account.person;
-    }
- 
-    public boolean equals(Object obj) {
-        
-    }
     
 }
