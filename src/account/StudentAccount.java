@@ -19,10 +19,6 @@ public class StudentAccount extends Account {
         super(Id, password, person, position);
     }
 
-    public StudentAccount(Account account) {
-        super(account);
-    }
-
     public RegisterCourses[] getMyRegisterCourses() {
         return registerCourses;
     }
