@@ -1,14 +1,14 @@
-package account;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.agis;
 
-import Person.Person;
-
+/**
+ *
+ * @author Lenovo
+ */
 public class DepartmentAccount extends Account{
     
-    public DepartmentAccount(long Id, String Password, Position position, Person person) {
-        super(Id, Password, position, person);
-    }
-    
-     public DepartmentAccount(Account account) {
-        super(account);
-    }
 }
