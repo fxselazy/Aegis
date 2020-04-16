@@ -1,5 +1,7 @@
-package payment;
 
-public class PaymentStatus {
-    
+package javaapplication3;
+
+
+public enum PaymentStatus {
+    PAID, PENDING, EXPIRES;
 }
