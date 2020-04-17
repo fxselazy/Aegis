@@ -2,13 +2,43 @@ package courses;
 
 public class Courses {
 
+    private String courseCode;
     private String subject;
     private int credits;
     private final int cost = 1200;
+    private int calCost;
 
-    public Courses(String subject, int credits) {
-        this.subject = subject != null ? subject : null;
-        this.credits = credits > 0 ? credits : -1;
+    public Courses(String courseCode, String subject, int credits) {
+        //this.subject = subject != null ? subject : null;
+        try {
+            this.courseCode = courseCode;
+        } catch (NullPointerException e) {
+            this.courseCode = "UnknowSubject";
+        } finally {
+            this.courseCode = courseCode;
+        }
+
+        try {
+            subject = this.subject;
+
+        } catch (NullPointerException e) {
+            this.subject = "UnknowSubject";
+        } finally {
+            this.subject = subject;
+        }
+
+        this.credits = credits > 0 && credits <= 3 ? credits : -1;
+        this.calculateCost(credits);
+      
+    }
+    
+    public void calculateCost(int credits) {
+        int x = this.cost*this.credits;
+        this.calCost = x;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
     }
 
     public String getSubject() {
@@ -19,13 +49,26 @@ public class Courses {
         return credits;
     }
 
-    public int getCost() {
-        return cost;
+    public int getCalCost() {
+        return calCost;
     }
+    
+
+  
 
     @Override
     public String toString() {
-        return "Courses{" + "subject=" + subject + ", credits=" + credits + ", cost=" + cost + '}';
+        StringBuilder st = new StringBuilder();
+        st.append("Couses Code: ").append(this.courseCode);
+        st.append("/n");
+        st.append("Subject: ").append(this.subject);
+        st.append("/n");
+        st.append("Credits: ").append(this.credits);
+        st.append("/n");
+        st.append("Cost: ").append(this.calCost);
+        st.append("/n");
+        st.append("***************************************************************");
+        return st.toString();
     }
 
 }
