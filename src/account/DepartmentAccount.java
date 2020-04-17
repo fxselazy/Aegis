@@ -8,7 +8,5 @@ public class DepartmentAccount extends Account {
         super(Id, password, person, position);
     }
 
-    public DepartmentAccount(Account account) {
-        super(account);
-    }
+   
 }
