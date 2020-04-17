@@ -17,4 +17,26 @@ public class RegisterCourses extends StudentAccount {
         super(Id, password, person, position);
     }
 
+    public StudentAccount[] getStudentAccount() {
+        return studentAccount;
+    }
+
+    public Courses[] getCourses() {
+        return courses;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public double getTotalPay() {
+        return TotalPay;
+    }
+
+    @Override
+    public String toString() {
+        return "RegisterCourses{" + "studentAccount=" + studentAccount + ", courses=" + courses + ", count=" + count + ", TotalPay=" + TotalPay + '}';
+    }
+    
+
 }
