@@ -5,8 +5,10 @@ import payment.PaymentStatus;
 import payment.PaymentBill;
 import person.Person;
 import service.RegisterCourses;
+import policy.Policy;
 
-public class StudentAccount extends Account {
+
+public class StudentAccount extends Account implements Policy {
 
     private RegisterCourses[] registerCourses;
     private int coursesCount;
@@ -14,6 +16,8 @@ public class StudentAccount extends Account {
     private PaymentBill[] paymentBill;
     private PaymentStatus paymentStatus;
     private int myActivityHour;
+    public static final int MAX_COURSES = 7;
+    public static final int MIN_COURSES = 3;
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
@@ -24,7 +28,7 @@ public class StudentAccount extends Account {
     }
 
     public String getCountOfCourseForRegister() {
-        int x = paymentStatus.MAX_COURSES - coursesCount;
+        int x = MAX_COURSES - coursesCount;
 
         if (this.coursesCount < 3) {
             return "You must register at least " + (x - 4) + " times";
