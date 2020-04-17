@@ -13,9 +13,25 @@ public class PaymentBill extends RegisterCourses {
         super(Id, password, person, position);
     }
 
+    public double getTotalPay() {
+        return totalPay;
+    }
+
+    public RegisterCourses getRegisterCourses() {
+        return registerCourses;
+    }
+    
+
     @Override
     public String toString() {
-        return "PaymentBill{" + "totalPay=" + totalPay + ", registerCourses=" + registerCourses + '}';
+        StringBuilder st = new StringBuilder();
+        st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠/n");
+        st.append("/n");
+        st.append("           Payment Bill             /n");
+        st.append("/n");
+        st.append("Id: " + super.toString());
+        st.append("   Total pay: " +this.totalPay      + "/n");
+        return st.toString();
     }
 
 }
