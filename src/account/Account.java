@@ -20,6 +20,22 @@ public class Account {
 //    public Account(Account account) {
 //        super(account);
 //    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
   
 
     @Override
