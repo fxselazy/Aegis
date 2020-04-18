@@ -25,12 +25,13 @@ public class PaymentBill extends RegisterCourses {
     @Override
     public String toString() {
         StringBuilder st = new StringBuilder();
-        st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠/n");
+        st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
         st.append("/n");
         st.append("           Payment Bill             /n");
         st.append("/n");
-        st.append("Id: " + super.toString());
-        st.append("   Total pay: " +this.totalPay      + "/n");
+        st.append("Id: ").append(super.toString());
+        st.append("   Total pay: ").append(this.totalPay).append("/n");
+        st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
         return st.toString();
     }
 
