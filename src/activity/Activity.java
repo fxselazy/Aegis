@@ -26,10 +26,10 @@ public class Activity {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+         sb.append("Activity Name: ").append(nameOfActivity);
+        sb.append("\n");
         sb.append("Activity Hour: ").append(hour);
-        sb.append("\n");
-        sb.append("Activity Name: ").append(nameOfActivity);
-        sb.append("\n");
+        sb.append("\n");      
         sb.append("***************************************************************");
         
         return sb.toString();
