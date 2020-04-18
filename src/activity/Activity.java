@@ -26,13 +26,20 @@ public class Activity {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-         sb.append("Activity Name: ").append(nameOfActivity);
+        
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
+        sb.append("Activity Name: ").append(nameOfActivity);
         sb.append("\n");
         sb.append("Activity Hour: ").append(hour);
         sb.append("\n");      
-        sb.append("***************************************************************");
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
         
         return sb.toString();
+    }
+    
+    public static void main(String[] args) {
+        Activity a = new Activity(LocalDate.now(), "Baccara Game");
+        System.out.println(a.toString());
     }
     
 }
