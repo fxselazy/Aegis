@@ -37,8 +37,15 @@ public class Person {
     }
 
     @Override
-    public String toString() {
-        return "Person{" + "Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + '}';
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
+        sb.append("ID: ").append(Id).append("\n");
+        sb.append("Firstname: ").append(FirstName).append("\n");
+        sb.append("Lastname: ").append(LastName).append("\n");
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
+        
+        return sb.toString();
     }
 
 }
