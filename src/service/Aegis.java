@@ -8,7 +8,7 @@ import courses.Courses;
 import payment.PaymentStatus;
 import java.util.Scanner;
 
-public class Aegis extends Account implements StudentService,DepartmentService {
+public class Aegis implements StudentService,DepartmentService {
     private  StudentAccount StudentMember[];
     private DepartmentAccount DatabaseManagement;
     private Courses Courses[];
@@ -19,6 +19,7 @@ public class Aegis extends Account implements StudentService,DepartmentService {
     private Account account[];
     
     public static void main(String[] args) {
+        
         Scanner scan = new Scanner(System.in);
         do {
             System.out.println("<<Main Menu>>");
@@ -27,8 +28,8 @@ public class Aegis extends Account implements StudentService,DepartmentService {
             System.out.println("3. Edit Membership Information");
             System.out.println("4. Membership Unsubscribe");
             System.out.println("5. List Members");
-            System.out.println("6. Exit");
-                System.out.print("Enter Your Menu[1-6]: ");
+            System.out.println("6. Exit"+ );
+                System.out.print("Enter Your Menu[1-6]:");
                 int menuNumber = scan.nextInt();
                 System.out.println("");
                 switch (menuNumber) {
@@ -75,14 +76,33 @@ public class Aegis extends Account implements StudentService,DepartmentService {
     public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
         this.DepartmentName = departmentName;
         this.DatabaseManagement = department;
+        this.StudentMember = new StudentAccount[maxStudent];
+        this.Courses = new Courses[maxCourse];
         
         
-        
+    }
+    
+    public String departmentLogin(long Id,String password){
+        if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)){
+            return "Login success";
+        }
+        if(this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)){
+            return "Id failed";
+        }
+        if(this.DatabaseManagement.getId() == Id && (this.DatabaseManagement.getPassword() != password)){
+            return "Password failed";
+        }return "Login failed";
+            
+//        if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)){
+//            return "Login success";
+//            
+//        }return "Login failed";
     }
 
     @Override
     public double checkTotalCost(StudentAccount student) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       
+    
     }
 
     @Override
