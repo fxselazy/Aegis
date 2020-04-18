@@ -37,9 +37,4 @@ public class Activity {
         return sb.toString();
     }
     
-    public static void main(String[] args) {
-        Activity a = new Activity(LocalDate.now(), "Baccara Game");
-        System.out.println(a.toString());
-    }
-    
 }
