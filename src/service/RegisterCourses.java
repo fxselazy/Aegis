@@ -33,11 +33,19 @@ public class RegisterCourses extends StudentAccount {
         return TotalPay;
     }
     
-    
-
     @Override
-    public String toString() {
-        return "RegisterCourses{" + "studentAccount=" + studentAccount + ", courses=" + courses + ", count=" + count + ", TotalPay=" + TotalPay + '}';
+    public String toString(){
+        
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
+        sb.append("StudentAccount: ").append(studentAccount).append("\n");
+        sb.append("Courses: ").append(courses).append("\n");
+        sb.append("Count: ").append(count).append("\n");
+        sb.append("TotalPay: ").append(TotalPay).append("\n");
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
+        
+        return sb.toString();
     }
     
 
