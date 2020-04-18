@@ -32,6 +32,8 @@ public class RegisterCourses extends StudentAccount {
     public double getTotalPay() {
         return TotalPay;
     }
+    
+    
 
     @Override
     public String toString() {
