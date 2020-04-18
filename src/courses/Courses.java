@@ -59,6 +59,7 @@ public class Courses {
     @Override
     public String toString() {
         StringBuilder st = new StringBuilder();
+        st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
         st.append("Couses Code: ").append(this.courseCode);
         st.append("/n");
         st.append("Subject: ").append(this.subject);
@@ -67,7 +68,7 @@ public class Courses {
         st.append("/n");
         st.append("Cost: ").append(this.calCost);
         st.append("/n");
-        st.append("***************************************************************");
+        st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
         return st.toString();
     }
 
