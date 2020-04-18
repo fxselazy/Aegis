@@ -9,7 +9,14 @@ public class Activity {
 
     public Activity(LocalDate hour, String nameOfActivity) {
         this.hour = hour;
-        this.nameOfActivity = nameOfActivity != null ? nameOfActivity : null;
+        
+        try{
+            this.nameOfActivity = nameOfActivity;
+        }catch(NullPointerException e){
+            System.out.println("Error404 Unknown Activity");
+        }finally{
+            this.nameOfActivity = nameOfActivity;
+        }
     }
 
     public String getNameOfActivity() {
@@ -18,7 +25,14 @@ public class Activity {
 
     @Override
     public String toString() {
-        return "Activity{" + "hour=" + hour + ", nameOfActivity=" + nameOfActivity + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Activity Hour: ").append(hour);
+        sb.append("\n");
+        sb.append("Activity Name: ").append(nameOfActivity);
+        sb.append("\n");
+        sb.append("***************************************************************");
+        
+        return sb.toString();
     }
-
+    
 }
