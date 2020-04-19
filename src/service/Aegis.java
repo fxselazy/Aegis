@@ -17,6 +17,18 @@ public class Aegis implements StudentService,DepartmentService {
     private Activity Activity[];
     private long Id;
     private Account account[];
+    private int countHour;
+    private int countActivity;
+    
+    
+    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
+        this.DepartmentName = departmentName;
+        this.DatabaseManagement = department;
+        this.StudentMember = new StudentAccount[maxStudent];
+        this.Courses = new Courses[maxCourse];
+        
+        
+    }
     
     public static void main(String[] args) {
         
@@ -28,7 +40,7 @@ public class Aegis implements StudentService,DepartmentService {
             System.out.println("3. Edit Membership Information");
             System.out.println("4. Membership Unsubscribe");
             System.out.println("5. List Members");
-            System.out.println("6. Exit"+ );
+            System.out.println("6. Exit");
                 System.out.print("Enter Your Menu[1-6]:");
                 int menuNumber = scan.nextInt();
                 System.out.println("");
@@ -39,7 +51,7 @@ public class Aegis implements StudentService,DepartmentService {
                         System.out.println("/n");
                         System.out.println("Passwors:");
                         String pass = scan.next();
-                        if(Id == account.)
+                        if(Id == account.){
                             
                         }
                         
@@ -68,18 +80,6 @@ public class Aegis implements StudentService,DepartmentService {
                         break;
                 }
         } while (menuNumber != 6);
-        
-    
-        
-        
-    
-    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
-        this.DepartmentName = departmentName;
-        this.DatabaseManagement = department;
-        this.StudentMember = new StudentAccount[maxStudent];
-        this.Courses = new Courses[maxCourse];
-        
-        
     }
     
     public String departmentLogin(long Id,String password){
@@ -101,8 +101,16 @@ public class Aegis implements StudentService,DepartmentService {
 
     @Override
     public double checkTotalCost(StudentAccount student) {
-       
-    
+        int i;
+        
+        for (i=0; i < StudentMember.length; i++) {
+            if(StudentMember[i].equals(student))
+                return i;
+        }
+        
+        if(i==-1){
+            return -1;
+        }
     }
 
     @Override
@@ -127,7 +135,13 @@ public class Aegis implements StudentService,DepartmentService {
 
     @Override
     public boolean addActivity(DepartmentAccount department, Activity activity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!this.DatabaseManagement.equals(department) || countActivity >= Activity.length){
+            System.out.println("Error404 Can't add activity");
+            return false;
+        }
+    
+        Activity[countActivity++] = activity;
+        return true;
     }
 
     @Override
@@ -149,5 +163,5 @@ public class Aegis implements StudentService,DepartmentService {
     public boolean changePaymentStatus(DepartmentAccount department, StudentAccount account, PaymentStatus status) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
