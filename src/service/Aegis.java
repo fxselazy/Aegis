@@ -5,12 +5,14 @@ import account.DepartmentAccount;
 import account.StudentAccount;
 import activity.Activity;
 import courses.Courses;
+import java.util.ArrayList;
+import java.util.List;
 import payment.PaymentStatus;
 import java.util.Scanner;
 
 public class Aegis implements StudentService,DepartmentService {
     private  StudentAccount StudentMember[];
-    private DepartmentAccount DatabaseManagement;
+    public static   DepartmentAccount DatabaseManagement;
     private Courses Courses[];
     private RegisterCourses RegisterCourse[];
     private String DepartmentName;
@@ -19,6 +21,10 @@ public class Aegis implements StudentService,DepartmentService {
     private Account account[];
     private int countHour;
     private int countActivity;
+    private int countMember;
+    private int countCourse;
+    List<Courses> coursesList = new ArrayList<Courses>();
+    List<Activity> activityList = new ArrayList<Activity>();
     
     
     public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
@@ -36,18 +42,22 @@ public class Aegis implements StudentService,DepartmentService {
         do {
             System.out.println("<<Main Menu>>");
             System.out.println("1. Department Login");
-            System.out.println("2. Membership Subscribe");
+            System.out.println("2. ");
             System.out.println("3. Edit Membership Information");
             System.out.println("4. Membership Unsubscribe");
             System.out.println("5. List Members");
+<<<<<<< Updated upstream
             System.out.println("6. Exit");
+=======
+            System.out.println("6. Exit" );
+>>>>>>> Stashed changes
                 System.out.print("Enter Your Menu[1-6]:");
                 int menuNumber = scan.nextInt();
                 System.out.println("");
                 switch (menuNumber) {
                     case 1:
-                        System.out.println("Id:");
                         long Id = scan.nextLong();
+<<<<<<< Updated upstream
                         System.out.println("/n");
                         System.out.println("Passwors:");
                         String pass = scan.next();
@@ -62,28 +72,49 @@ public class Aegis implements StudentService,DepartmentService {
 //                                
 //                        
 //                        Aegis(departmentName,  department, maxCourse, maxStudent);
+=======
+                        String password = scan.next();
+                       
+                            departmentLogin(Id,password);
+
+>>>>>>> Stashed changes
                         break;
                     case 2:
-                        memberSub();
+                       
                         break;
                     case 3:
                         
                         break;
                     case 4:
-                        memberUnSub();
+                        
                         break;
                     case 5:
-                        listMembers();
+                       
                         break;
                     default:
                         System.out.println("Please Enter Number 1-6 Only\n");
                         break;
                 }
         } while (menuNumber != 6);
+<<<<<<< Updated upstream
+=======
     }
     
-    public String departmentLogin(long Id,String password){
-        if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)){
+        
+        
+    
+    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
+        this.DepartmentName = departmentName;
+        this.DatabaseManagement = department;
+        this.StudentMember = new StudentAccount[maxStudent];
+        this.Courses = new Courses[maxCourse];
+        
+        
+>>>>>>> Stashed changes
+    }
+    
+    public static String departmentLogin(long Id,String password){
+        if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.equals(password)){
             return "Login success";
         }
         if(this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)){
@@ -125,16 +156,33 @@ public class Aegis implements StudentService,DepartmentService {
 
     @Override
     public boolean addCourses(DepartmentAccount department, Courses course) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length){
+            System.out.println("Error404 Can't add course");
+            return false;
+        }
+         
+    
+        this.Courses[this.countCourse++] = course;
+        return true;
+    
+
     }
 
     @Override
-    public boolean addMember(DepartmentAccount department, Account account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addMember(DepartmentAccount department, StudentAccount student) {
+        if(!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length){
+            System.out.println("Error404 Can't add member");
+            return false;
+        }
+         
+    
+        this.StudentMember[this.countMember++] = student;
+        return true;
     }
 
     @Override
     public boolean addActivity(DepartmentAccount department, Activity activity) {
+        
         if(!this.DatabaseManagement.equals(department) || countActivity >= Activity.length){
             System.out.println("Error404 Can't add activity");
             return false;
@@ -145,23 +193,52 @@ public class Aegis implements StudentService,DepartmentService {
     }
 
     @Override
-    public boolean addActivityHour(DepartmentAccount department, Activity activity, int hour) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean addActivityHour(DepartmentAccount department, Activity activity, int hour,int studentNumber) {
+         if(!this.DatabaseManagement.equals(department) || hour <= 0){
+            System.out.println("Error404 Can't add hour");
+            return false;
+        }
+         this.StudentMember[studentNumber].addActivity(hour,activity);
+         return true;
     }
 
     @Override
     public boolean removeActivity(DepartmentAccount department, Activity activity) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if(!this.DatabaseManagement.equals(department) || !(this.activityList.equals(activity))){
+            System.out.println("Error404 Can't remove activity");
+            return false;
+        }
+                this.activityList.remove(activity);
+                return true;
+            }
+            
+        
+    
 
     @Override
     public boolean removeCourse(DepartmentAccount department, Courses course) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    if(!this.DatabaseManagement.equals(department) || !(this.coursesList.equals(course))){
+            System.out.println("Error404 Can't remove course");
+            return false;
+        }
+               this.coursesList.remove(course);
+                return true;
+            }
 
     @Override
     public boolean changePaymentStatus(DepartmentAccount department, StudentAccount account, PaymentStatus status) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(!this.DatabaseManagement.equals(department) || !(this.StudentMember.equals(account))){
+            System.out.println("Error404 Can't change status");
+            return false;
+        }
+        for (int i = 0; i < StudentMember.length; i++) {
+            if(this.StudentMember[i].equals(account)){
+                this.StudentMember[i].setPaymentStatus(status);
+                return true;
+            }
+            
+        }
+        return true;
     }
 
 }
