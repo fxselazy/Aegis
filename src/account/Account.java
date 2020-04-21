@@ -5,8 +5,8 @@ import person.Person;
 
 public class Account {
 
-    private long Id;
-    private String password;
+    private  long Id;
+    private  String password;
     private Person person;
     private Position position;
 
@@ -21,11 +21,11 @@ public class Account {
 //        super(account);
 //    }
 
-    public long getId() {
+    public  long getId() {
         return Id;
     }
 
-    public String getPassword() {
+    public  String getPassword() {
         return password;
     }
 

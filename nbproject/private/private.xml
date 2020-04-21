@@ -4,13 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Desktop/ag/Aegis/src/activity/Activity.java</file>
-            <file>file:/D:/Desktop/ag/Aegis/src/payment/PaymentBill.java</file>
+            <file>file:/D:/Desktop/ag/Aegis/src/person/Person.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/service/RegisterCourses.java</file>
-            <file>file:/D:/Desktop/ag/Aegis/src/account/StudentAccount.java</file>
+            <file>file:/D:/Desktop/ag/Aegis/src/account/Position.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/account/DepartmentAccount.java</file>
-            <file>file:/D:/Desktop/ag/Aegis/src/payment/PaymentStatus.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/account/Account.java</file>
-            <file>file:/D:/Desktop/ag/Aegis/src/courses/Courses.java</file>
+            <file>file:/D:/Desktop/ag/Aegis/src/policy/Policy.java</file>
+            <file>file:/D:/Desktop/ag/Aegis/src/service/Aegis.java</file>
         </group>
     </open-files>
 </project-private>
