@@ -18,6 +18,7 @@ public class StudentAccount extends Account implements Policy {
     private int myActivityHour;
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
+    public int countActivity;
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
@@ -38,6 +39,17 @@ public class StudentAccount extends Account implements Policy {
         }
         return "You can register for " + x + " more times.";
     }
+    
+    public boolean addActivity(int hour,Activity activity) {
+        if(hour <= 0){
+            return false;
+        }   //this.myActivityHour  = this.myActivityHour + hour;
+        hour += this.myActivityHour;
+        this.activity[countActivity++] = activity;
+        return true;
+    }
+    
+    
 
     public PaymentBill[] getPaymentBill() {
         return paymentBill;
@@ -49,6 +61,10 @@ public class StudentAccount extends Account implements Policy {
 
     public int getMyActivityHour() {
         return myActivityHour;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
 }
