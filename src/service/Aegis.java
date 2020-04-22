@@ -2,6 +2,7 @@ package service;
 
 import account.Account;
 import account.DepartmentAccount;
+import account.Position;
 import account.StudentAccount;
 import activity.Activity;
 import courses.Courses;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import payment.PaymentStatus;
 import java.util.Scanner;
+import person.Person;
 
 public class Aegis implements StudentService,DepartmentService {
     private  StudentAccount StudentMember[];
@@ -25,6 +27,9 @@ public class Aegis implements StudentService,DepartmentService {
     private int countCourse;
     List<Courses> coursesList = new ArrayList<Courses>();
     List<Activity> activityList = new ArrayList<Activity>();
+
+    public Aegis() {
+    }
     
     
     public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
@@ -36,34 +41,53 @@ public class Aegis implements StudentService,DepartmentService {
         
     }
     
-    public static void main(String[] args) {
-        
-        Scanner scan = new Scanner(System.in);
+    public static void main(String []args){
+        int menuNumber=0;
+         Aegis ag=new Aegis();
+         
+       
+         Scanner scan = new Scanner(System.in);
         do {
+             menuNumber = scan.nextInt();
             System.out.println("<<Main Menu>>");
             System.out.println("1. Department Login");
             System.out.println("2. ");
             System.out.println("3. Edit Membership Information");
             System.out.println("4. Membership Unsubscribe");
             System.out.println("5. List Members");
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
             System.out.println("6. Exit");
-=======
+//=======
             System.out.println("6. Exit" );
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
                 System.out.print("Enter Your Menu[1-6]:");
-                int menuNumber = scan.nextInt();
+               
                 System.out.println("");
                 switch (menuNumber) {
-                    case 1:
+                    case 1: 
+                        int num = 0;
+                        System.out.println("Department Id : ");
                         long Id = scan.nextLong();
-<<<<<<< Updated upstream
-                        System.out.println("/n");
-                        System.out.println("Passwors:");
-                        String pass = scan.next();
-                        if(Id == account.){
-                            
-                        }
+                        System.out.println("Department passwors : ");
+                        String password = scan.next();                       
+                        ag.departmentLogin(Id, password);
+                        num = scan.nextInt();
+                       do {
+                        switch(num) {
+                            case 1: 
+                                break;
+                            default:
+                                break;
+                                }while (num != 6);
+                       }
+//                        long Id = scan.nextLong();
+////<<<<<<< Updated upstream
+//                        System.out.println("/n");
+//                        System.out.println("Passwors:");
+//                        String pass = scan.next();
+//                        if(Id == account.){
+//                            
+//                        }
                         
 //                        String departmentName = scan.next();                        
 //                        int maxCourse = scan.nextInt();
@@ -72,12 +96,12 @@ public class Aegis implements StudentService,DepartmentService {
 //                                
 //                        
 //                        Aegis(departmentName,  department, maxCourse, maxStudent);
-=======
-                        String password = scan.next();
-                       
-                            departmentLogin(Id,password);
-
->>>>>>> Stashed changes
+//=======
+//                        String password = scan.next();
+//                       
+//                            departmentLogin(Id,password);
+//
+//>>>>>>> Stashed changes
                         break;
                     case 2:
                        
@@ -92,28 +116,29 @@ public class Aegis implements StudentService,DepartmentService {
                        
                         break;
                     default:
-                        System.out.println("Please Enter Number 1-6 Only\n");
+                      
                         break;
                 }
-        } while (menuNumber != 6);
-<<<<<<< Updated upstream
-=======
-    }
-    
+        }while (menuNumber != 6);
+//<<<<<<< Updated upstream
+//=======
+        }
+        
+        
         
         
     
-    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
-        this.DepartmentName = departmentName;
-        this.DatabaseManagement = department;
-        this.StudentMember = new StudentAccount[maxStudent];
-        this.Courses = new Courses[maxCourse];
-        
-        
->>>>>>> Stashed changes
-    }
+//    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
+//        this.DepartmentName = departmentName;
+//        this.DatabaseManagement = department;
+//        this.StudentMember = new StudentAccount[maxStudent];
+//        this.Courses = new Courses[maxCourse];
+//        
+//        
+////>>>>>>> Stashed changes
+//    }
     
-    public static String departmentLogin(long Id,String password){
+    public String departmentLogin(long Id,String password){
         if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.equals(password)){
             return "Login success";
         }
@@ -132,16 +157,18 @@ public class Aegis implements StudentService,DepartmentService {
 
     @Override
     public double checkTotalCost(StudentAccount student) {
-        int i;
         
-        for (i=0; i < StudentMember.length; i++) {
-            if(StudentMember[i].equals(student))
-                return i;
-        }
-        
-        if(i==-1){
-            return -1;
-        }
+//        int i;
+//        
+//        for (i=0; i < StudentMember.length; i++) {
+//            if(StudentMember[i].equals(student))
+//                return i;
+//        }
+//        
+//        if(i==-1){
+//            return -1;
+//        }
+
     }
 
     @Override
