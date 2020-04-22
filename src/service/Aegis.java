@@ -78,8 +78,8 @@ public class Aegis implements StudentService,DepartmentService {
                                 break;
                             default:
                                 break;
-                                }while (num != 6);
-                       }
+                                }
+                       }while (num != 6);
 //                        long Id = scan.nextLong();
 ////<<<<<<< Updated upstream
 //                        System.out.println("/n");
