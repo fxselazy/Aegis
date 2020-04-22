@@ -51,10 +51,11 @@ public class Aegis implements StudentService,DepartmentService {
              menuNumber = scan.nextInt();
             System.out.println("<<Main Menu>>");
             System.out.println("1. Department Login");
-            System.out.println("2. ");
-            System.out.println("3. Edit Membership Information");
-            System.out.println("4. Membership Unsubscribe");
-            System.out.println("5. List Members");
+            System.out.println("2. Create Department Account ");
+            System.out.println("3. ");
+            System.out.println("4. ");
+            System.out.println("5. ");
+            
 //<<<<<<< Updated upstream
             System.out.println("6. Exit");
 //=======
@@ -66,20 +67,79 @@ public class Aegis implements StudentService,DepartmentService {
                 switch (menuNumber) {
                     case 1: 
                         int num = 0;
-                        System.out.println("Department Id : ");
+                        System.out.print("Department Id : ");
                         long Id = scan.nextLong();
-                        System.out.println("Department passwors : ");
-                        String password = scan.next();                       
-                        ag.departmentLogin(Id, password);
+                        System.out.println("");
+                        System.out.print("Department passwors : ");
+                        String password = scan.next();  
+                        System.out.println("");
+                        String tf = ag.departmentLogin(Id, password);
+                        if(tf == "Login success") {
+                            DepartmentAccount da =  getDatabaseManagement();
+                        
+                        System.out.println("               ❤❤Department Menu❤❤");
+                        System.out.println("");
+            System.out.println("1. Set MAX Course");
+            System.out.println("2. Set MAX Student");
+            System.out.println("3. Set MAX Activity");
+            System.out.println("4. Add Courses");
+            System.out.println("5. Add Member");
+            System.out.println("6. Add Activity");
+            System.out.println("7. Add Activity Hour");
+            System.out.println("8. Remove Activity");
+            System.out.println("9. Remove Course");
+            System.out.println("10. Change PaymentStatus of student");
+            System.out.println("0. Exit");
                         num = scan.nextInt();
                        do {
                         switch(num) {
                             case 1: 
+                                System.out.print("Number of Max course: ");
+                                int maxC = scan.nextInt();
+                                System.out.println("");
+                                ag.setMaxCourses(maxC);
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
-                            default:
+                            case 2: 
+                                System.out.print("Number of Max student:");
+                                int maxS = scan.nextInt();
+                                ag.setMaxMember(maxS);
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                            
+                            case 3: 
+                                System.out.print("Number of Max Activity: ");
+                                int maxA = scan.nextInt();
+                                ag.setMaxActivity(maxA);
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                            case 4: 
+                                System.out.println("Please in sert Course to add: ");
+                                String courseCode = scan.next();
+                                String courseSub = scan.next();
+                                int cre = scan.nextInt();
+                                Courses c = new Courses(courseCode, courseSub,  cre);
+                                ag.addCourses(da, c);
+                                break;
+                            case 5: 
+                                break;
+                            case 6: 
+                                break;
+                            case 7: 
+                                break;
+                            case 8: 
+                                break;
+                            case 9: 
+                                break;
+                            case 10: 
+                                break;
+                            default: 
+                                System.out.println("Please enter number froom 0 to 10 ");
                                 break;
                                 }
-                       }while (num != 6);
+                        
+                        
+                       }while (num != 0);
+                        }else 
+                       break;
 //                        long Id = scan.nextLong();
 ////<<<<<<< Updated upstream
 //                        System.out.println("/n");
@@ -102,9 +162,29 @@ public class Aegis implements StudentService,DepartmentService {
 //                            departmentLogin(Id,password);
 //
 //>>>>>>> Stashed changes
-                        break;
+                        
                     case 2:
-                       
+                        
+                        System.out.print("Enter Id: ");
+                        long id = scan.nextLong();
+                        System.out.println("");
+                        System.out.print("Enter Password: ");
+                        String pass = scan.next();
+                        System.out.println("");
+                        
+                        
+                        System.out.print("Enter First name: ");
+                        String fn = scan.next();
+                        System.out.println("");
+                        System.out.print("Enter Surname: ");
+                        String ln = scan.next();
+                        System.out.println("");
+                        Position position ;
+                        Person p = new Person(id,fn,ln);
+                        DepartmentAccount d = new DepartmentAccount( id, pass,  p,Position.DEPARTMENT);
+                        setDatabaseManagement(d);
+                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                        
                         break;
                     case 3:
                         
@@ -171,6 +251,29 @@ public class Aegis implements StudentService,DepartmentService {
 
     }
 
+    public static DepartmentAccount getDatabaseManagement() {
+        return DatabaseManagement;
+    }
+
+    public void setMaxMember(int maxStudent) {
+        this.StudentMember = new StudentAccount[maxStudent];
+    }
+
+    public void setMaxCourses(int maxCourse) {
+        this.Courses = new Courses[maxCourse];
+    }
+
+    public void setMaxActivity(int maxActivity) {
+       this.Activity = new Activity[maxActivity];
+    }
+
+    public static void setDatabaseManagement(DepartmentAccount DatabaseManagement) {
+        Aegis.DatabaseManagement = DatabaseManagement;
+    }
+    
+    
+
+    
     @Override
     public RegisterCourses getMyCourseTakenList(StudentAccount student) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
