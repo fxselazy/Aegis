@@ -112,24 +112,97 @@ public class Aegis implements StudentService,DepartmentService {
                                 ag.setMaxActivity(maxA);
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                             case 4: 
-                                System.out.println("Please in sert Course to add: ");
+                                System.out.print("Please insert Course code: ");
                                 String courseCode = scan.next();
+                                System.out.println("");
+                                System.out.print("Please insert Course name: ");
                                 String courseSub = scan.next();
+                                System.out.println("");
+                                System.out.print("Please insert Course creadit: ");
                                 int cre = scan.nextInt();
                                 Courses c = new Courses(courseCode, courseSub,  cre);
                                 ag.addCourses(da, c);
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 5: 
+                                System.out.print("Please insert student ID: ");
+                                long ID = scan.nextLong();
+                                System.out.println("");
+                                System.out.print("Please insert student password: ");
+                                String pass = scan.next();
+                                System.out.print("Please insert student first name: ");
+                                String stf = scan.next();
+                                System.out.println("");
+                                System.out.print("Please insert student last name: ");
+                                String stl = scan.next();
+                                System.out.println("");
+                                Person person = new Person(ID,stf,stl);
+                                StudentAccount sta = new StudentAccount(ID,pass,person,Position.STUDENT);
+                               System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 6: 
+                                System.out.print("Please insert Activity Name: ");
+                                String nameact = scan.next();
+                                System.out.println("");
+                                 System.out.print("Please insert Activity hour: ");
+                                int hr = scan.nextInt();
+                                System.out.println("");
+                                Activity a = new Activity(hr,nameact);
+                                ag.addActivity(da, a);
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
-                            case 7: 
+                            case 7:
+                                 System.out.print("Please insert Activity name: ");
+                                 String acn = scan.next();
+                                 System.out.println("");
+                                  System.out.print("Please insert Activity hour: ");
+                                  int ach = scan.nextInt();
+                                  System.out.print("Please insert student ID: ");
+                                long IDs = scan.nextLong();
+                                System.out.println("");
+                                  Activity  activity = new Activity(ach,acn);
+                                ag.addActivityHour(da, activity, IDs);
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 8: 
+                                 System.out.print("Please insert Activity name: ");
+                                 String atn = scan.next();
+                                 System.out.println("");
+                                  System.out.print("Please insert Activity hour: ");
+                                  int aHour = scan.nextInt();
+                                  Activity  act = new Activity(aHour,atn);
+                                  ag.removeActivity(da, act);
+                                   System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 9: 
+                                System.out.print("Please insert Course code: ");
+                                String courseCodeR = scan.next();
+                                System.out.println("");
+                                System.out.print("Please insert Course name: ");
+                                String courseSubR = scan.next();
+                                System.out.println("");
+                                System.out.print("Please insert Course creadit: ");
+                                int creR = scan.nextInt();
+                                Courses coresesR = new Courses(courseCodeR,courseSubR,creR);
+                                ag.removeCourse(da, coresesR);
+                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 10: 
+                                System.out.print("Please insert student ID: ");
+                                long id = scan.nextLong();
+                                System.out.println("");
+                                System.out.print("Please insert Payment status (PAID, PENDING, EXPIRES): ");
+                                String ps = scan.next();
+                                System.out.println("");
+                                if(ps.toUpperCase() == "PAID"){
+                                ag.changePaymentStatus(da, id, PaymentStatus.PAID);
+                                }if(ps.toUpperCase() == "PENDING"){
+                                    ag.changePaymentStatus(da, id, PaymentStatus.PENDING);
+                                    
+                                }if(ps.toUpperCase() == "EXPIRES"){
+                                ag.changePaymentStatus(da, id, PaymentStatus.EXPIRES);
+                                }
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             default: 
                                 System.out.println("Please enter number froom 0 to 10 ");
@@ -323,13 +396,18 @@ public class Aegis implements StudentService,DepartmentService {
     }
 
     @Override
-    public boolean addActivityHour(DepartmentAccount department, Activity activity, int hour,int studentNumber) {
-         if(!this.DatabaseManagement.equals(department) || hour <= 0){
+    public boolean addActivityHour(DepartmentAccount department, Activity activity,long id) {
+         if(!this.DatabaseManagement.equals(department) || activity.getHour() <= 0){
             System.out.println("Error404 Can't add hour");
             return false;
         }
-         this.StudentMember[studentNumber].addActivity(hour,activity);
-         return true;
+        for (int i = 0; i < StudentMember.length; i++) {
+            if(this.StudentMember[i].getId() == id){
+                this.StudentMember[i].addActivity( activity);
+                
+            }
+            
+    }return true;
     }
 
     @Override
@@ -356,13 +434,13 @@ public class Aegis implements StudentService,DepartmentService {
             }
 
     @Override
-    public boolean changePaymentStatus(DepartmentAccount department, StudentAccount account, PaymentStatus status) {
-        if(!this.DatabaseManagement.equals(department) || !(this.StudentMember.equals(account))){
+    public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status) {
+        if(!this.DatabaseManagement.equals(department) ){
             System.out.println("Error404 Can't change status");
             return false;
         }
         for (int i = 0; i < StudentMember.length; i++) {
-            if(this.StudentMember[i].equals(account)){
+            if(this.StudentMember[i].getId() == id){
                 this.StudentMember[i].setPaymentStatus(status);
                 return true;
             }
