@@ -19,7 +19,7 @@ public class Courses {
         }
 
         try {
-            subject = this.subject;
+            this.subject = subject;
 
         } catch (NullPointerException e) {
             this.subject = "UnknowSubject";
@@ -61,13 +61,13 @@ public class Courses {
         StringBuilder st = new StringBuilder();
         st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
         st.append("Couses Code: ").append(this.courseCode);
-        st.append("/n");
+        st.append("\n");
         st.append("Subject: ").append(this.subject);
-        st.append("/n");
+        st.append("\n");
         st.append("Credits: ").append(this.credits);
-        st.append("/n");
+        st.append("\n");
         st.append("Cost: ").append(this.calCost);
-        st.append("/n");
+        st.append("\n");
         st.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
         return st.toString();
     }
