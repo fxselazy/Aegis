@@ -5,10 +5,10 @@ import java.util.Objects;
 
 public class Activity {
 
-    private LocalDate hour;
+    private int hour;
     private String nameOfActivity;
 
-    public Activity(LocalDate hour, String nameOfActivity) {
+    public Activity(int hour, String nameOfActivity) {
         this.hour = hour;
         
         try{
@@ -22,6 +22,10 @@ public class Activity {
 
     public String getNameOfActivity() {
         return nameOfActivity;
+    }
+
+    public int getHour() {
+        return hour;
     }
 
     
