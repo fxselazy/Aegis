@@ -11,10 +11,10 @@ public interface DepartmentService {
     public boolean addCourses(DepartmentAccount department,Courses course);
     public boolean addMember(DepartmentAccount department,StudentAccount account);
     public boolean addActivity(DepartmentAccount department,Activity activity);
-    public boolean addActivityHour(DepartmentAccount department,Activity activity,int hour,int studentNumber);
+    public boolean addActivityHour(DepartmentAccount department,Activity activity,long id);
     public boolean removeActivity(DepartmentAccount department,Activity activity);
     public boolean removeCourse(DepartmentAccount department,Courses course);
-    public boolean changePaymentStatus(DepartmentAccount department,StudentAccount account,PaymentStatus status);
+    public boolean changePaymentStatus(DepartmentAccount department,long id,PaymentStatus status);
 
 
 
