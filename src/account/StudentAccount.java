@@ -40,11 +40,11 @@ public class StudentAccount extends Account implements Policy {
         return "You can register for " + x + " more times.";
     }
     
-    public boolean addActivity(int hour,Activity activity) {
-        if(hour <= 0){
+    public boolean addActivity(Activity activity) {
+        if(activity.getHour() <= 0){
             return false;
         }   //this.myActivityHour  = this.myActivityHour + hour;
-        hour += this.myActivityHour;
+         this.myActivityHour = this.myActivityHour + activity.getHour();
         this.activity[countActivity++] = activity;
         return true;
     }
