@@ -19,6 +19,7 @@ public class StudentAccount extends Account implements Policy {
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
     public int countActivity;
+    private double deptOfRegisterCoures = 0;
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
@@ -65,6 +66,10 @@ public class StudentAccount extends Account implements Policy {
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public void setDeptOfRegisterCoures(double deptOfRegisterCoures) {
+        this.deptOfRegisterCoures = deptOfRegisterCoures;
     }
 
 }
