@@ -454,19 +454,35 @@ public class Aegis implements StudentService,DepartmentService {
     }return this.StudentMember[x];
     }
     @Override
-    public double checkTotalCost(StudentAccount student) {
+    public double checkTotalCost(StudentAccount student) { //check StudentAccount or RegisterCourses
+        int std = searchMember(student);
+        if(std == -1){
+            return -1;
+        }
+   
+        return RegisterCourse[std].getTotalPay();
+    }
+
+    public int searchMember(StudentAccount student) {
+        int i;
+        for (i = 0; i < StudentMember.length; i++) {
+            if (StudentMember[i].equals(student)) {
+                return i;
+            }
+        }
         
-//        int i;
-//        
-//        for (i=0; i < StudentMember.length; i++) {
-//            if(StudentMember[i].equals(student))
-//                return i;
-//        }
-//        
-//        if(i==-1){
-//            return -1;
-//        }
- return -1;
+        return -1;
+    }
+    
+    @Override
+    public RegisterCourses getMyCourseTakenList(StudentAccount student) {
+        int courseStd = searchMember(student);
+        
+        if(courseStd == -1){
+            return null;
+        }
+        
+        return RegisterCourse[courseStd].getMyRegisterCourses();
     }
 
     public static DepartmentAccount getDatabaseManagement() {
@@ -487,14 +503,6 @@ public class Aegis implements StudentService,DepartmentService {
 
     public static void setDatabaseManagement(DepartmentAccount DatabaseManagement) {
         Aegis.DatabaseManagement = DatabaseManagement;
-    }
-    
-    
-
-    
-    @Override
-    public RegisterCourses getMyCourseTakenList(StudentAccount student) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
