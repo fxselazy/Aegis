@@ -473,7 +473,7 @@ public class Aegis implements StudentService,DepartmentService {
         
         return -1;
     }
-    
+    //
     @Override
     public RegisterCourses getMyCourseTakenList(StudentAccount student) {
         int courseStd = searchMember(student);
