@@ -14,7 +14,7 @@ import person.Person;
 
 public class Aegis implements StudentService,DepartmentService {
     private  StudentAccount StudentMember[];
-    public static   DepartmentAccount DatabaseManagement;
+    public  static DepartmentAccount DatabaseManagement;
     private Courses Courses[];
     private RegisterCourses RegisterCourse[];
     private String DepartmentName;
@@ -76,7 +76,7 @@ public class Aegis implements StudentService,DepartmentService {
                         ag.departmentLogin(Id, password);
                         
                         if(ag.departmentLogin(Id, password) == "Login success") {
-                            
+                         DepartmentAccount da =  getDatabaseManagement();
                         
                         System.out.println("               ❤❤Department Menu❤❤");
                         System.out.println("");
@@ -282,15 +282,15 @@ public class Aegis implements StudentService,DepartmentService {
                         break;
                     case 3:
                         int numS = 0;
-                        System.out.print("Department Id : ");
+                        System.out.print("Student Id : ");
                         long IdS = scan.nextLong();
                         System.out.println("");
-                        System.out.print("Department passwors : ");
+                        System.out.print("Student passwors : ");
                         String passwordS = scan.next();  
                         System.out.println("");                       
                         ag.StudentLogin(IdS, passwordS);
                          if(ag.departmentLogin(IdS, passwordS) == "Login success") {
-                            DepartmentAccount da =  getDatabaseManagement();
+                            
                             StudentAccount StA = ag.getStudentAccount(IdS);
                         
                         System.out.println("               ❤❤Stduent Menu❤❤");
