@@ -1,6 +1,8 @@
 package payment;
 
 import account.Position;
+import account.StudentAccount;
+import courses.Courses;
 import person.Person;
 import service.RegisterCourses;
 
@@ -9,9 +11,13 @@ public class PaymentBill extends RegisterCourses {
     private double totalPay;
     private RegisterCourses registerCourses;
 
-    public PaymentBill(long Id, String password, Person person, Position position) {
-        super(Id, password, person, position);
+    public PaymentBill(double totalPay, RegisterCourses registerCourses, StudentAccount studentAccount, Courses courses) {
+        super(studentAccount, courses);
+        this.totalPay = totalPay;
+        this.registerCourses = registerCourses;
     }
+
+  
 
     public double getTotalPay() {
         return totalPay;
