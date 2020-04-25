@@ -298,9 +298,9 @@ public class Aegis implements StudentService,DepartmentService {
             System.out.println("1. Check total cost to pay");
             System.out.println("2. Check my courses taken list");
             System.out.println("3. Pay");
-            System.out.println("4. ");
-            System.out.println("5. ");
-            System.out.println("6. ");
+            System.out.println("4. Check Courses list");
+            System.out.println("5. Check Activitys list");
+            System.out.println("6. Register Course");
             System.out.println("7. ");
             System.out.println("8. ");
             System.out.println("9. ");
@@ -329,8 +329,9 @@ public class Aegis implements StudentService,DepartmentService {
                                 ag.pay(StA, money);
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                             case 4: 
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤Check Courses list❤❤");
                                 System.out.println("");
+                                ag.getCourses();
                        
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
@@ -341,9 +342,14 @@ public class Aegis implements StudentService,DepartmentService {
                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 6: 
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤Register Course❤❤");
                                 System.out.println("");
-                        
+                                ag.getCourses();
+                                System.out.print("Please insert Course code: ");
+                                String code = scan.next();
+                                Courses course = ag.searchCourses(code);
+                                RegisterCourses regis = new RegisterCourses(StA,course);
+                                ag.registerCourse(StA, regis);
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 7:
@@ -475,15 +481,14 @@ public class Aegis implements StudentService,DepartmentService {
     }
     //
     @Override
-    public RegisterCourses getMyCourseTakenList(StudentAccount student) {
-        int courseStd = searchMember(student);
+    public RegisterCourses[] getMyCourseTakenList(StudentAccount student) {
+       
         
-        if(courseStd == -1){
-            return null;
+           return student.getMyRegisterCourses();
+            
         }
         
-        return RegisterCourse[courseStd].getMyRegisterCourses();
-    }
+    
 
     public static DepartmentAccount getDatabaseManagement() {
         return DatabaseManagement;
@@ -616,6 +621,41 @@ public class Aegis implements StudentService,DepartmentService {
             
         }
         return true;
+    }
+
+    public String getCourses() {
+        for (int i = 0; i < Courses.length; i++) {
+            return Courses[i].toString();
+            
+            
+        }return " ";
+       
+    }
+
+    public String getActivity() {
+        for (int i = 0; i < this.Activity.length; i++) {
+            return this.Activity[i].toString();
+            
+        }return " ";
+        
+    }
+
+    @Override
+    public boolean registerCourse(StudentAccount student,RegisterCourses registerCourse){
+        
+        if( !student.getMyRegisterCourses().equals(registerCourse))
+        student.setRegisterCourses(registerCourse);
+        return true;
+    }
+    
+    public Courses searchCourses(String courseCode) {
+        for (int i = 0; i < this.Courses.length; i++) {
+            if(this.Courses[i].getCourseCode().equals(courseCode)){
+            return Courses[i];            
+            }
+        
+    }
+        return null;
     }
 
 }
