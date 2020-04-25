@@ -1,6 +1,7 @@
 package account;
 
 import activity.Activity;
+import courses.Courses;
 import payment.PaymentStatus;
 import payment.PaymentBill;
 import person.Person;
@@ -19,6 +20,7 @@ public class StudentAccount extends Account implements Policy {
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
     public int countActivity;
+    public int countCourses;
     private double deptOfRegisterCoures = 0;
 
     public StudentAccount(long Id, String password, Person person, Position position) {
@@ -71,5 +73,16 @@ public class StudentAccount extends Account implements Policy {
     public void setDeptOfRegisterCoures(double deptOfRegisterCoures) {
         this.deptOfRegisterCoures = deptOfRegisterCoures;
     }
+
+    public RegisterCourses[] getRegisterCourses() {
+        return registerCourses;
+    }
+
+    public void setRegisterCourses(RegisterCourses registerCourse) {
+       
+        this.registerCourses[this.coursesCount++] = registerCourse ;
+    }
+    
+    
 
 }
