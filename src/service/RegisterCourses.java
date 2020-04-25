@@ -5,18 +5,27 @@ import account.StudentAccount;
 import courses.Courses;
 import person.Person;
 
-public class RegisterCourses extends StudentAccount{
+public class RegisterCourses{
 
-    private StudentAccount[] studentAccount;
+    private StudentAccount studentAccount;
     private Courses[] courses;
     private int count;
     private int TotalPay;
 
-    public RegisterCourses(long Id, String password, Person person, Position position) {
-        super(Id, password, person, position);
+    public RegisterCourses(StudentAccount studentAccount, Courses courses) {
+        this.studentAccount = studentAccount;
+       this.setCourses(courses);
+        
+        
     }
 
-    public StudentAccount[] getStudentAccount() {
+    public void setCourses(Courses courses) {
+        this.courses[count++] = courses;
+    }
+
+    
+
+    public StudentAccount getStudentAccount() {
         return studentAccount;
     }
 
@@ -56,18 +65,6 @@ public class RegisterCourses extends StudentAccount{
         return sb.toString();
     }
     
-    public static void main(String[] args) {
-        Person p = new Person(076,"phu","pusit");
-        Courses c = new Courses("101","Compro",3);
-        
-        
-        RegisterCourses r = new RegisterCourses(001,"phu",p,Position.STUDENT);
-        
-        //iyukuiku
-        
-        System.out.println(c);
-        System.out.println(r.getTotalPay());
-                
-        
-    }
+ 
+
 }
