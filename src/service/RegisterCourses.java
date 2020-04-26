@@ -56,7 +56,7 @@ public class RegisterCourses{
         StringBuilder sb = new StringBuilder();
         
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
-        sb.append("StudentAccount: ").append(studentAccount).append("\n");
+        
         sb.append("Courses: ").append(courses).append("\n");
         sb.append("Count: ").append(count).append("\n");
         sb.append("TotalPay: ").append(TotalPay).append("\n");
