@@ -262,7 +262,7 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Student Id : ");
                     long IdS = scan.nextLong();
                     System.out.println("");
-                    System.out.print("Student passwors : ");
+                    System.out.print("Student passwords : ");
                     String passwordS = scan.next();
                     System.out.println("");
                     ag.StudentLogin(IdS, passwordS);
