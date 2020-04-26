@@ -6,8 +6,6 @@ import account.Position;
 import account.StudentAccount;
 import activity.Activity;
 import courses.Courses;
-import java.util.ArrayList;
-import java.util.List;
 import payment.PaymentStatus;
 import java.util.Scanner;
 import person.Person;
@@ -17,7 +15,6 @@ public class Aegis implements StudentService,DepartmentService {
     public  static DepartmentAccount DatabaseManagement;
     private Courses Courses[];
     private RegisterCourses RegisterCourse[];
-    private String DepartmentName;
     private Activity Activity[];
     private long Id;
     private Account account[];
@@ -25,21 +22,13 @@ public class Aegis implements StudentService,DepartmentService {
     private int countActivity;
     private int countMember;
     private int countCourse;
-    List<Courses> coursesList = new ArrayList<Courses>();
-    List<Activity> activityList = new ArrayList<Activity>();
+
 
     public Aegis() {
     }
     
     
-    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
-        this.DepartmentName = departmentName;
-        this.DatabaseManagement = department;
-        this.StudentMember = new StudentAccount[maxStudent];
-        this.Courses = new Courses[maxCourse];
-        
-        
-    }
+    
     
     public static void main(String []args){
         int menuNumber=0;
@@ -48,21 +37,19 @@ public class Aegis implements StudentService,DepartmentService {
        
          Scanner scan = new Scanner(System.in);
         do {
-             menuNumber = scan.nextInt();
-            System.out.println("<<Main Menu>>");
+            
+            System.out.println("<<Main Menu>>");           
             System.out.println("1. Department Login");
             System.out.println("2. Create Department Account ");
             System.out.println("3. Student Login");
-            System.out.println("4. ");
-            System.out.println("5. ");
             
-//<<<<<<< Updated upstream
-            System.out.println("6. Exit");
-//=======
-            System.out.println("6. Exit" );
-//>>>>>>> Stashed changes
-                System.out.print("Enter Your Menu[1-6]:");
-               
+            
+
+            System.out.println("0. Exit");
+
+
+                System.out.print("Enter Your Menu[0-3]: ");
+               menuNumber = scan.nextInt();
                 System.out.println("");
                 switch (menuNumber) {
                     case 1: 
@@ -80,6 +67,7 @@ public class Aegis implements StudentService,DepartmentService {
                         
                         System.out.println("               ❤❤Department Menu❤❤");
                         System.out.println("");
+                        
             System.out.println("1. Set MAX Course");
             System.out.println("2. Set MAX Student");
             System.out.println("3. Set MAX Activity");
@@ -90,7 +78,11 @@ public class Aegis implements StudentService,DepartmentService {
             System.out.println("8. Remove Activity");
             System.out.println("9. Remove Course");
             System.out.println("10. Change PaymentStatus of student");
+            System.out.println("11. Check Courses list");
+            System.out.println("12. Check Activity list");
             System.out.println("0. Exit");
+            System.out.println("");
+             System.out.print("Enter Your Menu[0-12]: ");
                         num = scan.nextInt();
                        do {
                         switch(num) {
@@ -225,8 +217,20 @@ public class Aegis implements StudentService,DepartmentService {
                                 }
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
+                            case 11:  System.out.println("               ❤❤Check Courses list❤❤");
+                                System.out.println("");
+                                ag.getCourses();
+                       
+                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                break;
+                            case 12: 
+                                System.out.println("               ❤❤Check Activity list❤❤");
+                                System.out.println("");
+                                ag.getActivity();                    
+                               System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                
                             default: 
-                                System.out.println("Please enter number froom 0 to 10 ");
+                                System.out.println("Please enter number from 0 to 10 ");
                                 break;
                                 }
                         
@@ -234,29 +238,7 @@ public class Aegis implements StudentService,DepartmentService {
                        }while (num != 0);
                         }else 
                        break;
-//                        long Id = scan.nextLong();
-////<<<<<<< Updated upstream
-//                        System.out.println("/n");
-//                        System.out.println("Passwors:");
-//                        String pass = scan.next();
-//                        if(Id == account.){
-//                            
-//                        }
-                        
-//                        String departmentName = scan.next();                        
-//                        int maxCourse = scan.nextInt();
-//                        int maxStudent = scan.nextInt();
-//                        
-//                                
-//                        
-//                        Aegis(departmentName,  department, maxCourse, maxStudent);
-//=======
-//                        String password = scan.next();
-//                       
-//                            departmentLogin(Id,password);
-//
-//>>>>>>> Stashed changes
-                        
+
                     case 2:
                         
                         System.out.print("Enter Id: ");
@@ -301,14 +283,16 @@ public class Aegis implements StudentService,DepartmentService {
             System.out.println("4. Check Courses list");
             System.out.println("5. Check Activitys list");
             System.out.println("6. Register Course");
-            System.out.println("7. ");
-            System.out.println("8. ");
-            System.out.println("9. ");
-            System.out.println("10. ");
+            System.out.println("7. Reset password");
+            System.out.println("8. Check necessary total course to register");
+            System.out.println("9. Cheack my Activity hour");
+            System.out.println("10. My profile");
             System.out.println("0. Exit");
-                        num = scan.nextInt();
+             System.out.print("Enter Your Menu[0-10]: ");
+                        
+                        numS = scan.nextInt();
                        do {
-                        switch(num) {
+                        switch(numS) {
                             case 1: 
                                 System.out.println("               ❤❤Check total cost to pay❤❤");
                                 System.out.println("");
@@ -354,27 +338,38 @@ public class Aegis implements StudentService,DepartmentService {
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 7:
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤Reset password❤❤");
                                 System.out.println("");
+                                System.out.print("Please insert account ID: ");
+                                long acId = scan.nextLong();
+                                System.out.println("");
+                                System.out.print("Please insert old passwrd: ");
+                                String oldPass = scan.next();
+                                System.out.println("");
+                                 System.out.println("Please insert new password: ");
+                                 String newPass = scan.next();
+                                 ag.changePassword(acId,newPass );
                        
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 8: 
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤Check necessary total course to register❤❤");
                                 System.out.println("");
+                                StA.getCountOfCourseForRegister();
                                
                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 9: 
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤Cheack my Activity hour❤❤");
                                 System.out.println("");
+                                StA.getMyActivityHour();
                                 
                                  System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 10: 
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤My profile❤❤");
                                 System.out.println("");
-                               
+                               StA.toString();
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             default: 
@@ -383,38 +378,17 @@ public class Aegis implements StudentService,DepartmentService {
                                 }
                         
                         
-                       }while (num != 0);
+                       }while (numS != 0);
                         }else 
                         break;
-                    case 4:
-                        
-                        break;
-                    case 5:
-                       
-                        break;
+                    
                     default:
                       
                         break;
                 }
-        }while (menuNumber != 6);
-//<<<<<<< Updated upstream
-//=======
-        }
-        
-        
-        
-        
-    
-//    public Aegis(String departmentName,DepartmentAccount department,int maxCourse,int maxStudent){
-//        this.DepartmentName = departmentName;
-//        this.DatabaseManagement = department;
-//        this.StudentMember = new StudentAccount[maxStudent];
-//        this.Courses = new Courses[maxCourse];
-//        
-//        
-////>>>>>>> Stashed changes
-//    }
-    
+        }while (menuNumber != 0);
+
+    }
     public String departmentLogin(long Id,String password){
         if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.equals(password)){
             return "Login success";
@@ -426,10 +400,7 @@ public class Aegis implements StudentService,DepartmentService {
             return "Password failed";
         }return "Login failed";
             
-//        if(this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)){
-//            return "Login success";
-//            
-//        }return "Login failed";
+
     }
     public String StudentLogin(long Id,String password){
         for (int i = 0; i < StudentMember.length; i++) {
@@ -480,12 +451,12 @@ public class Aegis implements StudentService,DepartmentService {
         
         return -1;
     }
-    //
+    
     @Override
     public RegisterCourses[] getMyCourseTakenList(StudentAccount student) {
        
         
-           return student.getMyRegisterCourses();
+           return student.getRegisterCourses();
             
         }
         
@@ -512,24 +483,25 @@ public class Aegis implements StudentService,DepartmentService {
     }
 
     @Override
-    public boolean pay(StudentAccount student,double money) {
+    public String pay(StudentAccount student,double money) {
         if(money <= 0){
-            return false;
+            return "Please insert money more than 0";
         }
         double cost = this.checkTotalCost(student);
              if(cost < money ){
-                 return false;
+                 return "Please insert money equal to cost";
                  
              }
              if(cost >= money){
                  double dept =cost - money;
                  student.setDeptOfRegisterCoures(dept);
-                 return true;
+                 student.removeRegisterCourse();
+                 return "Thank for pay!";
              }
                  
             
             
-        return false;
+        return " ";
     }
 
     @Override
@@ -587,11 +559,20 @@ public class Aegis implements StudentService,DepartmentService {
 
     @Override
     public boolean removeActivity(DepartmentAccount department, Activity activity) {
-        if(!this.DatabaseManagement.equals(department) || !(this.activityList.equals(activity))){
+        if(!this.DatabaseManagement.equals(department)){
             System.out.println("Error404 Can't remove activity");
             return false;
+        }for (int i = 0; i < this.Activity.length; i++) {
+           if(Activity[i].equals(activity)){
+               this.Activity[i] = null;
+               for (int j = 0; i < j; j++) {
+                  Activity[j] = Activity[i++];
+                   
+               }
+           }
+            
         }
-                this.activityList.remove(activity);
+                
                 return true;
             }
             
@@ -600,11 +581,20 @@ public class Aegis implements StudentService,DepartmentService {
 
     @Override
     public boolean removeCourse(DepartmentAccount department, Courses course) {
-    if(!this.DatabaseManagement.equals(department) || !(this.coursesList.equals(course))){
+    if(!this.DatabaseManagement.equals(department)){
             System.out.println("Error404 Can't remove course");
             return false;
+        }for (int i = 0; i < this.Courses.length; i++) {
+           if(Courses[i].equals(course)){
+               this.Courses[i] = null;
+               for (int j = 0; i < j; j++) {
+                  Courses[j] = Courses[i++];
+                   
+               }
+           }
+            
         }
-               this.coursesList.remove(course);
+                
                 return true;
             }
 
@@ -635,7 +625,7 @@ public class Aegis implements StudentService,DepartmentService {
 
     public String getActivity() {
         for (int i = 0; i < this.Activity.length; i++) {
-            return this.Activity[i].toString();
+            return this.Courses[i].toString();
             
         }return " ";
         
@@ -644,7 +634,7 @@ public class Aegis implements StudentService,DepartmentService {
     @Override
     public boolean registerCourse(StudentAccount student,RegisterCourses registerCourse){
         
-        if( !student.getMyRegisterCourses().equals(registerCourse))
+        if( !student.getRegisterCourses().equals(registerCourse))
         student.setRegisterCourses(registerCourse);
         return true;
     }
@@ -658,5 +648,17 @@ public class Aegis implements StudentService,DepartmentService {
     }
         return null;
     }
+    
+    @Override
+    public boolean changePassword(long id,String password){
+        for (int i = 0; i < StudentMember.length; i++) {
+            if(StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(password)){
+                this.StudentMember[i].setPassword(password);
+                return true;
+            }
+            
+        }return false;
+    }
 
+    
 }
