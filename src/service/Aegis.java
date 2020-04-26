@@ -50,7 +50,7 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Department Id : ");
                     long Id = scan.nextLong();
                     System.out.println("");
-                    System.out.print("Department passwors : ");
+                    System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
                     ag.departmentLogin(Id, password);
@@ -262,7 +262,7 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Student Id : ");
                     long IdS = scan.nextLong();
                     System.out.println("");
-                    System.out.print("Student passwords : ");
+                    System.out.print("Student password : ");
                     String passwordS = scan.next();
                     System.out.println("");
                     ag.StudentLogin(IdS, passwordS);
