@@ -1,7 +1,6 @@
 package account;
 
 import activity.Activity;
-import courses.Courses;
 import payment.PaymentStatus;
 import payment.PaymentBill;
 import person.Person;
@@ -20,16 +19,14 @@ public class StudentAccount extends Account implements Policy {
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
     public int countActivity;
-    public int countCourses;
+    
     private double deptOfRegisterCoures = 0;
+    
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
     }
 
-    public RegisterCourses[] getMyRegisterCourses() {
-        return registerCourses;
-    }
 
     public String getCountOfCourseForRegister() {
         int x = MAX_COURSES - coursesCount;
@@ -78,11 +75,41 @@ public class StudentAccount extends Account implements Policy {
         return registerCourses;
     }
 
-    public void setRegisterCourses(RegisterCourses registerCourse) {
-       
+    public boolean setRegisterCourses(RegisterCourses registerCourse) {
+       if(this.coursesCount >= 7){
+           return false;
+       }
         this.registerCourses[this.coursesCount++] = registerCourse ;
+       return true; 
     }
     
-    
+    public void removeRegisterCourse(){
+        for (int i = 0; i < registerCourses.length; i++) {
+            registerCourses[i] = null;
+            
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder st = new StringBuilder();
+        st.append("               <<My profile>>");
+        st.append(" "
+                + " ");
+        st.append( this.getPerson().toString());
+        st.append("                <My Courses>");
+        st.append(" "
+                + " ");
+        st.append(this.registerCourses.toString());
+        st.append("Dept of register course: " +this.deptOfRegisterCoures);
+        st.append("Courses to register in this term: "+ this.getCountOfCourseForRegister());
+        st.append("Payment Status: " + this.paymentStatus);
+        st.append("                 <My Activity>");
+        st.append(" "
+                + " ");
+        st.append(this.activity.toString());
+        st.append("My total activity hour: " + this.getMyActivityHour());
+        return st.toString();
+    }
 
 }
