@@ -36,6 +36,10 @@ public class Account {
     public Position getPosition() {
         return position;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
   
 
     @Override
