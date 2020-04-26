@@ -5,7 +5,7 @@ import account.StudentAccount;
 import courses.Courses;
 import person.Person;
 
-public class RegisterCourses{
+public class RegisterCourses {
 
     private StudentAccount studentAccount;
     private Courses[] courses;
@@ -14,16 +14,13 @@ public class RegisterCourses{
 
     public RegisterCourses(StudentAccount studentAccount, Courses courses) {
         this.studentAccount = studentAccount;
-       this.setCourses(courses);
-        
-        
+        this.setCourses(courses);
+
     }
 
     public void setCourses(Courses courses) {
         this.courses[count++] = courses;
     }
-
-    
 
     public StudentAccount getStudentAccount() {
         return studentAccount;
@@ -36,35 +33,33 @@ public class RegisterCourses{
     public int getCount() {
         return count;
     }
-    
-    public int calculateForPay(){
+
+    public int calculateForPay() {
         int i;
-        for(i=0 ; i<courses.length; i++){
+        for (i = 0; i < courses.length; i++) {
             TotalPay += courses[i].getCalCost();
         }
-        
+
         return TotalPay;
     }
 
     public double getTotalPay() {
         return TotalPay;
     }
-    
+
     @Override
-    public String toString(){
-        
+    public String toString() {
+
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
-        
+
         sb.append("Courses: ").append(courses).append("\n");
         sb.append("Count: ").append(count).append("\n");
         sb.append("TotalPay: ").append(TotalPay).append("\n");
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
-        
+
         return sb.toString();
     }
-    
- 
 
 }

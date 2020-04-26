@@ -29,11 +29,11 @@ public class Courses {
 
         this.credits = credits > 0 && credits <= 3 ? credits : -1;
         this.calculateCost(credits);
-      
+
     }
-    
+
     public void calculateCost(int credits) {
-        int x = this.cost*this.credits;
+        int x = this.cost * this.credits;
         this.calCost = x;
     }
 
@@ -52,9 +52,6 @@ public class Courses {
     public int getCalCost() {
         return calCost;
     }
-    
-
-  
 
     @Override
     public String toString() {

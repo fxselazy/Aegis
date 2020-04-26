@@ -6,12 +6,17 @@
 <<<<<<< Updated upstream
             <file>file:/C:/Users/Administrator/Desktop/Aegis/Aegis/src/service/Aegis.java</file>
 =======
+<<<<<<< Updated upstream
             <file>file:/D:/Desktop/ag/Aegis/src/payment/PaymentBill.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/service/RegisterCourses.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/account/StudentAccount.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/courses/Courses.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/service/Aegis.java</file>
             <file>file:/D:/Desktop/ag/Aegis/src/service/StudentService.java</file>
+=======
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/service/Aegis.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/service/RegisterCourses.java</file>
+>>>>>>> Stashed changes
 >>>>>>> Stashed changes
         </group>
     </open-files>

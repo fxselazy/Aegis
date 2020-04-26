@@ -17,8 +17,6 @@ public class PaymentBill extends RegisterCourses {
         this.registerCourses = registerCourses;
     }
 
-  
-
     public double getTotalPay() {
         return totalPay;
     }
@@ -26,7 +24,6 @@ public class PaymentBill extends RegisterCourses {
     public RegisterCourses getRegisterCourses() {
         return registerCourses;
     }
-    
 
     @Override
     public String toString() {

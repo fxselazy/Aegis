@@ -7,7 +7,6 @@ import person.Person;
 import service.RegisterCourses;
 import policy.Policy;
 
-
 public class StudentAccount extends Account implements Policy {
 
     private RegisterCourses[] registerCourses;
@@ -19,14 +18,12 @@ public class StudentAccount extends Account implements Policy {
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
     public int countActivity;
-    
+
     private double deptOfRegisterCoures = 0;
-    
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
     }
-
 
     public String getCountOfCourseForRegister() {
         int x = MAX_COURSES - coursesCount;
@@ -39,17 +36,15 @@ public class StudentAccount extends Account implements Policy {
         }
         return "You can register for " + x + " more times.";
     }
-    
+
     public boolean addActivity(Activity activity) {
-        if(activity.getHour() <= 0){
+        if (activity.getHour() <= 0) {
             return false;
         }   //this.myActivityHour  = this.myActivityHour + hour;
-         this.myActivityHour = this.myActivityHour + activity.getHour();
+        this.myActivityHour = this.myActivityHour + activity.getHour();
         this.activity[countActivity++] = activity;
         return true;
     }
-    
-    
 
     public PaymentBill[] getPaymentBill() {
         return paymentBill;
@@ -76,17 +71,17 @@ public class StudentAccount extends Account implements Policy {
     }
 
     public boolean setRegisterCourses(RegisterCourses registerCourse) {
-       if(this.coursesCount >= 7){
-           return false;
-       }
-        this.registerCourses[this.coursesCount++] = registerCourse ;
-       return true; 
+        if (this.coursesCount >= 7) {
+            return false;
+        }
+        this.registerCourses[this.coursesCount++] = registerCourse;
+        return true;
     }
-    
-    public void removeRegisterCourse(){
+
+    public void removeRegisterCourse() {
         for (int i = 0; i < registerCourses.length; i++) {
             registerCourses[i] = null;
-            
+
         }
     }
 
@@ -96,13 +91,13 @@ public class StudentAccount extends Account implements Policy {
         st.append("               <<My profile>>");
         st.append(" "
                 + " ");
-        st.append( this.getPerson().toString());
+        st.append(this.getPerson().toString());
         st.append("                <My Courses>");
         st.append(" "
                 + " ");
         st.append(this.registerCourses.toString());
-        st.append("Dept of register course: " +this.deptOfRegisterCoures);
-        st.append("Courses to register in this term: "+ this.getCountOfCourseForRegister());
+        st.append("Dept of register course: " + this.deptOfRegisterCoures);
+        st.append("Courses to register in this term: " + this.getCountOfCourseForRegister());
         st.append("Payment Status: " + this.paymentStatus);
         st.append("                 <My Activity>");
         st.append(" "

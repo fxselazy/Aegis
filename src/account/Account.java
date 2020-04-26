@@ -5,8 +5,8 @@ import person.Person;
 
 public class Account {
 
-    private  long Id;
-    private  String password;
+    private long Id;
+    private String password;
     private Person person;
     private Position position;
 
@@ -20,12 +20,11 @@ public class Account {
 //    public Account(Account account) {
 //        super(account);
 //    }
-
-    public  long getId() {
+    public long getId() {
         return Id;
     }
 
-    public  String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -40,7 +39,6 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
-  
 
     @Override
     public boolean equals(Object obj) {

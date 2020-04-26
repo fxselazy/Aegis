@@ -8,5 +8,4 @@ public class DepartmentAccount extends Account {
         super(Id, password, person, position);
     }
 
-   
 }
