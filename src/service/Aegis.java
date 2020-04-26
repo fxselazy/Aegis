@@ -293,7 +293,7 @@ public class Aegis implements StudentService,DepartmentService {
                             
                             StudentAccount StA = ag.getStudentAccount(IdS);
                         
-                        System.out.println("               ❤❤Stduent Menu❤❤");
+                        System.out.println("               ❤❤Student Menu❤❤");
                         System.out.println("");
             System.out.println("1. Check total cost to pay");
             System.out.println("2. Check my courses taken list");
@@ -336,8 +336,9 @@ public class Aegis implements StudentService,DepartmentService {
                                 System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
                             case 5: 
-                                System.out.println("               ❤❤❤❤");
+                                System.out.println("               ❤❤Check Activity list❤❤");
                                 System.out.println("");
+                                ag.getActivity();
                       
                                System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 break;
