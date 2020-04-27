@@ -53,36 +53,36 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
-                    try{
+                    try {
                         String login = ag.departmentLogin(Id, password);
-                    }catch(NullPointerException ex){
-                         System.out.println("Error: " + ex);
-                        
-                    }
-                   if (ag.departmentLogin(Id, password) ==  "Login success") {
-                        DepartmentAccount da = getDatabaseManagement();
-                        int number= 0;
-do {
-                        System.out.println("               ❤❤Department Menu❤❤");
-                        System.out.println("");
+                    } catch (NullPointerException ex) {
+                        System.out.println("Error: " + ex);
 
-                        System.out.println("1. Set MAX Course");
-                        System.out.println("2. Set MAX Student");
-                        System.out.println("3. Set MAX Activity");
-                        System.out.println("4. Add Courses");
-                        System.out.println("5. Add Member");
-                        System.out.println("6. Add Activity");
-                        System.out.println("7. Add Activity Hour");
-                        System.out.println("8. Remove Activity");
-                        System.out.println("9. Remove Course");
-                        System.out.println("10. Change PaymentStatus of student");
-                        System.out.println("11. Check Courses list");
-                        System.out.println("12. Check Activity list");
-                        System.out.println("0. Exit");
-                        System.out.println("");
-                        System.out.print("Enter Your Menu[0-12]: ");
-                         number = scan.nextInt();
-                        
+                    }
+                    if (ag.departmentLogin(Id, password) == "Login success") {
+                        DepartmentAccount da = getDatabaseManagement();
+                        int number = 0;
+                        do {
+                            System.out.println("               ❤❤Department Menu❤❤");
+                            System.out.println("");
+
+                            System.out.println("1. Set MAX Course");
+                            System.out.println("2. Set MAX Student");
+                            System.out.println("3. Set MAX Activity");
+                            System.out.println("4. Add Courses");
+                            System.out.println("5. Add Member");
+                            System.out.println("6. Add Activity");
+                            System.out.println("7. Add Activity Hour");
+                            System.out.println("8. Remove Activity");
+                            System.out.println("9. Remove Course");
+                            System.out.println("10. Change PaymentStatus of student");
+                            System.out.println("11. Check Courses list");
+                            System.out.println("12. Check Activity list");
+                            System.out.println("0. Exit");
+                            System.out.println("");
+                            System.out.print("Enter Your Menu[0-12]: ");
+                            number = scan.nextInt();
+
                             switch (number) {
                                 case 1:
                                     System.out.println("               ❤❤Set MAX Course❤❤");
@@ -100,13 +100,13 @@ do {
                                     int maxS = scan.nextInt();
                                     ag.setMaxMember(maxS);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-break;
+                                    break;
                                 case 3:
                                     System.out.println("               ❤❤Set MAX Activity❤❤");
                                     System.out.println("");
                                     System.out.print("Number of Max Activity: ");
                                     int maxA = scan.nextInt();
-                                   ag.setMaxActivity(maxA);
+                                    ag.setMaxActivity(maxA);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 4:
@@ -232,20 +232,18 @@ break;
                                     System.out.println(ag.getActivity());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
-                                default:
-                                    System.out.println("Please try again!!! ");
+                                
                                     break;
                             }
 
-}while (number != 0);
-                    }else
-                       
+                        } while (number != 0);
+                    } else {
+                        break;
+                    }
 
-                    break;
-            
-                default :
+                default:
                     System.out.println("Please enter number from 0 to 3 ");
-                   break;
+                    break;
 
                 case 2:
 
@@ -278,7 +276,7 @@ break;
                     String passwordS = scan.next();
                     System.out.println("");
                     System.out.println(ag.StudentLogin(IdS, passwordS));
-                    if (ag.StudentLogin(IdS, passwordS) ) {
+                    if (ag.StudentLogin(IdS, passwordS)) {
 
                         StudentAccount StA = ag.getStudentAccount(IdS);
 
@@ -376,11 +374,8 @@ break;
                                 case 10:
                                     System.out.println("               ❤❤My profile❤❤");
                                     System.out.println("");
-                                   System.out.println(StA.toString());
-                                    
-                                        
-                                   
-                                    
+                                    System.out.println(StA.toString());
+
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 default:
@@ -390,7 +385,6 @@ break;
 
                         } while (numS != 0);
                     }
-                    
 
 //                default:
                     System.out.println("Please enter number from 0 to 10 ");
@@ -399,50 +393,50 @@ break;
             }
         } while (menuNumber != 0);
     }
-    
 
     public String departmentLogin(long Id, String password) {
-try{        if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
-            return "Login success";
-        }
-        if (this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)) {
-            return "ID failed";
-        }
-        if (this.DatabaseManagement.getId() == Id && !(this.DatabaseManagement.getPassword().equals(password))) {
-            return "Password failed";
-        }
-        
+        try {
+            if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
+                return "Login success";
+            }
+            if (this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)) {
+                return "ID failed";
+            }
+            if (this.DatabaseManagement.getId() == Id && !(this.DatabaseManagement.getPassword().equals(password))) {
+                return "Password failed";
+            }
 
-    }catch(NullPointerException ex){
-        
-    }
-          return "Login failed";
+        } catch (NullPointerException ex) {
+
+        }
+        return "Login failed";
     }
 
     public boolean StudentLogin(long Id, String password) {
-try{        for (int i = 0; i < StudentMember.length; i++) {
-            if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
-                return true;
-            }
-
-        }
-        for (int i = 0; i < StudentMember.length; i++) {
-            if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword().equals(password)) {
-                return false;
-            }
-
-        }
-        for (int i = 0; i < StudentMember.length; i++) {
-            if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword() != password) {
-                return false;
-            }
-
-        }
-        
-                }catch(NullPointerException ex){
-                }return false;
+        try {
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
+                    return true;
                 }
-    
+
+            }
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword().equals(password)) {
+                    return false;
+                }
+
+            }
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword() != password) {
+                    return false;
+                }
+
+            }
+
+        } catch (NullPointerException ex) {
+        }
+        return false;
+    }
 
     public StudentAccount getStudentAccount(long id) {
         int x = 0;
@@ -526,195 +520,213 @@ try{        for (int i = 0; i < StudentMember.length; i++) {
 
     @Override
     public boolean addCourses(DepartmentAccount department, Courses course) {
-try{        if (!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length) {
-            System.out.println("Error404 Can't add course");
-            return false;
-        }
+        try {
+            if (!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length) {
+                System.out.println("Error404 Can't add course");
+                return false;
+            }
 
-        this.Courses[this.countCourse++] = course;
-}catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}
+            this.Courses[this.countCourse++] = course;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
+        }
         return true;
 
     }
 
     @Override
     public boolean addMember(DepartmentAccount department, StudentAccount student) {
-     try{   if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
-            System.out.println("Error404 Can't add member");
-            return false;
-        }
+        try {
+            if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
+                System.out.println("Error404 Can't add member");
+                return false;
+            }
 
-        this.StudentMember[this.countMember++] = student;
-        return true;
-    }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
-}
+            this.StudentMember[this.countMember++] = student;
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
+        }
+        return false;
+    }
 
     @Override
     public boolean addActivity(DepartmentAccount department, Activity activity) {
-try{
-        if (!this.DatabaseManagement.equals(department) || countActivity >= Activity.length) {
-            System.out.println("Error404 Can't add activity");
-            return false;
-        }
+        try {
+            if (!this.DatabaseManagement.equals(department) || countActivity >= Activity.length) {
+                System.out.println("Error404 Can't add activity");
+                return false;
+            }
 
-        Activity[countActivity++] = activity;
-        return true;
-        }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
+            Activity[countActivity++] = activity;
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
+        }
+        return false;
     }
 
     @Override
     public boolean addActivityHour(DepartmentAccount department, Activity activity, long id) {
-      try{  if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
-            System.out.println("Error404 Can't add hour");
-            return false;
-        }
-        for (int i = 0; i < StudentMember.length; i++) {
-            if (this.StudentMember[i].getId() == id) {
-                this.StudentMember[i].addActivity(activity);
+        try {
+            if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
+                System.out.println("Error404 Can't add hour");
+                return false;
+            }
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (this.StudentMember[i].getId() == id) {
+                    this.StudentMember[i].addActivity(activity);
+
+                }
 
             }
-
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
         }
-        return true;
-      }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
+        return false;
     }
 
     @Override
     public boolean removeActivity(DepartmentAccount department, Activity activity) {
-       try{ if (!this.DatabaseManagement.equals(department)) {
-            System.out.println("Error404 Can't remove activity");
-            return false;
-        }
-        for (int i = 0; i < this.Activity.length; i++) {
-            if (Activity[i].equals(activity)) {
-                this.Activity[i] = null;
-                for (int j = 0; i < j; j++) {
-                    Activity[j] = Activity[i++];
+        try {
+            if (!this.DatabaseManagement.equals(department)) {
+                System.out.println("Error404 Can't remove activity");
+                return false;
+            }
+            for (int i = 0; i < this.Activity.length; i++) {
+                if (Activity[i].equals(activity)) {
+                    this.Activity[i] = null;
+                    for (int j = 0; i < j; j++) {
+                        Activity[j] = Activity[i++];
 
+                    }
                 }
+
             }
 
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
         }
-
-        return true;
-        }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
+        return false;
     }
 
     @Override
     public boolean removeCourse(DepartmentAccount department, Courses course) {
-     try{   if (!this.DatabaseManagement.equals(department)) {
-            System.out.println("Error404 Can't remove course");
-            return false;
-        }
-        for (int i = 0; i < this.Courses.length; i++) {
-            if (Courses[i].equals(course)) {
-                this.Courses[i] = null;
-                for (int j = 0; i < j; j++) {
-                    Courses[j] = Courses[i++];
+        try {
+            if (!this.DatabaseManagement.equals(department)) {
+                System.out.println("Error404 Can't remove course");
+                return false;
+            }
+            for (int i = 0; i < this.Courses.length; i++) {
+                if (Courses[i].equals(course)) {
+                    this.Courses[i] = null;
+                    for (int j = 0; i < j; j++) {
+                        Courses[j] = Courses[i++];
 
+                    }
                 }
+
             }
 
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
         }
-
-        return true;
-        }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
+        return false;
     }
 
     @Override
     public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status) {
-     try{   if (!this.DatabaseManagement.equals(department)) {
-            System.out.println("Error404 Can't change status");
-            return false;
-        }
-        for (int i = 0; i < StudentMember.length; i++) {
-            if (this.StudentMember[i].getId() == id) {
-                this.StudentMember[i].setPaymentStatus(status);
-                return true;
+        try {
+            if (!this.DatabaseManagement.equals(department)) {
+                System.out.println("Error404 Can't change status");
+                return false;
+            }
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (this.StudentMember[i].getId() == id) {
+                    this.StudentMember[i].setPaymentStatus(status);
+                    return true;
+                }
+
             }
 
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
         }
-        
-        }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
+        return false;
     }
 
     public void getCourses() {
-try{        for (int i = 0; i < Courses.length; i++) {
-    String x = this.Courses[i].toString();
-            System.out.println(x + " ");
-            
-}
-        }catch(NullPointerException ex){
-                
-                }
-        
+        try {
+            for (int i = 0; i < Courses.length; i++) {
+                String x = this.Courses[i].toString();
+                System.out.println(x + " ");
+
+            }
+        } catch (NullPointerException ex) {
+
+        }
 
     }
 
     public String getActivity() {
-        try{     
-       for (int i = 0; i < this.Activity.length; i++) {
-       
-return this.Activity[i].toString();
+        try {
+            for (int i = 0; i < this.Activity.length; i++) {
+                String y = this.Activity[i].toString();
+                System.out.println(y + " ");
+            }
+        } catch (NullPointerException ex) {
+
         }
-        }catch(NullPointerException ex){
-            
-        }
-        
-return " ";
+
+        return " ";
     }
-    
 
     @Override
     public boolean registerCourse(StudentAccount student, RegisterCourses registerCourse) {
 
-     try{   if (!student.getRegisterCourses().equals(registerCourse)) {
-            student.setRegisterCourses(registerCourse);
+        try {
+            if (!student.getRegisterCourses().equals(registerCourse)) {
+                student.setRegisterCourses(registerCourse);
+            }
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
         }
-        return true;
-        }catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
+        return false;
     }
 
     public Courses searchCourses(String courseCode) {
-       try {for (int i = 0; i < this.Courses.length; i++) {
-            if (this.Courses[i].getCourseCode().equals(courseCode)) {
-                return Courses[i];
-            }
+        try {
+            for (int i = 0; i < this.Courses.length; i++) {
+                if (this.Courses[i].getCourseCode().equals(courseCode)) {
+                    return Courses[i];
+                }
 
-        }}catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
+        }
         return null;
     }
 
     @Override
     public boolean changePassword(long id, String password) {
-      try{  for (int i = 0; i < StudentMember.length; i++) {
-            if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(password)) {
-                this.StudentMember[i].setPassword(password);
-                return true;
-            }
+        try {
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(password)) {
+                    this.StudentMember[i].setPassword(password);
+                    return true;
+                }
 
-        }}catch(NullPointerException ex){
-    System.out.println("Error: " + ex);
-}return false;
-        
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
+        }
+        return false;
+
     }
 
 }
