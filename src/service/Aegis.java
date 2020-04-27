@@ -54,7 +54,7 @@ public class Aegis implements StudentService, DepartmentService {
                     String password = scan.next();
                     System.out.println("");
                    // ag.departmentLogin(Id, password);
-                  //  if (ag.departmentLogin(Id, password) ) {
+                   if (ag.departmentLogin(Id, password) ) {
                         DepartmentAccount da = getDatabaseManagement();
                         int number= 0;
 do {
@@ -232,12 +232,12 @@ break;
                             }
 
 }while (number != 0);
-                 //   } else {
+                    }
                        default:
 
                     break;
             
-                    
+                   
 
                 case 2:
 
