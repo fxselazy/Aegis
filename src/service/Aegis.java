@@ -53,11 +53,11 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
-                    ag.departmentLogin(Id, password);
-
-                    if (ag.departmentLogin(Id, password) == "Login success") {
+                   // ag.departmentLogin(Id, password);
+                  //  if (ag.departmentLogin(Id, password) ) {
                         DepartmentAccount da = getDatabaseManagement();
-
+                        int number= 0;
+do {
                         System.out.println("               ❤❤Department Menu❤❤");
                         System.out.println("");
 
@@ -76,9 +76,9 @@ public class Aegis implements StudentService, DepartmentService {
                         System.out.println("0. Exit");
                         System.out.println("");
                         System.out.print("Enter Your Menu[0-12]: ");
-                        num = scan.nextInt();
-                        do {
-                            switch (num) {
+                         number = scan.nextInt();
+                        
+                            switch (number) {
                                 case 1:
                                     System.out.println("               ❤❤Set MAX Course❤❤");
                                     System.out.println("");
@@ -95,7 +95,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     int maxS = scan.nextInt();
                                     ag.setMaxMember(maxS);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-
+break;
                                 case 3:
                                     System.out.println("               ❤❤Set MAX Activity❤❤");
                                     System.out.println("");
@@ -103,6 +103,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     int maxA = scan.nextInt();
                                     ag.setMaxActivity(maxA);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
                                 case 4:
                                     System.out.println("               ❤❤Add Courses❤❤");
                                     System.out.println("");
@@ -215,7 +216,7 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 11:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    ag.getCourses();
+                                    System.out.println(ag.getCourses());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -230,10 +231,13 @@ public class Aegis implements StudentService, DepartmentService {
                                     break;
                             }
 
-                        } while (num != 0);
-                    } else {
-                        break;
-                    }
+}while (number != 0);
+                 //   } else {
+                       default:
+
+                    break;
+            
+                    
 
                 case 2:
 
@@ -266,7 +270,7 @@ public class Aegis implements StudentService, DepartmentService {
                     String passwordS = scan.next();
                     System.out.println("");
                     ag.StudentLogin(IdS, passwordS);
-                    if (ag.departmentLogin(IdS, passwordS) == "Login success") {
+                    if (ag.StudentLogin(IdS, passwordS) ) {
 
                         StudentAccount StA = ag.getStudentAccount(IdS);
 
@@ -373,52 +377,52 @@ public class Aegis implements StudentService, DepartmentService {
                             }
 
                         } while (numS != 0);
-                    } else {
-                        break;
                     }
+                    
 
-                default:
+//                default:
+                    System.out.println("Please enter number from 0 to 10 ");
 
                     break;
             }
         } while (menuNumber != 0);
-
     }
+    
 
-    public String departmentLogin(long Id, String password) {
+    public boolean departmentLogin(long Id, String password) {
         if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.equals(password)) {
-            return "Login success";
+            return true;
         }
         if (this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)) {
-            return "Id failed";
+            return false;
         }
         if (this.DatabaseManagement.getId() == Id && (this.DatabaseManagement.getPassword() != password)) {
-            return "Password failed";
+            return false;
         }
-        return "Login failed";
+        return false;
 
     }
 
-    public String StudentLogin(long Id, String password) {
+    public boolean StudentLogin(long Id, String password) {
         for (int i = 0; i < StudentMember.length; i++) {
             if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
-                return "Login success";
+                return true;
             }
 
         }
         for (int i = 0; i < StudentMember.length; i++) {
             if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword().equals(password)) {
-                return "Id failed";
+                return false;
             }
 
         }
         for (int i = 0; i < StudentMember.length; i++) {
             if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword() != password) {
-                return "Password failed";
+                return false;
             }
 
         }
-        return "Login failed";
+        return false;
 
     }
 
