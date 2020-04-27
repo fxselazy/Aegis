@@ -53,7 +53,7 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
-                   // ag.departmentLogin(Id, password);
+                    ag.departmentLogin(Id, password);
                    if (ag.departmentLogin(Id, password) ) {
                         DepartmentAccount da = getDatabaseManagement();
                         int number= 0;
@@ -101,7 +101,7 @@ break;
                                     System.out.println("");
                                     System.out.print("Number of Max Activity: ");
                                     int maxA = scan.nextInt();
-                                    ag.setMaxActivity(maxA);
+                                   ag.setMaxActivity(maxA);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 4:
@@ -116,7 +116,7 @@ break;
                                     System.out.print("Please insert Course creadit: ");
                                     int cre = scan.nextInt();
                                     Courses c = new Courses(courseCode, courseSub, cre);
-                                    ag.addCourses(da, c);
+                                    System.out.println(ag.addCourses(da, c));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 5:
@@ -135,6 +135,7 @@ break;
                                     System.out.println("");
                                     Person person = new Person(ID, stf, stl);
                                     StudentAccount sta = new StudentAccount(ID, pass, person, Position.STUDENT);
+                                    System.out.println(ag.addMember(da, sta));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 6:
@@ -147,7 +148,7 @@ break;
                                     int hr = scan.nextInt();
                                     System.out.println("");
                                     Activity a = new Activity(hr, nameact);
-                                    ag.addActivity(da, a);
+                                    System.out.println(ag.addActivity(da, a));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 7:
@@ -162,7 +163,7 @@ break;
                                     long IDs = scan.nextLong();
                                     System.out.println("");
                                     Activity activity = new Activity(ach, acn);
-                                    ag.addActivityHour(da, activity, IDs);
+                                    System.out.println(ag.addActivityHour(da, activity, IDs));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 8:
@@ -174,7 +175,7 @@ break;
                                     System.out.print("Please insert Activity hour: ");
                                     int aHour = scan.nextInt();
                                     Activity act = new Activity(aHour, atn);
-                                    ag.removeActivity(da, act);
+                                    System.out.println(ag.removeActivity(da, act));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 9:
@@ -189,7 +190,7 @@ break;
                                     System.out.print("Please insert Course creadit: ");
                                     int creR = scan.nextInt();
                                     Courses coresesR = new Courses(courseCodeR, courseSubR, creR);
-                                    ag.removeCourse(da, coresesR);
+                                    System.out.println(ag.removeCourse(da, coresesR));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 10:
@@ -202,14 +203,14 @@ break;
                                     String ps = scan.next();
                                     System.out.println("");
                                     if (ps.toUpperCase() == "PAID") {
-                                        ag.changePaymentStatus(da, id, PaymentStatus.PAID);
+                                        System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.PAID));
                                     }
                                     if (ps.toUpperCase() == "PENDING") {
-                                        ag.changePaymentStatus(da, id, PaymentStatus.PENDING);
+                                        System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.PENDING));
 
                                     }
                                     if (ps.toUpperCase() == "EXPIRES") {
-                                        ag.changePaymentStatus(da, id, PaymentStatus.EXPIRES);
+                                        System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.EXPIRES));
                                     }
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -223,21 +224,23 @@ break;
                                 case 12:
                                     System.out.println("               ❤❤Check Activity list❤❤");
                                     System.out.println("");
-                                    ag.getActivity();
+                                    System.out.println(ag.getActivity());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
                                 default:
-                                    System.out.println("Please enter number from 0 to 10 ");
+                                    System.out.println("Please enter number from 0 to 12 ");
                                     break;
                             }
 
 }while (number != 0);
-                    }
-                       default:
+                    }else
+                       
 
                     break;
             
-                   
+                default :
+                    System.out.println("Please enter number from 0 to 3 ");
+                   break;
 
                 case 2:
 
@@ -269,7 +272,7 @@ break;
                     System.out.print("Student password : ");
                     String passwordS = scan.next();
                     System.out.println("");
-                    ag.StudentLogin(IdS, passwordS);
+                    System.out.println(ag.StudentLogin(IdS, passwordS));
                     if (ag.StudentLogin(IdS, passwordS) ) {
 
                         StudentAccount StA = ag.getStudentAccount(IdS);
@@ -295,13 +298,13 @@ break;
                                 case 1:
                                     System.out.println("               ❤❤Check total cost to pay❤❤");
                                     System.out.println("");
-                                    ag.checkTotalCost(StA);
+                                    System.out.println(ag.checkTotalCost(StA));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 2:
                                     System.out.println("               ❤❤My courses taken list❤❤");
                                     System.out.println("");
-                                    ag.getMyCourseTakenList(StA);
+                                    System.out.println(ag.getMyCourseTakenList(StA));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
                                 case 3:
@@ -309,19 +312,19 @@ break;
                                     System.out.println("");
                                     System.out.print("Please insert money to pay: ");
                                     double money = scan.nextDouble();
-                                    ag.pay(StA, money);
+                                    System.out.println(ag.pay(StA, money));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                 case 4:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    ag.getCourses();
+                                    System.out.println(ag.getCourses());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 5:
                                     System.out.println("               ❤❤Check Activity list❤❤");
                                     System.out.println("");
-                                    ag.getActivity();
+                                    System.out.println(ag.getActivity());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -333,7 +336,7 @@ break;
                                     String code = scan.next();
                                     Courses course = ag.searchCourses(code);
                                     RegisterCourses regis = new RegisterCourses(StA, course);
-                                    ag.registerCourse(StA, regis);
+                                    System.out.println(ag.registerCourse(StA, regis));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 7:
@@ -347,28 +350,32 @@ break;
                                     System.out.println("");
                                     System.out.println("Please insert new password: ");
                                     String newPass = scan.next();
-                                    ag.changePassword(acId, newPass);
+                                    System.out.println(ag.changePassword(acId, newPass));
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 8:
                                     System.out.println("               ❤❤Check necessary total course to register❤❤");
                                     System.out.println("");
-                                    StA.getCountOfCourseForRegister();
+                                    System.out.println(StA.getCountOfCourseForRegister());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 9:
                                     System.out.println("               ❤❤Cheack my Activity hour❤❤");
                                     System.out.println("");
-                                    StA.getMyActivityHour();
+                                    System.out.println(StA.getMyActivityHour());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 10:
                                     System.out.println("               ❤❤My profile❤❤");
                                     System.out.println("");
-                                    StA.toString();
+                                   System.out.println(StA.toString());
+                                    
+                                        
+                                   
+                                    
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 default:
@@ -390,13 +397,13 @@ break;
     
 
     public boolean departmentLogin(long Id, String password) {
-        if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.equals(password)) {
+        if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
             return true;
         }
         if (this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)) {
             return false;
         }
-        if (this.DatabaseManagement.getId() == Id && (this.DatabaseManagement.getPassword() != password)) {
+        if (this.DatabaseManagement.getId() == Id && !(this.DatabaseManagement.getPassword().equals(password))) {
             return false;
         }
         return false;

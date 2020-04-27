@@ -14,7 +14,7 @@ public class StudentAccount extends Account implements Policy {
     private Activity[] activity;
     private PaymentBill[] paymentBill;
     private PaymentStatus paymentStatus;
-    private int myActivityHour;
+    private int myActivityHour = 0;
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
     public int countActivity;
@@ -23,6 +23,7 @@ public class StudentAccount extends Account implements Policy {
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
+       
     }
 
     public String getCountOfCourseForRegister() {
@@ -67,6 +68,12 @@ public class StudentAccount extends Account implements Policy {
     }
 
     public RegisterCourses[] getRegisterCourses() {
+        try {
+           return registerCourses;
+        } catch (NullPointerException e) {
+            System.out.println("No register course");
+        
+    }
         return registerCourses;
     }
 
@@ -88,23 +95,50 @@ public class StudentAccount extends Account implements Policy {
     @Override
     public String toString() {
         StringBuilder st = new StringBuilder();
+    
+        try {
+        
         st.append("               <<My profile>>");
-        st.append(" "
-                + " ");
+        st.append("\n ");    
+        
         st.append(this.getPerson().toString());
+        st.append("\n");
         st.append("                <My Courses>");
-        st.append(" "
-                + " ");
-        st.append(this.registerCourses.toString());
-        st.append("Dept of register course: " + this.deptOfRegisterCoures);
-        st.append("Courses to register in this term: " + this.getCountOfCourseForRegister());
-        st.append("Payment Status: " + this.paymentStatus);
+        st.append(" \n");
+        st.append(this.getRegisterCourses().toString());
+         }catch(NullPointerException ex){
+            System.out.println("Error: " + ex + "\n");
+         }try{
+        st.append("Dept of register course: " + this.deptOfRegisterCoures + "\n");
+        }catch(NullPointerException ex){
+            System.out.println("Error: " + ex + "\n");
+        }try{
+        st.append("Courses to register in this term: " + this.getCountOfCourseForRegister() + "\n");
+        }catch(NullPointerException ex){
+            System.out.println("Error: " + ex + "\n");
+        }try{
+        st.append("Payment Status: " + this.paymentStatus +"\n");
+        }catch(NullPointerException ex){
+            System.out.println("Error: " + ex + "\n");
+        }try{
         st.append("                 <My Activity>");
-        st.append(" "
-                + " ");
-        st.append(this.activity.toString());
-        st.append("My total activity hour: " + this.getMyActivityHour());
-        return st.toString();
+        st.append(" \n");
+        st.append(this.activity.toString() + "\n");
+        }catch(NullPointerException ex){
+            System.out.println("Error: " + ex + "\n");
+    }try{
+        st.append("My total activity hour: " + this.getMyActivityHour() + "\n");
+        
+    }catch(NullPointerException ex){
+            System.out.println("Error: " + ex + "\n");
     }
+        return st.toString();
 
+}
+    public static void main(String[] args) {
+        Person p = new Person(545,"6546","5456");
+        //Account a = new Account(55,"44",p,Position.STUDENT);
+        StudentAccount st = new StudentAccount(55,"qwdqw",p,Position.STUDENT);
+        System.out.println(st);
+    }
 }
