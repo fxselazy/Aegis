@@ -20,9 +20,9 @@ public class Aegis implements StudentService, DepartmentService {
     private long Id;
     private Account account[];
     private int countHour;
-    private int countActivity;
-    private int countMember;
-    private int countCourse;
+    private int countActivity = 0;
+    private int countMember = 0;
+    private int countCourse = 0;
 
     public Aegis() {
     }
@@ -222,7 +222,7 @@ break;
                                 case 11:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    System.out.println(ag.getCourses());
+                                    ag.getCourses();
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -322,7 +322,7 @@ break;
                                 case 4:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    System.out.println(ag.getCourses().toString());
+                                    ag.getCourses();
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -652,15 +652,16 @@ try{
 }return false;
     }
 
-    public String getCourses() {
+    public void getCourses() {
 try{        for (int i = 0; i < Courses.length; i++) {
-            return   Courses[i].toString();
+    String x = this.Courses[i].toString();
+            System.out.println(x + " ");
             
 }
         }catch(NullPointerException ex){
                 
                 }
-        return " ";
+        
 
     }
 
