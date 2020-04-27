@@ -53,8 +53,13 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
-                    ag.departmentLogin(Id, password);
-                   if (ag.departmentLogin(Id, password) ) {
+                    try{
+                        String login = ag.departmentLogin(Id, password);
+                    }catch(NullPointerException ex){
+                         System.out.println("Error: " + ex);
+                        
+                    }
+                   if (ag.departmentLogin(Id, password) ==  "Login success") {
                         DepartmentAccount da = getDatabaseManagement();
                         int number= 0;
 do {
@@ -228,7 +233,7 @@ break;
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
                                 default:
-                                    System.out.println("Please enter number from 0 to 12 ");
+                                    System.out.println("Please try again!!! ");
                                     break;
                             }
 
@@ -317,7 +322,7 @@ break;
                                 case 4:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    System.out.println(ag.getCourses());
+                                    System.out.println(ag.getCourses().toString());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -396,22 +401,26 @@ break;
     }
     
 
-    public boolean departmentLogin(long Id, String password) {
-        if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
-            return true;
+    public String departmentLogin(long Id, String password) {
+try{        if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
+            return "Login success";
         }
         if (this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)) {
-            return false;
+            return "ID failed";
         }
         if (this.DatabaseManagement.getId() == Id && !(this.DatabaseManagement.getPassword().equals(password))) {
-            return false;
+            return "Password failed";
         }
-        return false;
+        
 
+    }catch(NullPointerException ex){
+        
+    }
+          return "Login failed";
     }
 
     public boolean StudentLogin(long Id, String password) {
-        for (int i = 0; i < StudentMember.length; i++) {
+try{        for (int i = 0; i < StudentMember.length; i++) {
             if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
                 return true;
             }
@@ -429,9 +438,11 @@ break;
             }
 
         }
-        return false;
-
-    }
+        
+                }catch(NullPointerException ex){
+                }return false;
+                }
+    
 
     public StudentAccount getStudentAccount(long id) {
         int x = 0;
@@ -515,30 +526,36 @@ break;
 
     @Override
     public boolean addCourses(DepartmentAccount department, Courses course) {
-        if (!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length) {
+try{        if (!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length) {
             System.out.println("Error404 Can't add course");
             return false;
         }
 
         this.Courses[this.countCourse++] = course;
+}catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}
         return true;
 
     }
 
     @Override
     public boolean addMember(DepartmentAccount department, StudentAccount student) {
-        if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
+     try{   if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
             System.out.println("Error404 Can't add member");
             return false;
         }
 
         this.StudentMember[this.countMember++] = student;
         return true;
-    }
+    }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
+}
 
     @Override
     public boolean addActivity(DepartmentAccount department, Activity activity) {
-
+try{
         if (!this.DatabaseManagement.equals(department) || countActivity >= Activity.length) {
             System.out.println("Error404 Can't add activity");
             return false;
@@ -546,11 +563,14 @@ break;
 
         Activity[countActivity++] = activity;
         return true;
+        }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
     }
 
     @Override
     public boolean addActivityHour(DepartmentAccount department, Activity activity, long id) {
-        if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
+      try{  if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
             System.out.println("Error404 Can't add hour");
             return false;
         }
@@ -562,11 +582,14 @@ break;
 
         }
         return true;
+      }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
     }
 
     @Override
     public boolean removeActivity(DepartmentAccount department, Activity activity) {
-        if (!this.DatabaseManagement.equals(department)) {
+       try{ if (!this.DatabaseManagement.equals(department)) {
             System.out.println("Error404 Can't remove activity");
             return false;
         }
@@ -582,11 +605,14 @@ break;
         }
 
         return true;
+        }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
     }
 
     @Override
     public boolean removeCourse(DepartmentAccount department, Courses course) {
-        if (!this.DatabaseManagement.equals(department)) {
+     try{   if (!this.DatabaseManagement.equals(department)) {
             System.out.println("Error404 Can't remove course");
             return false;
         }
@@ -602,11 +628,14 @@ break;
         }
 
         return true;
+        }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
     }
 
     @Override
     public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status) {
-        if (!this.DatabaseManagement.equals(department)) {
+     try{   if (!this.DatabaseManagement.equals(department)) {
             System.out.println("Error404 Can't change status");
             return false;
         }
@@ -617,56 +646,74 @@ break;
             }
 
         }
-        return true;
+        
+        }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
     }
 
     public String getCourses() {
-        for (int i = 0; i < Courses.length; i++) {
-            return Courses[i].toString();
-
-        }
+try{        for (int i = 0; i < Courses.length; i++) {
+            return   Courses[i].toString();
+            
+}
+        }catch(NullPointerException ex){
+                
+                }
         return " ";
 
     }
 
     public String getActivity() {
-        for (int i = 0; i < this.Activity.length; i++) {
-            return this.Courses[i].toString();
-
+        try{     
+       for (int i = 0; i < this.Activity.length; i++) {
+       
+return this.Activity[i].toString();
         }
-        return " ";
-
+        }catch(NullPointerException ex){
+            
+        }
+        
+return " ";
     }
+    
 
     @Override
     public boolean registerCourse(StudentAccount student, RegisterCourses registerCourse) {
 
-        if (!student.getRegisterCourses().equals(registerCourse)) {
+     try{   if (!student.getRegisterCourses().equals(registerCourse)) {
             student.setRegisterCourses(registerCourse);
         }
         return true;
+        }catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
     }
 
     public Courses searchCourses(String courseCode) {
-        for (int i = 0; i < this.Courses.length; i++) {
+       try {for (int i = 0; i < this.Courses.length; i++) {
             if (this.Courses[i].getCourseCode().equals(courseCode)) {
                 return Courses[i];
             }
 
-        }
+        }}catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}
         return null;
     }
 
     @Override
     public boolean changePassword(long id, String password) {
-        for (int i = 0; i < StudentMember.length; i++) {
+      try{  for (int i = 0; i < StudentMember.length; i++) {
             if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(password)) {
                 this.StudentMember[i].setPassword(password);
                 return true;
             }
 
-        }
-        return false;
+        }}catch(NullPointerException ex){
+    System.out.println("Error: " + ex);
+}return false;
+        
     }
 
 }
