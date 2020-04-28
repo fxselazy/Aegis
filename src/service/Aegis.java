@@ -1,22 +1,25 @@
 package service;
 
+//import class
 import account.Account;
 import account.DepartmentAccount;
 import account.Position;
 import account.StudentAccount;
 import activity.Activity;
 import courses.Courses;
+import payment.PaymentStatus;
+import payment.PaymentBill;
+import person.Person;
+//import java
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import payment.PaymentStatus;
 import java.util.Scanner;
-import payment.PaymentBill;
-import person.Person;
 
 public class Aegis implements StudentService, DepartmentService {
 
@@ -157,7 +160,7 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 6:
                                     System.out.println("               ❤❤Add Activity❤❤");
                                     System.out.println("");
-                                    
+
                                     System.out.print("Please insert Activity Name: ");
                                     String nameact = scan.next();
                                     System.out.println("");
@@ -190,8 +193,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.print("Please insert Activity name: ");
                                     String atn = scan.next();
                                     System.out.println("");
-                                    
-                                    
+
                                     System.out.println(ag.removeActivity(da, atn));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -246,11 +248,10 @@ public class Aegis implements StudentService, DepartmentService {
                         break;
                     }
 
-               default:
+                default:
                     System.out.println("Please enter number from 0 to 3 ");
-            
-           break;
-             
+
+                    break;
 
                 case 2:
 
@@ -287,57 +288,58 @@ public class Aegis implements StudentService, DepartmentService {
 
                         StudentAccount StA = ag.getStudentAccount(IdS);
 
-                        
                         do {
                             System.out.println("               ❤❤Student Menu❤❤");
-                        System.out.println("");
-                        System.out.println("1. Check total cost to pay");
-                        System.out.println("2. Check my courses taken list");
-                        System.out.println("3. Pay");
-                        System.out.println("4. Check Courses list");
-                        System.out.println("5. Check Activitys list");
-                        System.out.println("6. Register Course");
-                        System.out.println("7. Reset password");
-                        System.out.println("8. Check necessary total course to register");
-                        System.out.println("9. Cheack my Activity hour");
-                        System.out.println("10. My profile");
-                        System.out.println("11. Get My Paymentbill");
-                        System.out.println("0. Exit");
-                        System.out.print("Enter Your Menu[0-11]: ");
-                        numS = scan.nextInt();
+                            System.out.println("");
+                            System.out.println("1. Check total cost to pay");
+                            System.out.println("2. Check my courses taken list");
+                            System.out.println("3. Pay");
+                            System.out.println("4. Check Courses list");
+                            System.out.println("5. Check Activitys list");
+                            System.out.println("6. Register Course");
+                            System.out.println("7. Reset password");
+                            System.out.println("8. Check necessary total course to register");
+                            System.out.println("9. Cheack my Activity hour");
+                            System.out.println("10. My profile");
+                            System.out.println("11. Get My Paymentbill");
+                            System.out.println("0. Exit");
+                            System.out.print("Enter Your Menu[0-11]: ");
+                            numS = scan.nextInt();
                             switch (numS) {
                                 case 1:
                                     System.out.println("               ❤❤Check total cost to pay❤❤");
                                     System.out.println("");
-                                  try{  System.out.println(ag.checkTotalCost(StA));
-                                  
-                                  }catch(NullPointerException ex){
-                                      System.out.println("You don't have any cost");
-                                  }
+                                    try {
+                                        System.out.println(ag.checkTotalCost(StA));
+
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any cost");
+                                    }
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 2:
                                     System.out.println("               ❤❤My courses taken list❤❤");
-                                  
+
                                     System.out.println("");
-                                    try{
-                                    System.out.println(ag.getMyCourseTakenList(StA).toString());
-                                    }catch(NullPointerException ex){
-                                      System.out.println("You don't have any courses");
-                                  }
+                                    try {
+                                        System.out.println(ag.getMyCourseTakenList(StA).toString());
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any courses");
+                                    }
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-break;
+                                    break;
                                 case 3:
                                     System.out.println("               ❤❤Pay❤❤");
                                     System.out.println("");
                                     System.out.print("Please insert money to pay: ");
                                     double money = scan.nextDouble();
-                                   try{ System.out.println(ag.pay(StA, money));
-                                   } catch(NullPointerException ex){
-                                      System.out.println("You don't have any dept");
-                                  } 
-                                   System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                   break;
+                                    try {
+                                        System.out.println(ag.pay(StA, money));
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any dept");
+                                    }
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
                                 case 4:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
@@ -359,14 +361,14 @@ break;
                                     System.out.print("Please insert Course code: ");
                                     String code = scan.next();
                                     Courses course = ag.searchCourses(code);
-                                  try { RegisterCourses regis = new RegisterCourses(StA, course);
-                                  System.out.println(ag.registerCourse(StA, regis));
-                                  } 
-                                  catch(NullPointerException ex){
-                                      System.out.println("Error: " + ex);
-                                      
-                                  }
-                                    
+                                    try {
+                                        RegisterCourses regis = new RegisterCourses(StA, course);
+                                        System.out.println(ag.registerCourse(StA, regis));
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("Error: " + ex);
+
+                                    }
+
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 7:
@@ -380,7 +382,7 @@ break;
                                     System.out.println("");
                                     System.out.println("Please insert new password: ");
                                     String newPass = scan.next();
-                                    System.out.println(ag.changePassword(acId,oldPass, newPass));
+                                    System.out.println(ag.changePassword(acId, oldPass, newPass));
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -394,7 +396,7 @@ break;
                                 case 9:
                                     System.out.println("               ❤❤Cheack my Activity hour❤❤");
                                     System.out.println("");
-                                    System.out.println("Hour: " +StA.getMyActivityHour());
+                                    System.out.println("Hour: " + StA.getMyActivityHour());
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -414,39 +416,30 @@ break;
 
                                     FileOutputStream fos = new FileOutputStream(file);
                                     ObjectOutputStream oos = new ObjectOutputStream(fos);
-                                    
-                                   try{
+
+                                    try {
                                         oos.writeObject(StA.getPaymentBill().toString());
-                                   }catch(NoSuchMethodError no){
-                                       System.out.println("You don't have any bill");
-                                       
-                                      
-                                   }catch(NullPointerException ex){
+                                    } catch (NoSuchMethodError no) {
                                         System.out.println("You don't have any bill");
-                                   }
-                                    
-                                    
-                                    
+
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any bill");
+                                    }
+
                                     oos.close();
                                     fos.close();
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
-
-                                
                             }
 
                         } while (numS != 0);
-                    }
-
-                else {
+                    } else {
                         break;
+                    }
             }
-         
-                
-            
-        }} while (menuNumber != 0);
-    
-        }
+        } while (menuNumber != 0);
+
+    }
 
     public String departmentLogin(long Id, String password) {
         try {
@@ -461,7 +454,6 @@ break;
             }
 
         } catch (NullPointerException ex) {
-
         }
         return "Login failed";
     }
@@ -499,41 +491,16 @@ break;
                 return this.StudentMember[i];
             }
             x = i;
-
         }
         return this.StudentMember[x];
     }
 
-    @Override
-    public double checkTotalCost(StudentAccount student) { //check StudentAccount or RegisterCourses
-        int std = searchMember(student);
-        if (std == -1) {
-            return -1;
-        }
-
-        return RegisterCourse[std].getTotalPay();
+    public void getCourses() {
+        System.out.println(courseList.toString());
     }
 
-    public int searchMember(StudentAccount student) {
-        int i;
-        for (i = 0; i < StudentMember.length; i++) {
-            if (StudentMember[i].equals(student)) {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-
-    @Override
-    public RegisterCourses[] getMyCourseTakenList(StudentAccount student) {
-
-        return student.getRegisterCourses();
-
-    }
-
-    public static DepartmentAccount getDatabaseManagement() {
-        return DatabaseManagement;
+    public void getActivity() {
+        System.out.println(this.activityList.toString());
     }
 
     public void setMaxMember(int maxStudent) {
@@ -548,28 +515,17 @@ break;
         this.Activity = new Activity[maxActivity];
     }
 
+    public static DepartmentAccount getDatabaseManagement() {
+        return DatabaseManagement;
+    }
+
     public static void setDatabaseManagement(DepartmentAccount DatabaseManagement) {
         Aegis.DatabaseManagement = DatabaseManagement;
     }
 
     @Override
-    public String pay(StudentAccount student, double money) {
-        if (money <= 0) {
-            return "Please insert money more than 0";
-        }
-        double cost = this.checkTotalCost(student);
-        if (cost < money) {
-            return "Please insert money equal to cost";
-
-        }
-        if (cost >= money) {
-            double dept = cost - money;
-            student.setDeptOfRegisterCoures(dept);
-            student.removeRegisterCourse();
-            return "Thank for pay!";
-        }
-
-        return " ";
+    public RegisterCourses[] getMyCourseTakenList(StudentAccount student) {
+        return student.getRegisterCourses();
     }
 
     @Override
@@ -578,9 +534,9 @@ break;
             if (!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length) {
                 System.out.println("Error404 Can't add course");
                 return false;
-            }else 
-
-            this.Courses[this.countCourse++] = course;
+            } else {
+                this.Courses[this.countCourse++] = course;
+            }
             this.courseList.add(course);
             return true;
         } catch (NullPointerException ex) {
@@ -597,7 +553,6 @@ break;
                 System.out.println("Error404 Can't add member");
                 return false;
             }
-
             this.StudentMember[this.countMember++] = student;
             return true;
         } catch (NullPointerException ex) {
@@ -613,7 +568,6 @@ break;
                 System.out.println("Error404 Can't add activity");
                 return false;
             }
-
             Activity[countActivity++] = activity;
             this.activityList.add(activity);
             return true;
@@ -633,9 +587,7 @@ break;
             for (int i = 0; i < StudentMember.length; i++) {
                 if (this.StudentMember[i].getId() == id) {
                     this.StudentMember[i].addActivity(activity);
-
                 }
-
             }
             return true;
         } catch (NullPointerException ex) {
@@ -645,31 +597,39 @@ break;
     }
 
     @Override
-    public boolean removeActivity(DepartmentAccount department, String name) {
-        for (int i = 0; i < this.activityList.size(); i++) {
-            if(this.activityList.get(i).getNameOfActivity().equals(name)){
-                this.activityList.remove(i);
-                return true;
-            }
-            
-        }return false;
-    }
-
-    @Override
     public boolean removeCourse(DepartmentAccount department, String coursecode) {
         for (int i = 0; i < this.courseList.size(); i++) {
-            if(this.courseList.get(i).getCourseCode().equals(coursecode)){
+            if (this.courseList.get(i).getCourseCode().equals(coursecode)) {
                 this.courseList.remove(i);
-            
-            return true;}
+                return true;
+            }
         }
         return false;
     }
-                
 
-            
+    @Override
+    public boolean removeActivity(DepartmentAccount department, String name) {
+        for (int i = 0; i < this.activityList.size(); i++) {
+            if (this.activityList.get(i).getNameOfActivity().equals(name)) {
+                this.activityList.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
-      
+    @Override
+    public boolean registerCourse(StudentAccount student, RegisterCourses registerCourse) {
+        try {
+            if (!student.getRegisterCourses().equals(registerCourse)) {
+                student.setRegisterCourses(registerCourse);
+            }
+            return true;
+        } catch (NullPointerException ex) {
+            System.out.println("Error: " + ex);
+        }
+        return true;
+    }
 
     @Override
     public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status) {
@@ -692,29 +652,21 @@ break;
         return true;
     }
 
-    public void getCourses() {
-        
-     
-        System.out.println(courseList.toString());
-        
-    }
-
-    public void getActivity() {
-        System.out.println(this.activityList.toString());
-    }
-
     @Override
-    public boolean registerCourse(StudentAccount student, RegisterCourses registerCourse) {
-
+    public boolean changePassword(long id, String oldPassword, String newPassword) {
         try {
-            if (!student.getRegisterCourses().equals(registerCourse)) {
-                student.setRegisterCourses(registerCourse);
+            for (int i = 0; i < StudentMember.length; i++) {
+                if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(oldPassword)) {
+                    this.StudentMember[i].setPassword(newPassword);
+                    return true;
+                }
+
             }
-            return true;
         } catch (NullPointerException ex) {
-            System.out.println("Error: " + ex);
+            System.out.println(" ");
         }
-        return true;
+        return false;
+
     }
 
     public Courses searchCourses(String courseCode) {
@@ -731,21 +683,41 @@ break;
         return null;
     }
 
-    @Override
-    public boolean changePassword(long id, String oldPassword,String newPassword) {
-        try {
-            for (int i = 0; i < StudentMember.length; i++) {
-                if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(oldPassword)) {
-                    this.StudentMember[i].setPassword(newPassword);
-                    return true;
-                }
-
+    public int searchMember(StudentAccount student) {
+        int i;
+        for (i = 0; i < StudentMember.length; i++) {
+            if (StudentMember[i].equals(student)) {
+                return i;
             }
-        } catch (NullPointerException ex) {
-            System.out.println(" ");
         }
-        return false;
+        return -1;
+    }
 
+    @Override
+    public double checkTotalCost(StudentAccount student) { //check StudentAccount or RegisterCourses
+        int std = searchMember(student);
+        if (std == -1) {
+            return -1;
+        }
+        return RegisterCourse[std].getTotalPay();
+    }
+
+    @Override
+    public String pay(StudentAccount student, double money) {
+        if (money <= 0) {
+            return "Please insert money more than 0";
+        }
+        double cost = this.checkTotalCost(student);
+        if (cost < money) {
+            return "Please insert money equal to cost";
+        }
+        if (cost >= money) {
+            double dept = cost - money;
+            student.setDeptOfRegisterCoures(dept);
+            student.removeRegisterCourse();
+            return "Thank for pay!";
+        }
+        return " ";
     }
 
 }
