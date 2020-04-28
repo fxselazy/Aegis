@@ -723,4 +723,24 @@ public class Aegis implements StudentService, DepartmentService {
         return " ";
     }
 
+    public void printBill(StudentAccount sa) throws IOException {
+        File file = new File("PaymentBill/" + LocalDate.now() + "/ID : " + sa.getPerson().getId() + ".txt");
+        file.getParentFile().mkdirs();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        try (PrintWriter b = new PrintWriter(file)) {
+            b.println("** SIT@KMUTT **");
+            b.println("Time: " + LocalDateTime.now().format(format));
+            b.println("----------------------------------------");
+            b.println("Name: " + sa.getPerson().getFirstName() + " " + sa.getPerson().getLastName());
+            b.println("ID : " + sa.getPerson().getId());
+            b.println("----------------------------------------");
+            b.print("Courses : ");
+            b.print("Credit :  ");
+            b.println("Cost : ");
+            b.println("----------------------------------------");
+            b.println("Total Credit  : ");
+            b.println("Total Cost ");
+            b.println("----------------------------------------");
+        }
+    }
 }
