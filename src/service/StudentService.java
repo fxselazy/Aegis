@@ -13,5 +13,5 @@ public interface StudentService {
 
     public boolean registerCourse(StudentAccount student, RegisterCourses registerCourse);
 
-    public boolean changePassword(long id, String password);
+    public boolean changePassword(long id, String oldPassword,String newPassword);
 }

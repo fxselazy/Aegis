@@ -17,9 +17,9 @@ public interface DepartmentService {
 
     public boolean addActivityHour(DepartmentAccount department, Activity activity, long id);
 
-    public boolean removeActivity(DepartmentAccount department, Activity activity);
+    public boolean removeActivity(DepartmentAccount department, String name);
 
-    public boolean removeCourse(DepartmentAccount department, Courses course);
+    public boolean removeCourse(DepartmentAccount department, String coursecode);
 
     public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status);
 

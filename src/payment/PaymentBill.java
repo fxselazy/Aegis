@@ -6,13 +6,13 @@ import courses.Courses;
 import person.Person;
 import service.RegisterCourses;
 
-public class PaymentBill extends RegisterCourses {
+public class PaymentBill {
 
     private double totalPay;
     private RegisterCourses registerCourses;
 
-    public PaymentBill(double totalPay, RegisterCourses registerCourses, StudentAccount studentAccount, Courses courses) {
-        super(studentAccount, courses);
+    public PaymentBill(double totalPay, RegisterCourses registerCourses) {
+        
         this.totalPay = totalPay;
         this.registerCourses = registerCourses;
     }

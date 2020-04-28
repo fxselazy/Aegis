@@ -12,7 +12,7 @@ public class StudentAccount extends Account implements Policy {
     private RegisterCourses[] registerCourses;
     private int coursesCount;
     private Activity[] activity;
-    private static PaymentBill[] paymentBill;
+    private  PaymentBill paymentBill;
     private PaymentStatus paymentStatus;
     private int myActivityHour = 0;
     public static final int MAX_COURSES = 7;
@@ -47,7 +47,7 @@ public class StudentAccount extends Account implements Policy {
         return true;
     }
 
-    public PaymentBill[] getPaymentBill() {
+    public PaymentBill getPaymentBill() {
         return paymentBill;
     }
 
