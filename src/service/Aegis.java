@@ -6,8 +6,14 @@ import account.Position;
 import account.StudentAccount;
 import activity.Activity;
 import courses.Courses;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import payment.PaymentStatus;
 import java.util.Scanner;
+import payment.PaymentBill;
 import person.Person;
 
 public class Aegis implements StudentService, DepartmentService {
@@ -19,6 +25,7 @@ public class Aegis implements StudentService, DepartmentService {
     private Activity Activity[];
     private long Id;
     private Account account[];
+    private PaymentBill[] paymentBill;
     private int countHour;
     private int countActivity = 0;
     private int countMember = 0;
@@ -27,7 +34,7 @@ public class Aegis implements StudentService, DepartmentService {
     public Aegis() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         int menuNumber = 0;
         Aegis ag = new Aegis();
 
@@ -232,7 +239,6 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println(ag.getActivity());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
-                                
                                     break;
                             }
 
@@ -292,8 +298,9 @@ public class Aegis implements StudentService, DepartmentService {
                         System.out.println("8. Check necessary total course to register");
                         System.out.println("9. Cheack my Activity hour");
                         System.out.println("10. My profile");
+                        System.out.println("11. Get My Paymentbill");
                         System.out.println("0. Exit");
-                        System.out.print("Enter Your Menu[0-10]: ");
+                        System.out.print("Enter Your Menu[0-11]: ");
 
                         numS = scan.nextInt();
                         do {
@@ -378,8 +385,29 @@ public class Aegis implements StudentService, DepartmentService {
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
+
+                                case 11:
+                                    System.out.println("               ❤❤Payment Bill❤❤");
+                                    System.out.println("");
+
+                                    File file = new File("Bill.txt");
+
+                                    FileOutputStream fos = new FileOutputStream(file);
+                                    ObjectOutputStream oos = new ObjectOutputStream(fos);
+                                    int i;
+                                    for (i = 0; i < 10; i++) {
+                                        oos.writeObject(StA.getPaymentBill());
+
+                                    }
+                                    
+                                    
+                                    oos.close();
+                                    fos.close();
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+
                                 default:
-                                    System.out.println("Please enter number froom 0 to 10 ");
+                                    System.out.println("Please enter number froom 0 to 11 ");
                                     break;
                             }
 
@@ -387,7 +415,7 @@ public class Aegis implements StudentService, DepartmentService {
                     }
 
 //                default:
-                    System.out.println("Please enter number from 0 to 10 ");
+                    System.out.println("Please enter number from 0 to 11 ");
 
                     break;
             }
@@ -547,7 +575,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -563,7 +591,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -584,7 +612,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -609,7 +637,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -634,7 +662,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -655,7 +683,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     public void getCourses() {
@@ -695,7 +723,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
     }
 
     public Courses searchCourses(String courseCode) {
@@ -725,7 +753,7 @@ public class Aegis implements StudentService, DepartmentService {
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return false;
+        return true;
 
     }
 
