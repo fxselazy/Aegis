@@ -711,7 +711,7 @@ break;
         return true;
     }
 
-    public String getCourses() {
+    public void getCourses() {
         //try {
            //this.courseList.toString();
 
@@ -719,7 +719,7 @@ break;
      //   } catch (NullPointerException ex) {
 
      //   return " ";
-     return this.courseList.toString();
+        System.out.println(courseList.toString());
 
     }
 
