@@ -33,6 +33,7 @@ public class Aegis implements StudentService, DepartmentService {
     private int countMember = 0;
     private int countCourse = 0;
     ArrayList<Courses> courseList = new ArrayList<Courses>();
+    ArrayList<Activity> activityList = new ArrayList<Activity>();
 
     public Aegis() {
     }
@@ -200,13 +201,6 @@ public class Aegis implements StudentService, DepartmentService {
                                     ag.getCourses();
                                     System.out.print("Please insert Course code: ");
                                     String courseCodeR = scan.next();
-//                                    System.out.println("");
-//                                    System.out.print("Please insert Course name: ");
-//                                    String courseSubR = scan.next();
-//                                    System.out.println("");
-//                                    System.out.print("Please insert Course creadit: ");
-//                                    int creR = scan.nextInt();
-//                                    Courses coresesR = new Courses(courseCodeR, courseSubR, creR);
                                     System.out.println(ag.removeCourse(da, courseCodeR));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -241,7 +235,7 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 12:
                                     System.out.println("               ❤❤Check Activity list❤❤");
                                     System.out.println("");
-                                    System.out.println(ag.getActivity());
+                                    ag.getActivity();
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
                                     break;
@@ -354,7 +348,7 @@ break;
                                 case 5:
                                     System.out.println("               ❤❤Check Activity list❤❤");
                                     System.out.println("");
-                                    System.out.println(ag.getActivity());
+                                    ag.getActivity();
 
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -621,6 +615,7 @@ break;
             }
 
             Activity[countActivity++] = activity;
+            this.activityList.add(activity);
             return true;
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
@@ -651,27 +646,13 @@ break;
 
     @Override
     public boolean removeActivity(DepartmentAccount department, String name) {
-        try {
-            if (!this.DatabaseManagement.equals(department)) {
-                System.out.println("Error404 Can't remove activity");
-                return false;
+        for (int i = 0; i < this.activityList.size(); i++) {
+            if(this.activityList.get(i).getNameOfActivity().equals(name)){
+                this.activityList.remove(i);
+                return true;
             }
-            for (int i = 0; i < this.Activity.length; i++) {
-                if (Activity[i].getNameOfActivity().equals(name)) {
-                    this.Activity[i] = null;
-                    for (int j = 0; i < j; j++) {
-                        Activity[j] = Activity[i++];
-
-                    }
-                }
-
-            }
-
-            return true;
-        } catch (NullPointerException ex) {
-            System.out.println("Error: " + ex);
-        }
-        return true;
+            
+        }return false;
     }
 
     @Override
@@ -712,28 +693,14 @@ break;
     }
 
     public void getCourses() {
-        //try {
-           //this.courseList.toString();
-
-            
-     //   } catch (NullPointerException ex) {
-
-     //   return " ";
+        
+     
         System.out.println(courseList.toString());
-
+        
     }
 
-    public String getActivity() {
-        try {
-            for (int i = 0; i < this.Activity.length; i++) {
-                String y = this.Activity[i].toString();
-                System.out.println(y + " ");
-            }
-        } catch (NullPointerException ex) {
-
-        }
-
-        return " ";
+    public void getActivity() {
+        System.out.println(this.activityList.toString());
     }
 
     @Override
