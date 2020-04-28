@@ -55,9 +55,7 @@ public class Aegis implements StudentService, DepartmentService {
             System.out.println("1. Department Login");
             System.out.println("2. Create Department Account ");
             System.out.println("3. Student Login");
-
             System.out.println("0. Exit");
-
             System.out.print("Enter Your Menu[0-3]: ");
             menuNumber = scan.nextInt();
             System.out.println("");
@@ -734,10 +732,11 @@ public class Aegis implements StudentService, DepartmentService {
             b.println("Name: " + sa.getPerson().getFirstName() + " " + sa.getPerson().getLastName());
             b.println("ID : " + sa.getPerson().getId());
             b.println("----------------------------------------");
-            b.print("Courses : ");
+            b.print("Courses : " + sa.getRegisterCourses());
             b.print("Credit :  ");
             b.println("Cost : ");
             b.println("----------------------------------------");
+            b.println("Total Courses : " + sa.getCountOfCourseForRegister());
             b.println("Total Credit  : ");
             b.println("Total Cost ");
             b.println("----------------------------------------");
