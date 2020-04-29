@@ -23,6 +23,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.InputMismatchException;
 
 public class Aegis implements StudentService, DepartmentService {
 
@@ -57,19 +58,22 @@ public class Aegis implements StudentService, DepartmentService {
             System.out.println("3. Student Login");
             System.out.println("0. Exit");
             System.out.print("Enter Your Menu[0-3]: ");
-            menuNumber = scan.nextInt();
-          
+try{            menuNumber = scan.nextInt();
+          }catch(InputMismatchException ex){
+          ex.printStackTrace();}
           
             System.out.println("");
             switch (menuNumber) {
                 case 1:
                     int num = 0;
                     System.out.print("Department Id : ");
-                    long Id = scan.nextLong();
-                    System.out.println("");
+                   try{ long Id = scan.nextLong();
+                                        System.out.println("");
                     System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
+                     
+          
                     try {
                         String login = ag.departmentLogin(Id, password);
                     } catch (NullPointerException ex) {
@@ -249,12 +253,14 @@ public class Aegis implements StudentService, DepartmentService {
 
                                     break;
                             }
-
-
+ 
+          
+                       
                         } while (number != 0);
-                        
-                    } else {
-                        break;
+                         
+                    }else  break;
+                   }catch(InputMismatchException ex){
+                    ex.printStackTrace();
                     }
 
                 default:
@@ -263,7 +269,7 @@ public class Aegis implements StudentService, DepartmentService {
                     break;
 
                 case 2:
-
+try{
                     System.out.print("Enter Id: ");
                     long id = scan.nextLong();
                     System.out.println("");
@@ -283,9 +289,11 @@ public class Aegis implements StudentService, DepartmentService {
                     setDatabaseManagement(d);
                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
-                    break;
+                    break;}catch(InputMismatchException ex){
+                    ex.printStackTrace();
+                    }
                 case 3:
-                    int numS = 0;
+           try{         int numS = 0;
                     System.out.print("Student Id : ");
                     long IdS = scan.nextLong();
                     System.out.println("");
@@ -452,6 +460,8 @@ public class Aegis implements StudentService, DepartmentService {
                         } while (numS != 0);
                     } else {
                         break;
+                    }}catch(InputMismatchException ex){
+                    ex.printStackTrace();
                     }
             }
         } while (menuNumber != 0);
@@ -570,9 +580,14 @@ public class Aegis implements StudentService, DepartmentService {
             if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
                 System.out.println("Error404 Can't add member");
                 return false;
-            }
-            this.StudentMember[this.countMember++] = student;
+            }for (int i = 0; i < StudentMember.length; i++) {
+               if(this.StudentMember[i].getId() == (student.getId())){
+                   this.StudentMember[this.countMember++] = student;
+               } 
+                
             return true;
+            }
+           
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
