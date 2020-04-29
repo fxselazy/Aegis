@@ -1,6 +1,7 @@
 package account;
 
 import activity.Activity;
+import java.util.ArrayList;
 import payment.PaymentStatus;
 import payment.PaymentBill;
 import person.Person;
@@ -10,7 +11,7 @@ import policy.Policy;
 public class StudentAccount extends Account implements Policy {
 
     private RegisterCourses[] registerCourses;
-    private int coursesCount;
+    private int coursesCount =0;
     private Activity[] activity;
     private  PaymentBill paymentBill;
     private PaymentStatus paymentStatus;
@@ -18,12 +19,17 @@ public class StudentAccount extends Account implements Policy {
     public static final int MAX_COURSES = 7;
     public static final int MIN_COURSES = 3;
     public int countActivity;
+    private ArrayList<RegisterCourses> registerCoursesList = new ArrayList<RegisterCourses>();
 
     private double deptOfRegisterCoures = 0;
 
     public StudentAccount(long Id, String password, Person person, Position position) {
         super(Id, password, person, position);
        
+    }
+
+    public void addCoursesCount() {
+        this.coursesCount++;
     }
 
     public String getCountOfCourseForRegister() {
@@ -64,17 +70,44 @@ public class StudentAccount extends Account implements Policy {
     }
 
     public void setDeptOfRegisterCoures(double deptOfRegisterCoures) {
-        this.deptOfRegisterCoures = deptOfRegisterCoures;
+        this.deptOfRegisterCoures += deptOfRegisterCoures;
     }
 
-    public RegisterCourses[] getRegisterCourses() {
+    public void clearDept() {
+        this.deptOfRegisterCoures = 0;
+    }
+
+    public ArrayList<RegisterCourses> getRegisterCoursesList() {
+        return registerCoursesList;
+    }
+
+    public double getDeptOfRegisterCoures() {
+        return deptOfRegisterCoures;
+    }
+
+    public RegisterCourses getRegisterCourses() {
         try {
-           return registerCourses;
-        } catch (NullPointerException e) {
-            System.out.println("No register course");
+            for (int i = 0; i < registerCourses.length; i++) {
+                return registerCourses[i];
+                
+            }
+        
+    }catch(NullPointerException ex){
         
     }
-        return registerCourses;
+        return null;
+      
+    }
+
+    public void setRegisterCoursesList(RegisterCourses register) {
+      //  for (int i = 0; i < registerCoursesList.size(); i++) {
+            //if(!this.registerCoursesList.get(i).equals(register)){
+              this.registerCoursesList.add(register);
+                System.out.println("Register success");
+          //  }
+       // }
+       System.out.println("Register fail");
+        
     }
 
     public boolean setRegisterCourses(RegisterCourses registerCourse) {
@@ -86,10 +119,7 @@ public class StudentAccount extends Account implements Policy {
     }
 
     public void removeRegisterCourse() {
-        for (int i = 0; i < registerCourses.length; i++) {
-            registerCourses[i] = null;
-
-        }
+        this.registerCoursesList.removeAll(registerCoursesList);
     }
 
     @Override
