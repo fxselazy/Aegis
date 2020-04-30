@@ -598,22 +598,22 @@ public class Aegis implements StudentService, DepartmentService {
     @Override
     public boolean addMember(DepartmentAccount department, StudentAccount student) {
         try {
+            this.StudentMember[this.countMember++] = new StudentAccount(0, null, null, null);
             if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
-                System.out.println("Error404 Can't add member");
+                System.out.println("Can't add member");
                 return false;
             }
             for (int i = 0; i < StudentMember.length; i++) {
-                if (!(this.StudentMember[i].getId() == (student.getId()))) {
+                if (!(this.StudentMember[i].getId() == student.getId())) {
                     this.StudentMember[this.countMember++] = student;
+                    System.out.println("Add student account success");
+                    return true;
                 }
-
-                return true;
             }
-
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -636,7 +636,7 @@ public class Aegis implements StudentService, DepartmentService {
     public boolean addActivityHour(DepartmentAccount department, Activity activity, long id) {
         try {
             if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
-                System.out.println("Error404 Can't add hour");
+                System.out.println("Can't add hour");
                 return false;
             }
             for (int i = 0; i < StudentMember.length; i++) {
