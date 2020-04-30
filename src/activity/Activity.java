@@ -5,17 +5,19 @@ import java.util.Objects;
 
 public class Activity {
 
+    private String codeAct;
     private int hour;
     private String nameOfActivity;
 
-    public Activity(int hour, String nameOfActivity) {
+    public Activity(int hour, String nameOfActivity, String codeAct) {
         this.hour = hour;
-        
-        try{
+
+        try {
+            this.codeAct = codeAct;
             this.nameOfActivity = nameOfActivity;
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Error404 Unknown Activity");
-        }finally{
+        } finally {
             this.nameOfActivity = nameOfActivity;
         }
     }
@@ -28,7 +30,9 @@ public class Activity {
         return hour;
     }
 
-    
+    public String getCodeAct() {
+        return codeAct;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -50,20 +54,19 @@ public class Activity {
         }
         return true;
     }
-    
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
         sb.append("Activity Name: ").append(nameOfActivity);
         sb.append("\n");
         sb.append("Activity Hour: ").append(hour);
-        sb.append("\n");      
+        sb.append("\n");
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
-        
+
         return sb.toString();
     }
-    
+
 }
