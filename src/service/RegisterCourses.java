@@ -62,7 +62,7 @@ public class RegisterCourses {
         sb.append("Course cost: ").append(courses.getCalCost()).append("\n");
         sb.append("Count: ").append(count).append("\n");
         
-        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
+        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
 
         return sb.toString();
     }

@@ -76,6 +76,7 @@ try{            menuNumber = scan.nextInt();
           
                     try {
                         String login = ag.departmentLogin(Id, password);
+                        System.out.println(login);
                     } catch (NullPointerException ex) {
                         System.out.println("Error: " + ex);
 
@@ -458,10 +459,11 @@ try{
                             }
 
                         } while (numS != 0);
-                    } else {
-                        break;
-                    }}catch(InputMismatchException ex){
+                    }else break; }catch(InputMismatchException ex){
                     ex.printStackTrace();
+                    break;
+                  //  }else {
+                  //      break;
                     }
             }
         } while (menuNumber != 0);
@@ -532,14 +534,17 @@ try{
 
     public void setMaxMember(int maxStudent) {
         this.StudentMember = new StudentAccount[maxStudent];
+        System.out.println("Set max student account success");
     }
 
     public void setMaxCourses(int maxCourse) {
         this.Courses = new Courses[maxCourse];
+        System.out.println("Set max course success");
     }
 
     public void setMaxActivity(int maxActivity) {
         this.Activity = new Activity[maxActivity];
+        System.out.println("Set max activity success");
     }
 
     public static DepartmentAccount getDatabaseManagement() {
@@ -548,6 +553,7 @@ try{
 
     public static void setDatabaseManagement(DepartmentAccount DatabaseManagement) {
         Aegis.DatabaseManagement = DatabaseManagement;
+        System.out.println("❤❤Set Department account success❤❤");
     }
 
     @Override
@@ -581,7 +587,7 @@ try{
                 System.out.println("Error404 Can't add member");
                 return false;
             }for (int i = 0; i < StudentMember.length; i++) {
-               if(this.StudentMember[i].getId() == (student.getId())){
+               if(!(this.StudentMember[i].getId() == (student.getId()))){
                    this.StudentMember[this.countMember++] = student;
                } 
                 
