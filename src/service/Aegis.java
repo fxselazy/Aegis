@@ -779,9 +779,9 @@ public class Aegis implements StudentService, DepartmentService {
             return "Please insert money equal to cost";
         }
         if (cost == money) {
-
-            student.removeRegisterCourse();
             student.setPaymentStatus(PaymentStatus.PAID);
+            //addcoursestoDB
+            student.removeRegisterCourse();
             student.clearDept();
 
             return "Thank for pay!";
