@@ -15,12 +15,12 @@ public interface DepartmentService {
 
     public boolean addActivity(DepartmentAccount department, Activity activity);
 
-    public boolean addActivityHour(DepartmentAccount department, Activity activity, long id);
+    public boolean addActivityHour(DepartmentAccount department, Activity activity, int id);
 
     public boolean removeActivity(DepartmentAccount department, String name);
 
     public boolean removeCourse(DepartmentAccount department, String coursecode);
 
-    public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status);
+    public boolean changePaymentStatus(DepartmentAccount department, int id, PaymentStatus status);
 
 }

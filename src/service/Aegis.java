@@ -70,7 +70,7 @@ public class Aegis implements StudentService, DepartmentService {
                     int num = 0;
                     System.out.print("Department Id : ");
                     try {
-                        long Id = scan.nextLong();
+                        int Id = scan.nextInt();
                         System.out.println("");
                         System.out.print("Department password : ");
                         String password = scan.next();
@@ -152,7 +152,7 @@ public class Aegis implements StudentService, DepartmentService {
                                         System.out.println("               ❤❤Add Member❤❤");
                                         System.out.println("");
                                         System.out.print("Please insert student ID: ");
-                                        long ID = scan.nextLong();
+                                        int ID = scan.nextInt();
                                         System.out.println("");
                                         System.out.print("Please insert student password: ");
                                         String pass = scan.next();
@@ -196,7 +196,7 @@ public class Aegis implements StudentService, DepartmentService {
                                         System.out.print("Please insert Activity hour: ");
                                         int ach = scan.nextInt();
                                         System.out.print("Please insert student ID: ");
-                                        long IDs = scan.nextLong();
+                                        int IDs = scan.nextInt();
                                         System.out.println("");
                                         Activity activity = new Activity(ach, acn, acc);
                                         System.out.println(ag.addActivityHour(da, activity, IDs));
@@ -226,7 +226,7 @@ public class Aegis implements StudentService, DepartmentService {
                                         System.out.println("               ❤❤Change PaymentStatus of student❤❤");
                                         System.out.println("");
                                         System.out.print("Please insert student ID: ");
-                                        long id = scan.nextLong();
+                                        int id = scan.nextInt();
                                         System.out.println("");
                                         System.out.print("Please insert Payment status (PAID, PENDING, EXPIRES): ");
                                         String ps = scan.next();
@@ -280,7 +280,7 @@ public class Aegis implements StudentService, DepartmentService {
                 case 2:
                     try {
                         System.out.print("Enter Id: ");
-                        long id = scan.nextLong();
+                        int id = scan.nextInt();
                         System.out.println("");
                         System.out.print("Enter Password: ");
                         String pass = scan.next();
@@ -306,7 +306,7 @@ public class Aegis implements StudentService, DepartmentService {
                     try {
                         int numS = 0;
                         System.out.print("Student Id : ");
-                        long IdS = scan.nextLong();
+                        int IdS = scan.nextInt();
                         System.out.println("");
                         System.out.print("Student password : ");
                         String passwordS = scan.next();
@@ -391,7 +391,7 @@ public class Aegis implements StudentService, DepartmentService {
                                         String code = scan.next();
                                         System.out.println("");
                                         System.out.println("Please insert student ID: ");
-                                        long stId = scan.nextInt();
+                                        int stId = scan.nextInt();
                                         Courses course = ag.searchCourses(code);
                                         try {
                                             RegisterCourses regis = new RegisterCourses(course);
@@ -407,7 +407,7 @@ public class Aegis implements StudentService, DepartmentService {
                                         System.out.println("               ❤❤Reset password❤❤");
                                         System.out.println("");
                                         System.out.print("Please insert account ID: ");
-                                        long acId = scan.nextLong();
+                                        int acId = scan.nextInt();
                                         System.out.println("");
                                         System.out.print("Please insert old passwrd: ");
                                         String oldPass = scan.next();
@@ -484,7 +484,7 @@ public class Aegis implements StudentService, DepartmentService {
 
     }
 
-    public String departmentLogin(long Id, String password) {
+    public String departmentLogin(int Id, String password) {
         try {
             if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
                 return "Login success";
@@ -501,7 +501,7 @@ public class Aegis implements StudentService, DepartmentService {
         return "Login failed";
     }
 
-    public boolean StudentLogin(long Id, String password) {
+    public boolean StudentLogin(int Id, String password) {
         try {
             for (int i = 0; i < StudentMember.length; i++) {
                 if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
@@ -527,7 +527,7 @@ public class Aegis implements StudentService, DepartmentService {
         return false;
     }
 
-    public StudentAccount getStudentAccount(long id) {
+    public StudentAccount getStudentAccount(int id) {
         int x = 0;
         for (int i = 0; i < StudentMember.length; i++) {
             if (this.StudentMember[i].getId() == id) {
@@ -633,7 +633,7 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     @Override
-    public boolean addActivityHour(DepartmentAccount department, Activity activity, long id) {
+    public boolean addActivityHour(DepartmentAccount department, Activity activity, int id) {
         try {
             if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
                 System.out.println("Can't add hour");
@@ -674,7 +674,7 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     @Override
-    public boolean registerCourse(long id, RegisterCourses registerCourse) {
+    public boolean registerCourse(int id, RegisterCourses registerCourse) {
         try {
 
             for (int i = 0; i < StudentMember.length; i++) {
@@ -697,7 +697,7 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     @Override
-    public boolean changePaymentStatus(DepartmentAccount department, long id, PaymentStatus status) {
+    public boolean changePaymentStatus(DepartmentAccount department, int id, PaymentStatus status) {
         try {
             if (!this.DatabaseManagement.equals(department)) {
                 System.out.println("Error404 Can't change status");
@@ -719,7 +719,7 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     @Override
-    public boolean changePassword(long id, String oldPassword, String newPassword) {
+    public boolean changePassword(int id, String oldPassword, String newPassword) {
         try {
             for (int i = 0; i < StudentMember.length; i++) {
                 if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(oldPassword)) {

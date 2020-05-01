@@ -5,12 +5,12 @@ import person.Person;
 
 public class Account {
 
-    private long Id;
+    private int Id;
     private String password;
     private Person person;
     private Position position;
 
-    public Account(long Id, String password, Person person, Position position) {
+    public Account(int Id, String password, Person person, Position position) {
         this.Id = Id;
         this.password = password;
         this.person = person;

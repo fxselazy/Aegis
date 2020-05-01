@@ -11,7 +11,7 @@ public interface StudentService {
 
     public String pay(StudentAccount student, double money);
 
-    public boolean registerCourse(long id, RegisterCourses registerCourse);
+    public boolean registerCourse(int id, RegisterCourses registerCourse);
 
-    public boolean changePassword(long id, String oldPassword,String newPassword);
+    public boolean changePassword(int id, String oldPassword,String newPassword);
 }

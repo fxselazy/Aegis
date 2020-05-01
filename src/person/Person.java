@@ -2,11 +2,11 @@ package person;
 
 public class Person {
 
-    private long Id;
+    private int Id;
     private String FirstName;
     private String LastName;
 
-    public Person(long Id, String FirstName, String LastName) {
+    public Person(int Id, String FirstName, String LastName) {
         this.Id = Id;
         this.FirstName = FirstName;
         this.LastName = LastName;
@@ -24,7 +24,7 @@ public class Person {
         return LastName;
     }
 
-    public void setId(long Id) {
+    public void setId(int Id) {
         this.Id = Id;
     }
 

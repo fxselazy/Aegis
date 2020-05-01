@@ -23,7 +23,7 @@ public class StudentAccount extends Account implements Policy {
 
     private double deptOfRegisterCoures = 0;
 
-    public StudentAccount(long Id, String password, Person person, Position position) {
+    public StudentAccount(int Id, String password, Person person, Position position) {
         super(Id, password, person, position);
        
     }
