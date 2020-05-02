@@ -20,7 +20,7 @@ public class Account {
 //    public Account(Account account) {
 //        super(account);
 //    }
-    public long getId() {
+    public int getId() {
         return Id;
     }
 
