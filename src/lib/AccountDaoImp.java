@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import lib.model.LibraryDao;
+import account.Position;
 
 public class AccountDaoImp implements LibraryDao<Account> {
 
@@ -18,7 +19,15 @@ public class AccountDaoImp implements LibraryDao<Account> {
         String acc = "INSERT INTO account VALUES(?,?,?,?,?)";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getId());
+            pstm.setInt(1, obj.getId());
+            pstm.setString(2, obj.getPassword());
+            pstm.setString(3, obj.getPerson().getFirstName());
+            pstm.setString(4, obj.getPerson().getLastName());
+            if (obj.getPosition().equals(Position.DEPARTMENT)) {
+                pstm.setString(5, "1");
+            } else {
+                pstm.setString(5, "0");
+            }
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -65,17 +74,17 @@ public class AccountDaoImp implements LibraryDao<Account> {
 
     @Override
     public ArrayList<Account> getAll() {
-        ArrayList<Account> listacc = new ArrayList<Account>();
+        ArrayList<Account> acc = new ArrayList<Account>();
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement()) {
             ResultSet rs = stm.executeQuery("SELECT * FROM accounts ");
             while (rs.next()) {
-                listacc.add(new Account();
+                acc.add(new Account();
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return list;
+        return acc;
     }
 
 }
