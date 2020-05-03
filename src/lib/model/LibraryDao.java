@@ -2,15 +2,15 @@ package lib.model;
 
 import java.util.ArrayList;
 
-public interface LibraryDao<db> {
+public interface LibraryDao<dbd> {
 
-    void insert(db obj);
+    void insert(dbd obj);
 
-    void delete(db obj);
+    void delete(dbd obj);
 
-    void update(db obj);
+    void update(dbd obj);
 
-    db findById(String id);
+    dbd findById(String id);
 
-    ArrayList<db> getAll();
+    ArrayList<dbd> getAll();
 }
