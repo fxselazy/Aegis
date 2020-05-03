@@ -16,9 +16,17 @@ public class Activity {
             this.codeAct = codeAct;
             this.nameOfActivity = nameOfActivity;
         } catch (NullPointerException e) {
-            System.out.println("Error404 Unknown Activity");
+            System.out.println("Unknown Activity");
         } finally {
             this.nameOfActivity = nameOfActivity;
+        }
+    }
+
+    public Activity(String codeAct) {
+        try {
+            this.codeAct = codeAct;
+        } catch (NullPointerException e) {
+            System.out.println("Unknown Activity");
         }
     }
 
