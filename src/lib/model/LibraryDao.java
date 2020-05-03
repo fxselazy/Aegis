@@ -6,7 +6,7 @@ public interface LibraryDao<dbd> {
 
     void insert(dbd obj);
 
-    void delete(String ccode);
+    void delete(dbd obj);
 
     void update(dbd obj);
 
