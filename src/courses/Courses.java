@@ -32,16 +32,17 @@ public class Courses {
 
     }
 
+<<<<<<< Updated upstream
+=======
     public Courses(String coursesCode) {
         try {
             this.courseCode = courseCode;
         } catch (NullPointerException e) {
             this.courseCode = "UnknowSubject";
-        } finally {
-            this.courseCode = courseCode;
         }
     }
 
+>>>>>>> Stashed changes
     public void calculateCost(int credits) {
         int x = this.cost * this.credits;
         this.calCost = x;
