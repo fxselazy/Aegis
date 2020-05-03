@@ -15,10 +15,12 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
 
     @Override
     public void insert(Activity obj) {
-        String acc = "INSERT INTO activity VALUES(?,?,?,?,?)";
+        String act = "INSERT INTO activity VALUES(?,?,?)";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getHour());
+                PreparedStatement pstm = conn.prepareStatement(act)) {
+            pstm.setString(1, obj.getCodeAct());
+            pstm.setString(2, obj.getNameOfActivity());
+            pstm.setInt(3, obj.getHour());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -27,10 +29,10 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
 
     @Override
     public void delete(Activity obj) {
-        String acc = "DELETE from activity ";
+        String act = "DELETE FROM activity WHERE ACode = ? ";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getHour());
+                PreparedStatement pstm = conn.prepareStatement(act)) {
+            pstm.setString(1, obj.getCodeAct());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -39,10 +41,12 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
 
     @Override
     public void update(Activity obj) {
-        String acc = "UPDATE activity ";
+        String act = "UPDATE activity SET ACode = ?, AName = ?,AHour = ?";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getHour());
+                PreparedStatement pstm = conn.prepareStatement(act)) {
+            pstm.setString(1, obj.getCodeAct());
+            pstm.setString(2, obj.getNameOfActivity());
+            pstm.setInt(3, obj.getHour());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -55,7 +59,7 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM activity ");
             if (rs.next()) {
-                act = new Activity();
+                act = new Activity(rs.getString(1), rs.getString(2), rs.getInt(3));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,7 +73,7 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement()) {
             ResultSet rs = stm.executeQuery("SELECT * FROM activity ");
             while (rs.next()) {
-                act.add(new Activity();
+                act.add(new Activity(rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, ex);
