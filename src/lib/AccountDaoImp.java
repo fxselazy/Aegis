@@ -67,7 +67,7 @@ public class AccountDaoImp implements LibraryDao<Account> {
     }
 
     @Override
-    public Account findById(String id) {
+    public Account findById(int id) {
         Account acc = null;
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM account");

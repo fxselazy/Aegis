@@ -54,7 +54,7 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
     }
 
     @Override
-    public Activity findById(String id) {
+    public Activity findById(int acode) {
         Activity act = null;
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM activity ");

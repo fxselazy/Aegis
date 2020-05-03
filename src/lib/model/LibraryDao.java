@@ -10,7 +10,7 @@ public interface LibraryDao<dbd> {
 
     void update(dbd obj);
 
-    dbd findById(String id);
+    dbd findById(int id);
 
     ArrayList<dbd> getAll();
 }

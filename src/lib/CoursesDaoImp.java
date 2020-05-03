@@ -56,7 +56,7 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
     }
 
     @Override
-    public Courses findById(String id) {
+    public Courses findById(int ccode) {
         Courses c = null;
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM courses ");
