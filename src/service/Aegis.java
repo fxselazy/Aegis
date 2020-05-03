@@ -44,6 +44,7 @@ public class Aegis implements StudentService, DepartmentService {
     LibraryDao accdb = new AccountDaoImp();
     LibraryDao actdb = new ActivityDaoImp();
     LibraryDao cdb = new CoursesDaoImp();
+    
 
     public Aegis() {
     }
@@ -151,6 +152,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     int cre = scan.nextInt();
                                     Courses c = new Courses(courseCode, courseSub, cre);
                                     System.out.println(ag.addCourses(da, c));
+                                    ag.cdb.insert(c);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 5:
@@ -172,6 +174,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     Person person = new Person(ID, stf, stl);
                                     StudentAccount sta = new StudentAccount(ID, pass, person, Position.STUDENT);
                                     System.out.println(ag.addMember(da, sta));
+                                    ag.accdb.insert(sta);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 6:
@@ -192,6 +195,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("");
                                     Activity activity = new Activity(codeact, nameact, hr);
                                     ag.addActivity(da, activity);
+                                    ag.actdb.insert(activity);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 7:
@@ -219,7 +223,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.print("Please insert Activity name: ");
                                     String atn = scan.next();
                                     System.out.println("");
-
+                                    ag.accdb.delete(atn);
                                     System.out.println(ag.removeActivity(da, atn));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -230,6 +234,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.print("Please insert Course code: ");
                                     String courseCodeR = scan.next();
                                     System.out.println(ag.removeCourse(da, courseCodeR));
+                                    ag.cdb.delete(courseCodeR);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 10:
@@ -272,6 +277,43 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
                                     break;
+                                case 13: 
+                                    System.out.println("                ❤❤Delete Member by database❤❤");
+                                    System.out.println("");
+                                    ag.getStudentMember();
+                                    System.out.print("Please insert student ID: ");
+                                    int IDr = scan.nextInt();
+                                    System.out.println("");
+                                    System.out.print("Please insert student password: ");
+                                    String passr = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert student first name: ");
+                                    String stfr = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert student last name: ");
+                                    String stlr = scan.next();
+                                    System.out.println("");
+                                    Person personr = new Person(IDr, stfr, stlr);
+                                    StudentAccount star = new StudentAccount(IDr, passr, personr, Position.STUDENT);
+                                    ag.accdb.delete(star);
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 14: 
+                                    System.out.println("                ❤❤List Courses by database❤❤");
+                                    System.out.println(ag.cdb.getAll().toString());
+                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 15:
+                                    System.out.println("                ❤❤List Activity by database❤❤");
+                                    System.out.println(ag.actdb.getAll().toString());
+                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 16: 
+                                    System.out.println("                ❤❤List Member by database❤❤");
+                                    System.out.println(ag.accdb.getAll().toString());
+                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                     break;
+                                    
                             }
 
                         } while (number != 0);
