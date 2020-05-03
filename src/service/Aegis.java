@@ -25,6 +25,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.InputMismatchException;
 
 public class Aegis implements StudentService, DepartmentService {
@@ -236,17 +237,17 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("");
                                     
                                     Activity a = new Activity(btn,atn,ctn);
-                                    ag.accdb.delete(a);
+                                    ag.accdb.delete(btn);
                                     System.out.println(ag.removeActivity(da, atn));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 9:
                                     System.out.println("               ❤❤Remove Course❤❤");
                                     System.out.println("");
-                                    ag.getCourses();
+                                    System.out.println(ag.cdb.getAll().toString());
                                     System.out.print("Please insert Course code: ");
                                     String courseCodeR = scan.next();
-                                    System.out.println(ag.removeCourse(da, courseCodeR));
+                                    
                                     ag.cdb.delete(courseCodeR);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -308,7 +309,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("");
                                     Person personr = new Person(IDr, stfr, stlr);
                                     StudentAccount star = new StudentAccount(IDr, passr, personr, Position.STUDENT);
-                                    ag.accdb.delete(star);
+                                //    ag.accdb.delete(star);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 14: 
@@ -453,15 +454,16 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 6:
                                     System.out.println("               ❤❤Register Course❤❤");
                                     System.out.println("");
-                                    ag.getCourses();
+                                    System.out.println(ag.cdb.getAll().toString());
                                     System.out.print("Please insert Course code: ");
                                     String code = scan.next();
                                     System.out.println("");
                                     System.out.println("Please insert student ID: ");
                                     int stId = scan.nextInt();
-                                    Courses course = ag.searchCourses(code);
+                                    //Courses course = ag.searchCourses(code);
+                                   // ag.cdb.findById(1);
                                     try {
-                                        RegisterCourses regis = new RegisterCourses(course);
+                                        RegisterCourses regis = new RegisterCourses((Courses) ag.cdb.findById(code));
                                         ag.registerCourse(stId, regis);
                                     } catch (NullPointerException ex) {
                                         System.out.println("Error: " + ex);
@@ -884,25 +886,29 @@ public class Aegis implements StudentService, DepartmentService {
         return " ";
     }
 
-    public void printBill(StudentAccount sa) throws IOException {
-        File file = new File("PaymentBill/" + LocalDate.now() + "/ID : " + sa.getPerson().getId() + ".txt");
+   public void printBill(StudentAccount sa) throws IOException {
+        File file = new File("PaymentBill/" + LocalDate.now() + "/Bill_"+ sa.getId()+".txt");
         file.getParentFile().mkdirs();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         try (PrintWriter b = new PrintWriter(file)) {
-            b.println("** SIT@KMUTT **");
+            b.println(" SIT@KMUTT ");
             b.println("Time: " + LocalDateTime.now().format(format));
             b.println("----------------------------------------");
             b.println("Name: " + sa.getPerson().getFirstName() + " " + sa.getPerson().getLastName());
             b.println("ID : " + sa.getPerson().getId());
             b.println("----------------------------------------");
-            b.print("Courses : " + sa.getRegisterCourses());
-            b.print("Credit :  ");
-            b.println("Cost : ");
-            b.println("----------------------------------------");
+            b.println(sa.getRegisterCoursesList().toString());
+
+
             b.println("Total Courses : " + sa.getCountOfCourseForRegister());
-            b.println("Total Credit  : ");
+            b.println("Total Credit  : ") ;
             b.println("Total Cost ");
             b.println("----------------------------------------");
         }
+    }
+    
+    
+    public void x(){
+        this.activityList.addAll((Collection<? extends Activity>) this.actdb.getAll()) ;
     }
 }
