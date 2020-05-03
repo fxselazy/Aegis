@@ -2,7 +2,6 @@ package lib;
 
 import account.Account;
 import person.Person;
-import com.sun.istack.internal.logging.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
