@@ -17,9 +17,15 @@ public class Account {
         this.position = position;
     }
 
-//    public Account(Account account) {
-//        super(account);
-//    }
+    public Account(int id, String password) {
+        try {
+            this.Id = id;
+            this.password = password;
+        } catch (NullPointerException e) {
+            System.out.println("Your Id and/or password is incorrect, please try again");
+        }
+    }
+
     public int getId() {
         return Id;
     }
