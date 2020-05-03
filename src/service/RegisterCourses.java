@@ -50,19 +50,19 @@ public class RegisterCourses {
         return TotalPay;
     }
 
-    @Override
+  @Override
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
+
 
         sb.append("Courses name: ").append(courses.getSubject()).append("\n");
         sb.append("Course code: ").append(courses.getCourseCode()).append("\n");
         sb.append("Course cost: ").append(courses.getCalCost()).append("\n");
-        sb.append("Count: ").append(count).append("\n");
-        
-        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
+//        sb.append("Count: ").append(count).append("\n");
+
+        sb.append("----------------------------------------------");
 
         return sb.toString();
     }
