@@ -15,10 +15,13 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
     @Override
     public void insert(Courses obj) {
-        String acc = "INSERT INTO courses VALUES(?,?,?,?,?)";
+        String c = "INSERT INTO courses VALUES(?,?,?,?)";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getCredits());
+                PreparedStatement pstm = conn.prepareStatement(c)) {
+            pstm.setString(1, obj.getCourseCode());
+            pstm.setString(2, obj.getSubject());
+            pstm.setInt(3, obj.getCredits());
+            pstm.setInt(4, obj.getCalCost());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -27,10 +30,10 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
     @Override
     public void delete(Courses obj) {
-        String acc = "DELETE from courses ";
+        String c = "DELETE FROM courses  WHERE CCode = ?";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getCredits());
+                PreparedStatement pstm = conn.prepareStatement(c)) {
+            pstm.setString(1, obj.getCourseCode());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -39,10 +42,13 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
     @Override
     public void update(Courses obj) {
-        String acc = "UPDATE courses ";
+        String c = "UPDATE courses SET CCode = ?, CName = ?, Credit = ?, Cost = ?";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getCredits());
+                PreparedStatement pstm = conn.prepareStatement(c)) {
+            pstm.setString(1, obj.getCourseCode());
+            pstm.setString(2, obj.getSubject());
+            pstm.setInt(3, obj.getCredits());
+            pstm.setInt(4, obj.getCalCost());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -51,11 +57,11 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
     @Override
     public Courses findById(String id) {
-        Account c = null;
+        Courses c = null;
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM courses ");
             if (rs.next()) {
-                c = new Courses();
+                c = new Courses(rs.getString(1), rs.getString(2), rs.getInt(3));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,7 +75,7 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement()) {
             ResultSet rs = stm.executeQuery("SELECT * FROM courses ");
             while (rs.next()) {
-                c.add(new Courses();
+                c.add(new Courses(rs.getString(1), rs.getString(2), rs.getInt(3)));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,5 +83,4 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
         return c;
     }
-
 }
