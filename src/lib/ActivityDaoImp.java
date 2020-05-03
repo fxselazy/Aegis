@@ -28,11 +28,11 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
     }
 
     @Override
-    public void delete(Activity obj) {
+    public void delete(String ccode) {
         String act = "DELETE FROM activity WHERE ACode = ? ";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(act)) {
-            pstm.setString(1, obj.getCodeAct());
+         //   pstm.setString(1, obj.getCodeAct());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
