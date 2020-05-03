@@ -228,7 +228,15 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.print("Please insert Activity name: ");
                                     String atn = scan.next();
                                     System.out.println("");
-                                    ag.accdb.delete(atn);
+                                    System.out.print("Please insert Activity code: ");
+                                    String btn = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert hour: ");
+                                    int ctn = scan.nextInt();
+                                    System.out.println("");
+                                    
+                                    Activity a = new Activity(btn,atn,ctn);
+                                    ag.accdb.delete(a);
                                     System.out.println(ag.removeActivity(da, atn));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -554,11 +562,14 @@ public class Aegis implements StudentService, DepartmentService {
             if (this.DatabaseManagement.getId() == Id && !(this.DatabaseManagement.getPassword().equals(password))) {
                 return "Password failed";
             }
+            
 
         } catch (NullPointerException ex) {
         }
         return "Login failed";
     }
+    
+    
 
     public boolean StudentLogin(int Id, String password) {
         try {
@@ -661,7 +672,7 @@ public class Aegis implements StudentService, DepartmentService {
             if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
                 System.out.println("Can't add member");
                 return false;
-
+                
                 //    for (int i = 0; i <= this.countMember; i++) {
                 //      if ((this.StudentMember[i].getId() == student.getId())) {
                 //this.StudentMember[this.countMember++] = student;
@@ -671,6 +682,7 @@ public class Aegis implements StudentService, DepartmentService {
                 this.StudentMember[this.countMember++] = student;
             }
             System.out.println("Add student account success");
+            accdb.insert(student);
             return true;
 
         } catch (NullPointerException ex) {
@@ -684,22 +696,16 @@ public class Aegis implements StudentService, DepartmentService {
         try {
             //   this.Activity[this.countActivity++] = activity;
             //  this.Activity.equals(activity);
-            for (int i = 0; i < this.activityList.size(); i++) {
-
-                if (!(this.activityList.get(i).getNameOfActivity().equals(activity.getNameOfActivity()))) {
-                    this.activityList.add(activity);
-                    System.out.println("Add activity success");
-                    // Activity[countActivity++] = activity;
-                    return true;
-
-                }
-            }
-
             //  }
             if (!this.DatabaseManagement.equals(department) || countActivity >= Activity.length) {
                 System.out.println("Can't add activity");
                 return false;
             }
+            
+            this.activityList.add(activity);
+                    System.out.println("Add activity success");
+                     Activity[countActivity++] = activity;
+                    return true;
 
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
