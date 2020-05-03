@@ -158,7 +158,8 @@ public class StudentAccount extends Account implements Policy {
             System.out.println("Error: " + ex + "\n");
     }try{
         st.append("My total activity hour: " + this.getMyActivityHour() + "\n");
-        
+        st.append("\n*********************************************************************************************");
+        st.append("\n");
     }catch(NullPointerException ex){
             System.out.println("Error: " + ex + "\n");
     }
