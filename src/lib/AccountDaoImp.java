@@ -1,6 +1,7 @@
 package lib;
 
 import account.Account;
+import person.Person;
 import com.sun.istack.internal.logging.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,13 +22,13 @@ public class AccountDaoImp implements LibraryDao<Account> {
                 PreparedStatement pstm = conn.prepareStatement(acc)) {
             pstm.setInt(1, obj.getId());
             pstm.setString(2, obj.getPassword());
-            pstm.setString(3, obj.getPerson().getFirstName());
-            pstm.setString(4, obj.getPerson().getLastName());
             if (obj.getPosition().equals(Position.DEPARTMENT)) {
-                pstm.setString(5, "1");
+                pstm.setString(3, "DEPARTMENT");
             } else {
-                pstm.setString(5, "0");
+                pstm.setString(3, "STUDENT");
             }
+            pstm.setString(4, obj.getPerson().getFirstName());
+            pstm.setString(5, obj.getPerson().getLastName());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -36,10 +37,10 @@ public class AccountDaoImp implements LibraryDao<Account> {
 
     @Override
     public void delete(Account obj) {
-        String acc = "DELETE from account ";
+        String acc = "DELETE FROM account WHERE Id = ?";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getId());
+            pstm.setInt(1, obj.getId());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -48,10 +49,18 @@ public class AccountDaoImp implements LibraryDao<Account> {
 
     @Override
     public void update(Account obj) {
-        String acc = "UPDATE account ";
+        String acc = "UPDATE account SET Id = ?, Password = ?, State = ?, FName = ? , Lname = ? ";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setLong(2, obj.getId());
+            pstm.setInt(1, obj.getId());
+            pstm.setString(2, obj.getPassword());
+            if (obj.getPosition().equals(Position.DEPARTMENT)) {
+                pstm.setString(3, "DEPARTMENT");
+            } else {
+                pstm.setString(3, "STUDENT");
+            }
+            pstm.setString(4, obj.getPerson().getFirstName());
+            pstm.setString(5, obj.getPerson().getLastName());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
@@ -62,9 +71,10 @@ public class AccountDaoImp implements LibraryDao<Account> {
     public Account findById(String id) {
         Account acc = null;
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM accounts ");
+            ResultSet rs = stm.executeQuery("SELECT * FROM account");
+            Position position = Position.valueOf(rs.getString("State"));
             if (rs.next()) {
-                acc = new Account();
+                acc = new Account(rs.getInt(1), rs.getString(2), new Person(rs.getInt(1), rs.getString(4), rs.getString(5)), position);
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,9 +86,10 @@ public class AccountDaoImp implements LibraryDao<Account> {
     public ArrayList<Account> getAll() {
         ArrayList<Account> acc = new ArrayList<Account>();
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement()) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM accounts ");
+            ResultSet rs = stm.executeQuery("SELECT * FROM account");
+            Position position = Position.valueOf(rs.getString("State"));
             while (rs.next()) {
-                acc.add(new Account();
+                acc.add(new Account(rs.getInt(1), rs.getString(2), new Person(rs.getInt(1), rs.getString(4), rs.getString(5)), position));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, ex);
