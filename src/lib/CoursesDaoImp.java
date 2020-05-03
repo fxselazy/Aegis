@@ -29,15 +29,17 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
     }
 
     @Override
-    public void delete(Courses obj) {
-        String c = "DELETE FROM courses  WHERE CCode = ?";
-        try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(c)) {
-            pstm.setString(1, obj.getCourseCode());
-            pstm.execute();
-        } catch (SQLException sqlex) {
-            java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
+    public void delete(String ccode) {
+        
+       try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
+            ResultSet rs = stm.executeQuery("DELETE FROM courses  WHERE CCode = '%" + ccode +"%'");
+           
+                
+            
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
 
     @Override
@@ -54,12 +56,11 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
         }
     }
-
-    @Override
+@Override
     public Courses findById(String ccode) {
         Courses c = null;
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM courses ");
+            ResultSet rs = stm.executeQuery("SELECT * FROM courses where CCode = '" + ccode + "'" );
             if (rs.next()) {
                 c = new Courses(rs.getString(1), rs.getString(2), rs.getInt(3));
             }
