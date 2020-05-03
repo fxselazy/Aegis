@@ -32,8 +32,6 @@ public class Courses {
 
     }
 
-<<<<<<< Updated upstream
-=======
     public Courses(String coursesCode) {
         try {
             this.courseCode = courseCode;
@@ -42,7 +40,6 @@ public class Courses {
         }
     }
 
->>>>>>> Stashed changes
     public void calculateCost(int credits) {
         int x = this.cost * this.credits;
         this.calCost = x;
