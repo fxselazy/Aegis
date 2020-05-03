@@ -10,15 +10,17 @@ import courses.Courses;
 import payment.PaymentStatus;
 import payment.PaymentBill;
 import person.Person;
+import lib.AccountDaoImp;
+import lib.ActivityDaoImp;
+import lib.CoursesDaoImp;
+import lib.ConnectDB;
+import lib.model.LibraryDao;
 //import java
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,12 +34,16 @@ public class Aegis implements StudentService, DepartmentService {
     private Courses Courses[];
     private RegisterCourses RegisterCourse[];
     private Activity Activity[];
-    private PaymentBill[] paymentBill;   
+    private PaymentBill[] paymentBill;
     private int countActivity = 0;
     private int countMember = 0;
     private int countCourse = 0;
     ArrayList<Courses> courseList = new ArrayList<Courses>();
     ArrayList<Activity> activityList = new ArrayList<Activity>();
+
+    LibraryDao accdb = new AccountDaoImp();
+    LibraryDao actdb = new ActivityDaoImp();
+    LibraryDao cdb = new CoursesDaoImp();
 
     public Aegis() {
     }
@@ -66,212 +72,213 @@ public class Aegis implements StudentService, DepartmentService {
                 case 1:
                     int num = 0;
                     System.out.print("Department Id : ");
-                  //  try {
-                        int Id = scan.nextInt();
-                        System.out.println("");
-                        System.out.print("Department password : ");
-                        String password = scan.next();
-                        System.out.println("");
+                    //  try {
+                    int Id = scan.nextInt();
+                    System.out.println("");
+                    System.out.print("Department password : ");
+                    String password = scan.next();
+                    System.out.println("");
 
-                        try {
-                            String login = ag.departmentLogin(Id, password);
-                            System.out.println(login);
-                        } catch (NullPointerException ex) {
-                            System.out.println("Error: " + ex);
+                    try {
+                        String login = ag.departmentLogin(Id, password);
+                        System.out.println(login);
+                    } catch (NullPointerException ex) {
+                        System.out.println("Error: " + ex);
 
-                        }
-                        if (ag.departmentLogin(Id, password) == "Login success") {
-                            DepartmentAccount da = getDatabaseManagement();
-                            int number = 0;
-                            
-                                    
-                                        
-                            do {
-                                System.out.println("               ❤❤Department Menu❤❤");
-                                System.out.println("");
+                    }
+                    if (ag.departmentLogin(Id, password) == "Login success") {
+                        DepartmentAccount da = getDatabaseManagement();
+                        int number = 0;
 
-                                System.out.println("1. Set MAX Course");
-                                System.out.println("2. Set MAX Student");
-                                System.out.println("3. Set MAX Activity");
-                                System.out.println("4. Add Courses");
-                                System.out.println("5. Add Member");
-                                System.out.println("6. Add Activity");
-                                System.out.println("7. Add Activity Hour");
-                                System.out.println("8. Remove Activity");
-                                System.out.println("9. Remove Course");
-                                System.out.println("10. Change PaymentStatus of student");
-                                System.out.println("11. Check Courses list");
-                                System.out.println("12. Check Activity list");
-                                System.out.println("0. Exit");
-                                System.out.println("");
-                                System.out.print("Enter Your Menu[0-12]: ");
-                                number = scan.nextInt();
+                        do {
+                            System.out.println("               ❤❤Department Menu❤❤");
+                            System.out.println("");
 
-                                switch (number) {
-                                    case 1:
-                                        System.out.println("               ❤❤Set MAX Course❤❤");
-                                        System.out.println("");
-                                        System.out.print("Number of Max course: ");
-                                        int maxC = scan.nextInt();
-                                        System.out.println("");
-                                        ag.setMaxCourses(maxC);
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 2:
-                                        System.out.println("               ❤❤Set MAX Student❤❤");
-                                        System.out.println("");
-                                        System.out.print("Number of Max student:");
-                                        int maxS = scan.nextInt();
-                                        ag.setMaxMember(maxS);
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 3:
-                                        System.out.println("               ❤❤Set MAX Activity❤❤");
-                                        System.out.println("");
-                                        System.out.print("Number of Max Activity: ");
-                                        int maxA = scan.nextInt();
-                                        ag.setMaxActivity(maxA);
-                                       
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 4:
-                                        System.out.println("               ❤❤Add Courses❤❤");
-                                        System.out.println("");
-                                        System.out.print("Please insert Course code: ");
-                                        String courseCode = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert Course name: ");
-                                        String courseSub = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert Course creadit: ");
-                                        int cre = scan.nextInt();
-                                        Courses c = new Courses(courseCode, courseSub, cre);
-                                        System.out.println(ag.addCourses(da, c));
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 5:
-                                        System.out.println("               ❤❤Add Member❤❤");
-                                        System.out.println("");
-                                        ag.getStudentMember();
-                                        System.out.print("Please insert student ID: ");
-                                        int ID = scan.nextInt();
-                                        System.out.println("");
-                                        System.out.print("Please insert student password: ");
-                                        String pass = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert student first name: ");
-                                        String stf = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert student last name: ");
-                                        String stl = scan.next();
-                                        System.out.println("");
-                                        Person person = new Person(ID, stf, stl);
-                                        StudentAccount sta = new StudentAccount(ID, pass, person, Position.STUDENT);
-                                        System.out.println(ag.addMember(da, sta));
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 6:
-                                        System.out.println("               ❤❤Add Activity❤❤");
-                                        System.out.println("");
-                                        
-                                        System.out.print("Please insert Activity Code ");
-                                        String codeact = scan.next();scan.nextLine();
-                                        System.out.println("");
-                                        System.out.print("Please insert Activity Name: ");
-                                        String nameact = scan.next();scan.nextLine();
-                                        System.out.println("");
-                                        System.out.print("Please insert Activity hour: ");
-                                        int hr = scan.nextInt();scan.nextLine();
-                                        System.out.println("");
-                                        Activity activity = new Activity(codeact, nameact,hr );
-                                        ag.addActivity(da, activity);
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 7:
-                                        System.out.println("               ❤❤Add Activity Hour❤❤");
-                                        System.out.println("");
-                                        System.out.print("Please insert Activity code: ");
-                                        String acc = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert Activity name: ");
-                                        String acn = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert Activity hour: ");
-                                        int ach = scan.nextInt();
-                                        System.out.print("Please insert student ID: ");
-                                        int IDs = scan.nextInt();
-                                        System.out.println("");
-                                        Activity acti = new Activity(acc, acn, ach);
-                                        System.out.println(ag.addActivityHour(da, acti, IDs));
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 8:
-                                        System.out.println("               ❤❤Remove Activity❤❤");
-                                        System.out.println("");
-                                        ag.getActivity();
-                                        System.out.print("Please insert Activity name: ");
-                                        String atn = scan.next();
-                                        System.out.println("");
+                            System.out.println("1. Set MAX Course");
+                            System.out.println("2. Set MAX Student");
+                            System.out.println("3. Set MAX Activity");
+                            System.out.println("4. Add Courses");
+                            System.out.println("5. Add Member");
+                            System.out.println("6. Add Activity");
+                            System.out.println("7. Add Activity Hour");
+                            System.out.println("8. Remove Activity");
+                            System.out.println("9. Remove Course");
+                            System.out.println("10. Change PaymentStatus of student");
+                            System.out.println("11. Check Courses list");
+                            System.out.println("12. Check Activity list");
+                            System.out.println("0. Exit");
+                            System.out.println("");
+                            System.out.print("Enter Your Menu[0-12]: ");
+                            number = scan.nextInt();
 
-                                        System.out.println(ag.removeActivity(da, atn));
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 9:
-                                        System.out.println("               ❤❤Remove Course❤❤");
-                                        System.out.println("");
-                                        ag.getCourses();
-                                        System.out.print("Please insert Course code: ");
-                                        String courseCodeR = scan.next();
-                                        System.out.println(ag.removeCourse(da, courseCodeR));
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 10:
-                                        System.out.println("               ❤❤Change PaymentStatus of student❤❤");
-                                        System.out.println("");
-                                        ag.getStudentMember();
-                                        System.out.print("Please insert student ID: ");
-                                        int id = scan.nextInt();
-                                        System.out.println("");
-                                        System.out.print("Please insert Payment status (PAID, PENDING, EXPIRES): ");
-                                        String ps = scan.next();
-                                        scan.nextLine();
-                                        System.out.println("");
-                                        if (ps.toUpperCase().equals("PAID")) {
-                                            System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.PAID));
-                                            System.out.println("Change into PAID");
-                                        }
-                                        if (ps.toUpperCase().equals("PENDING")) {
-                                            System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.PENDING));
-                                            System.out.println("Change into PENDING");
+                            switch (number) {
+                                case 1:
+                                    System.out.println("               ❤❤Set MAX Course❤❤");
+                                    System.out.println("");
+                                    System.out.print("Number of Max course: ");
+                                    int maxC = scan.nextInt();
+                                    System.out.println("");
+                                    ag.setMaxCourses(maxC);
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 2:
+                                    System.out.println("               ❤❤Set MAX Student❤❤");
+                                    System.out.println("");
+                                    System.out.print("Number of Max student:");
+                                    int maxS = scan.nextInt();
+                                    ag.setMaxMember(maxS);
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 3:
+                                    System.out.println("               ❤❤Set MAX Activity❤❤");
+                                    System.out.println("");
+                                    System.out.print("Number of Max Activity: ");
+                                    int maxA = scan.nextInt();
+                                    ag.setMaxActivity(maxA);
 
-                                        }
-                                        if (ps.toUpperCase().equals("EXPIRES")) {
-                                            System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.EXPIRES));
-                                            System.out.println("Change into EXPIRES");
-                                        }
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 11:
-                                        System.out.println("               ❤❤Check Courses list❤❤");
-                                        System.out.println("");
-                                        ag.getCourses();
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 4:
+                                    System.out.println("               ❤❤Add Courses❤❤");
+                                    System.out.println("");
+                                    System.out.print("Please insert Course code: ");
+                                    String courseCode = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert Course name: ");
+                                    String courseSub = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert Course creadit: ");
+                                    int cre = scan.nextInt();
+                                    Courses c = new Courses(courseCode, courseSub, cre);
+                                    System.out.println(ag.addCourses(da, c));
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 5:
+                                    System.out.println("               ❤❤Add Member❤❤");
+                                    System.out.println("");
+                                    ag.getStudentMember();
+                                    System.out.print("Please insert student ID: ");
+                                    int ID = scan.nextInt();
+                                    System.out.println("");
+                                    System.out.print("Please insert student password: ");
+                                    String pass = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert student first name: ");
+                                    String stf = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert student last name: ");
+                                    String stl = scan.next();
+                                    System.out.println("");
+                                    Person person = new Person(ID, stf, stl);
+                                    StudentAccount sta = new StudentAccount(ID, pass, person, Position.STUDENT);
+                                    System.out.println(ag.addMember(da, sta));
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 6:
+                                    System.out.println("               ❤❤Add Activity❤❤");
+                                    System.out.println("");
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 12:
-                                        System.out.println("               ❤❤Check Activity list❤❤");
-                                        System.out.println("");
-                                        ag.getActivity();
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    System.out.print("Please insert Activity Code ");
+                                    String codeact = scan.next();
+                                    scan.nextLine();
+                                    System.out.println("");
+                                    System.out.print("Please insert Activity Name: ");
+                                    String nameact = scan.next();
+                                    scan.nextLine();
+                                    System.out.println("");
+                                    System.out.print("Please insert Activity hour: ");
+                                    int hr = scan.nextInt();
+                                    scan.nextLine();
+                                    System.out.println("");
+                                    Activity activity = new Activity(codeact, nameact, hr);
+                                    ag.addActivity(da, activity);
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 7:
+                                    System.out.println("               ❤❤Add Activity Hour❤❤");
+                                    System.out.println("");
+                                    System.out.print("Please insert Activity code: ");
+                                    String acc = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert Activity name: ");
+                                    String acn = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert Activity hour: ");
+                                    int ach = scan.nextInt();
+                                    System.out.print("Please insert student ID: ");
+                                    int IDs = scan.nextInt();
+                                    System.out.println("");
+                                    Activity acti = new Activity(acc, acn, ach);
+                                    System.out.println(ag.addActivityHour(da, acti, IDs));
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 8:
+                                    System.out.println("               ❤❤Remove Activity❤❤");
+                                    System.out.println("");
+                                    ag.getActivity();
+                                    System.out.print("Please insert Activity name: ");
+                                    String atn = scan.next();
+                                    System.out.println("");
 
-                                        break;
-                                }
+                                    System.out.println(ag.removeActivity(da, atn));
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 9:
+                                    System.out.println("               ❤❤Remove Course❤❤");
+                                    System.out.println("");
+                                    ag.getCourses();
+                                    System.out.print("Please insert Course code: ");
+                                    String courseCodeR = scan.next();
+                                    System.out.println(ag.removeCourse(da, courseCodeR));
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 10:
+                                    System.out.println("               ❤❤Change PaymentStatus of student❤❤");
+                                    System.out.println("");
+                                    ag.getStudentMember();
+                                    System.out.print("Please insert student ID: ");
+                                    int id = scan.nextInt();
+                                    System.out.println("");
+                                    System.out.print("Please insert Payment status (PAID, PENDING, EXPIRES): ");
+                                    String ps = scan.next();
+                                    scan.nextLine();
+                                    System.out.println("");
+                                    if (ps.toUpperCase().equals("PAID")) {
+                                        System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.PAID));
+                                        System.out.println("Change into PAID");
+                                    }
+                                    if (ps.toUpperCase().equals("PENDING")) {
+                                        System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.PENDING));
+                                        System.out.println("Change into PENDING");
 
-                            } while (number != 0);
+                                    }
+                                    if (ps.toUpperCase().equals("EXPIRES")) {
+                                        System.out.println(ag.changePaymentStatus(da, id, PaymentStatus.EXPIRES));
+                                        System.out.println("Change into EXPIRES");
+                                    }
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 11:
+                                    System.out.println("               ❤❤Check Courses list❤❤");
+                                    System.out.println("");
+                                    ag.getCourses();
 
-                        } else {
-                            break;
-                        }
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 12:
+                                    System.out.println("               ❤❤Check Activity list❤❤");
+                                    System.out.println("");
+                                    ag.getActivity();
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+
+                                    break;
+                            }
+
+                        } while (number != 0);
+
+                    } else {
+                        break;
+                    }
 //                    } catch (InputMismatchException ex) {
 //                        ex.printStackTrace();
 //                    }
@@ -283,175 +290,175 @@ public class Aegis implements StudentService, DepartmentService {
 
                 case 2:
 //                    try {
-                        System.out.print("Enter Id: ");
-                        int id = scan.nextInt();
-                        System.out.println("");
-                        System.out.print("Enter Password: ");
-                        String pass = scan.next();
-                        System.out.println("");
+                    System.out.print("Enter Id: ");
+                    int id = scan.nextInt();
+                    System.out.println("");
+                    System.out.print("Enter Password: ");
+                    String pass = scan.next();
+                    System.out.println("");
 
-                        System.out.print("Enter First name: ");
-                        String fn = scan.next();
-                        System.out.println("");
-                        System.out.print("Enter Surname: ");
-                        String ln = scan.next();
-                        System.out.println("");
-                        Position position;
-                        Person p = new Person(id, fn, ln);
-                        DepartmentAccount d = new DepartmentAccount(id, pass, p, Position.DEPARTMENT);
-                        setDatabaseManagement(d);
-                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                    System.out.print("Enter First name: ");
+                    String fn = scan.next();
+                    System.out.println("");
+                    System.out.print("Enter Surname: ");
+                    String ln = scan.next();
+                    System.out.println("");
+                    Position position;
+                    Person p = new Person(id, fn, ln);
+                    DepartmentAccount d = new DepartmentAccount(id, pass, p, Position.DEPARTMENT);
+                    setDatabaseManagement(d);
+                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
-                        break;
+                    break;
 //                    } catch (InputMismatchException ex) {
 //                        ex.printStackTrace();
 //                    }
                 case 3:
-               //     try {
-                        int numS = 0;
-                        System.out.print("Student Id : ");
-                        int IdS = scan.nextInt();
-                        System.out.println("");
-                        System.out.print("Student password : ");
-                        String passwordS = scan.next();
-                        System.out.println("");
-                        System.out.println(ag.StudentLogin(IdS, passwordS));
-                        if (ag.StudentLogin(IdS, passwordS)) {
+                    //     try {
+                    int numS = 0;
+                    System.out.print("Student Id : ");
+                    int IdS = scan.nextInt();
+                    System.out.println("");
+                    System.out.print("Student password : ");
+                    String passwordS = scan.next();
+                    System.out.println("");
+                    System.out.println(ag.StudentLogin(IdS, passwordS));
+                    if (ag.StudentLogin(IdS, passwordS)) {
 
-                            StudentAccount StA = ag.getStudentAccount(IdS);
+                        StudentAccount StA = ag.getStudentAccount(IdS);
 
-                            do {
-                                System.out.println("               ❤❤Student Menu❤❤");
-                                System.out.println("");
-                                System.out.println("1. Check total cost to pay");
-                                System.out.println("2. Check my courses taken list");
-                                System.out.println("3. Pay");
-                                System.out.println("4. Check Courses list");
-                                System.out.println("5. Check Activitys list");
-                                System.out.println("6. Register Course");
-                                System.out.println("7. Reset password");
-                                System.out.println("8. Check necessary total course to register");
-                                System.out.println("9. Cheack my Activity hour");
-                                System.out.println("10. My profile");
-                                System.out.println("11. Get My Paymentbill");
-                                System.out.println("0. Exit");
-                                System.out.print("Enter Your Menu[0-11]: ");
-                                numS = scan.nextInt();
-                                switch (numS) {
-                                    case 1:
-                                        System.out.println("               ❤❤Check total cost to pay❤❤");
-                                        System.out.println("");
-                                        try {
-                                            System.out.println(StA.getDeptOfRegisterCoures());
+                        do {
+                            System.out.println("               ❤❤Student Menu❤❤");
+                            System.out.println("");
+                            System.out.println("1. Check total cost to pay");
+                            System.out.println("2. Check my courses taken list");
+                            System.out.println("3. Pay");
+                            System.out.println("4. Check Courses list");
+                            System.out.println("5. Check Activitys list");
+                            System.out.println("6. Register Course");
+                            System.out.println("7. Reset password");
+                            System.out.println("8. Check necessary total course to register");
+                            System.out.println("9. Cheack my Activity hour");
+                            System.out.println("10. My profile");
+                            System.out.println("11. Get My Paymentbill");
+                            System.out.println("0. Exit");
+                            System.out.print("Enter Your Menu[0-11]: ");
+                            numS = scan.nextInt();
+                            switch (numS) {
+                                case 1:
+                                    System.out.println("               ❤❤Check total cost to pay❤❤");
+                                    System.out.println("");
+                                    try {
+                                        System.out.println(StA.getDeptOfRegisterCoures());
 
-                                        } catch (NullPointerException ex) {
-                                            System.out.println("You don't have any cost");
-                                        }
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 2:
-                                        System.out.println("               ❤❤My courses taken list❤❤");
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any cost");
+                                    }
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 2:
+                                    System.out.println("               ❤❤My courses taken list❤❤");
 
-                                        System.out.println("");
-                                        try {
-                                            ag.getMyCourseTakenList(StA);
-                                        } catch (NullPointerException ex) {
-                                            System.out.println("You don't have any courses");
-                                        }
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 3:
-                                        System.out.println("               ❤❤Pay❤❤");
-                                        System.out.println("");
-                                        System.out.println("Dept: " + StA.getDeptOfRegisterCoures());
-                                        System.out.print("Please insert money to pay: ");
-                                        double money = scan.nextDouble();
-                                        try {
-                                            System.out.println(ag.pay(StA, money));
-                                        } catch (NullPointerException ex) {
-                                            System.out.println("You don't have any dept");
-                                        }
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 4:
-                                        System.out.println("               ❤❤Check Courses list❤❤");
-                                        System.out.println("");
-                                        ag.getCourses();
+                                    System.out.println("");
+                                    try {
+                                        ag.getMyCourseTakenList(StA);
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any courses");
+                                    }
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 3:
+                                    System.out.println("               ❤❤Pay❤❤");
+                                    System.out.println("");
+                                    System.out.println("Dept: " + StA.getDeptOfRegisterCoures());
+                                    System.out.print("Please insert money to pay: ");
+                                    double money = scan.nextDouble();
+                                    try {
+                                        System.out.println(ag.pay(StA, money));
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any dept");
+                                    }
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 4:
+                                    System.out.println("               ❤❤Check Courses list❤❤");
+                                    System.out.println("");
+                                    ag.getCourses();
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 5:
-                                        System.out.println("               ❤❤Check Activity list❤❤");
-                                        System.out.println("");
-                                        ag.getActivity();
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 5:
+                                    System.out.println("               ❤❤Check Activity list❤❤");
+                                    System.out.println("");
+                                    ag.getActivity();
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 6:
-                                        System.out.println("               ❤❤Register Course❤❤");
-                                        System.out.println("");
-                                        ag.getCourses();
-                                        System.out.print("Please insert Course code: ");
-                                        String code = scan.next();
-                                        System.out.println("");
-                                        System.out.println("Please insert student ID: ");
-                                        int stId = scan.nextInt();
-                                        Courses course = ag.searchCourses(code);
-                                        try {
-                                            RegisterCourses regis = new RegisterCourses(course);
-                                            ag.registerCourse(stId, regis);
-                                        } catch (NullPointerException ex) {
-                                            System.out.println("Error: " + ex);
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 6:
+                                    System.out.println("               ❤❤Register Course❤❤");
+                                    System.out.println("");
+                                    ag.getCourses();
+                                    System.out.print("Please insert Course code: ");
+                                    String code = scan.next();
+                                    System.out.println("");
+                                    System.out.println("Please insert student ID: ");
+                                    int stId = scan.nextInt();
+                                    Courses course = ag.searchCourses(code);
+                                    try {
+                                        RegisterCourses regis = new RegisterCourses(course);
+                                        ag.registerCourse(stId, regis);
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("Error: " + ex);
 
-                                        }
+                                    }
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 7:
-                                        System.out.println("               ❤❤Reset password❤❤");
-                                        System.out.println("");
-                                        System.out.print("Please insert account ID: ");
-                                        int acId = scan.nextInt();
-                                        System.out.println("");
-                                        System.out.print("Please insert old passwrd: ");
-                                        String oldPass = scan.next();
-                                        System.out.println("");
-                                        System.out.println("Please insert new password: ");
-                                        String newPass = scan.next();
-                                        System.out.println(ag.changePassword(acId, oldPass, newPass));
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 7:
+                                    System.out.println("               ❤❤Reset password❤❤");
+                                    System.out.println("");
+                                    System.out.print("Please insert account ID: ");
+                                    int acId = scan.nextInt();
+                                    System.out.println("");
+                                    System.out.print("Please insert old passwrd: ");
+                                    String oldPass = scan.next();
+                                    System.out.println("");
+                                    System.out.println("Please insert new password: ");
+                                    String newPass = scan.next();
+                                    System.out.println(ag.changePassword(acId, oldPass, newPass));
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 8:
-                                        System.out.println("               ❤❤Check necessary total course to register❤❤");
-                                        System.out.println("");
-                                        System.out.println(StA.getCountOfCourseForRegister());
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 8:
+                                    System.out.println("               ❤❤Check necessary total course to register❤❤");
+                                    System.out.println("");
+                                    System.out.println(StA.getCountOfCourseForRegister());
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 9:
-                                        System.out.println("               ❤❤Cheack my Activity hour❤❤");
-                                        System.out.println("");
-                                        System.out.println("Hour: " + StA.getMyActivityHour());
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 9:
+                                    System.out.println("               ❤❤Cheack my Activity hour❤❤");
+                                    System.out.println("");
+                                    System.out.println("Hour: " + StA.getMyActivityHour());
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
-                                    case 10:
-                                        System.out.println("               ❤❤My profile❤❤");
-                                        System.out.println("");
-                                        System.out.println(StA.toString());
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
+                                case 10:
+                                    System.out.println("               ❤❤My profile❤❤");
+                                    System.out.println("");
+                                    System.out.println(StA.toString());
 
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
 
-                                    case 11:
-                                        System.out.println("               ❤❤Payment Bill❤❤");
-                                        System.out.println("");
-                                        try {
-                                            ag.printBill(StA);
-                                        } catch (NullPointerException ex) {
-                                            System.out.println("You don't have any bill");
-                                        }
+                                case 11:
+                                    System.out.println("               ❤❤Payment Bill❤❤");
+                                    System.out.println("");
+                                    try {
+                                        ag.printBill(StA);
+                                    } catch (NullPointerException ex) {
+                                        System.out.println("You don't have any bill");
+                                    }
 //                                    File file = new File("Bill.txt");
 //
 //                                    FileOutputStream fos = new FileOutputStream(file);
@@ -468,15 +475,15 @@ public class Aegis implements StudentService, DepartmentService {
 //
 //                                    oos.close();
 //                                    fos.close();
-                                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                        break;
+                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                                    break;
 
-                                }
+                            }
 
-                            } while (numS != 0);
-                        } else {
-                            break;
-                        }
+                        } while (numS != 0);
+                    } else {
+                        break;
+                    }
 //                    } catch (InputMismatchException ex) {
 //                        ex.printStackTrace();
 //                        break;
@@ -602,21 +609,22 @@ public class Aegis implements StudentService, DepartmentService {
     @Override
     public boolean addMember(DepartmentAccount department, StudentAccount student) {
         try {
-          //  this.StudentMember[this.countMember++] = new StudentAccount(0, null, null, null);
+            //  this.StudentMember[this.countMember++] = new StudentAccount(0, null, null, null);
             if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
                 System.out.println("Can't add member");
                 return false;
-            
-        //    for (int i = 0; i <= this.countMember; i++) {
-          //      if ((this.StudentMember[i].getId() == student.getId())) {
-                    //this.StudentMember[this.countMember++] = student;
+
+                //    for (int i = 0; i <= this.countMember; i++) {
+                //      if ((this.StudentMember[i].getId() == student.getId())) {
+                //this.StudentMember[this.countMember++] = student;
 //                    System.out.println("Add student account success");
-              //     return false;
-                }else
-                 this.StudentMember[this.countMember++] = student;
-                    System.out.println("Add student account success");
-                    return true;
-            
+                //     return false;
+            } else {
+                this.StudentMember[this.countMember++] = student;
+            }
+            System.out.println("Add student account success");
+            return true;
+
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
@@ -626,32 +634,31 @@ public class Aegis implements StudentService, DepartmentService {
     @Override
     public boolean addActivity(DepartmentAccount department, Activity activity) {
         try {
-       //   this.Activity[this.countActivity++] = activity;
-         //  this.Activity.equals(activity);
+            //   this.Activity[this.countActivity++] = activity;
+            //  this.Activity.equals(activity);
             for (int i = 0; i < this.activityList.size(); i++) {
-               
-            if( !(this.activityList.get(i).getNameOfActivity().equals(activity.getNameOfActivity()) )) {
-                  this.activityList.add(activity);
-                  System.out.println("Add activity success");
-                 // Activity[countActivity++] = activity;
-                  return true;
-                  
-              }
+
+                if (!(this.activityList.get(i).getNameOfActivity().equals(activity.getNameOfActivity()))) {
+                    this.activityList.add(activity);
+                    System.out.println("Add activity success");
+                    // Activity[countActivity++] = activity;
+                    return true;
+
+                }
             }
-                
-          //  }
-           
+
+            //  }
             if (!this.DatabaseManagement.equals(department) || countActivity >= Activity.length) {
                 System.out.println("Can't add activity");
                 return false;
             }
-          
+
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
         }
-       System.out.println("Can't add activity");
+        System.out.println("Can't add activity");
         return false;
-       
+
     }
 
     @Override
@@ -758,14 +765,15 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     public void getStudentMember() {
-       try{ for (int i = 0; i < StudentMember.length; i++) {
-            
-            System.out.println(this.StudentMember[i].toString());
+        try {
+            for (int i = 0; i < StudentMember.length; i++) {
+
+                System.out.println(this.StudentMember[i].toString());
+            }
+        } catch (NullPointerException ex) {
+            System.out.println(ex.toString());
         }
-       }catch(NullPointerException ex){
-           System.out.println(ex.toString());
-       }
-        
+
     }
 
     public Courses searchCourses(String courseCode) {
