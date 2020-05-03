@@ -9,7 +9,7 @@ public class Activity {
     private int hour;
     private String nameOfActivity;
 
-    public Activity(int hour, String nameOfActivity, String codeAct) {
+    public Activity(String codeAct, String nameOfActivity, int hour) {
         this.hour = hour;
 
         try {
@@ -59,7 +59,10 @@ public class Activity {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠\n");
+        sb.append("\n♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
+        sb.append("\n");
+        sb.append("Activity Code: ").append(this.codeAct);
+        sb.append("\n");
         sb.append("Activity Name: ").append(nameOfActivity);
         sb.append("\n");
         sb.append("Activity Hour: ").append(hour);
