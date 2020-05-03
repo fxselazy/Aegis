@@ -107,6 +107,11 @@ public class Aegis implements StudentService, DepartmentService {
                             System.out.println("10. Change PaymentStatus of student");
                             System.out.println("11. Check Courses list");
                             System.out.println("12. Check Activity list");
+                            System.out.println("13. Delete Member by database");
+                            System.out.println("14. List Courses by database");
+                            System.out.println("15. List Activity by database");
+                            System.out.println("16. List Database Member by Database");
+                            
                             System.out.println("0. Exit");
                             System.out.println("");
                             System.out.print("Enter Your Menu[0-12]: ");
@@ -174,7 +179,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     Person person = new Person(ID, stf, stl);
                                     StudentAccount sta = new StudentAccount(ID, pass, person, Position.STUDENT);
                                     System.out.println(ag.addMember(da, sta));
-                                    ag.accdb.insert(sta);
+                                    
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 6:
@@ -309,7 +314,7 @@ public class Aegis implements StudentService, DepartmentService {
                                      System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 16: 
-                                    System.out.println("                ❤❤List Member by database❤❤");
+                                    System.out.println("                ❤❤List Database Member by Database❤❤");
                                     System.out.println(ag.accdb.getAll().toString());
                                      System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                      break;
@@ -349,6 +354,7 @@ public class Aegis implements StudentService, DepartmentService {
                     Person p = new Person(id, fn, ln);
                     DepartmentAccount d = new DepartmentAccount(id, pass, p, Position.DEPARTMENT);
                     setDatabaseManagement(d);
+                    ag.accdb.insert(d);
                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
 
                     break;
