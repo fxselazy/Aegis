@@ -148,15 +148,17 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("");
                                     System.out.print("Please insert Course code: ");
                                     String courseCode = scan.next();
-                                    System.out.println("");
-                                    System.out.print("Please insert Course name: ");
-                                    String courseSub = scan.next();
-                                    System.out.println("");
-                                    System.out.print("Please insert Course creadit: ");
-                                    int cre = scan.nextInt();
-                                    Courses c = new Courses(courseCode, courseSub, cre);
-                                    System.out.println(ag.addCourses(da, c));
-                                    ag.cdb.insert(c);
+                                    if (ag.notSameCourse(courseCode)) {
+                                        System.out.println("");
+                                        System.out.print("Please insert Course name: ");
+                                        String courseSub = scan.next();
+                                        System.out.println("");
+                                        System.out.print("Please insert Course creadit: ");
+                                        int cre = scan.nextInt();
+                                        Courses c = new Courses(courseCode, courseSub, cre);
+                                        System.out.println(ag.addCourses(da, c));
+                                        ag.cdb.insert(c);
+                                    }
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 5:
@@ -332,8 +334,8 @@ public class Aegis implements StudentService, DepartmentService {
                         DepartmentAccount d = new DepartmentAccount(id, pass, p, Position.DEPARTMENT);
                         setDepartmentAcc(d);
                         ag.accdb.insert(d);
-                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                     }
+                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                     break;
 
 //                    } catch (InputMismatchException ex) {
@@ -632,7 +634,23 @@ public class Aegis implements StudentService, DepartmentService {
             System.out.println("Error: " + ex);
         }
         return false;
+    }
 
+    public boolean notSameCourse(String code) {
+        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
+            ResultSet rs = stm.executeQuery("SELECT * FROM courses WHERE CCode= '" + code + "';");
+            if (rs.next()) {
+                if (!(rs.getString(1).equals(code))) {
+                    return true;
+                } else {
+                    System.out.println("This Courses has already exist, Please Try Again");
+                    return false;
+                }
+            }
+        } catch (SQLException sqlex) {
+            System.out.println("SQL Exception : " + sqlex.getMessage());
+        }
+        return false;
     }
 
     @Override
