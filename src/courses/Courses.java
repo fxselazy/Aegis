@@ -9,7 +9,7 @@ public class Courses {
     private int calCost;
 
     public Courses(String courseCode, String subject, int credits) {
-        //this.subject = subject != null ? subject : null;
+        this.subject = subject != null ? subject : null;
         try {
             this.courseCode = courseCode;
         } catch (NullPointerException e) {
@@ -29,6 +29,7 @@ public class Courses {
 
         this.credits = credits > 0 && credits <= 3 ? credits : -1;
         this.calculateCost(credits);
+
 
     }
 
