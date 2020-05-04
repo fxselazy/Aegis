@@ -339,7 +339,7 @@ public class Aegis implements StudentService, DepartmentService {
                     int numS = 0;
                     System.out.print("Student Id : ");
                     int IdS = scan.nextInt();
-                    String ids = scan.next();
+                   // String ids = scan.next();
                     
                     System.out.println("");
                     System.out.print("Student password : ");
