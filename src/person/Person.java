@@ -44,7 +44,6 @@ public class Person {
         sb.append("Firstname: ").append(FirstName).append("\n");
         sb.append("Lastname: ").append(LastName).append("\n");
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
-
         return sb.toString();
     }
 

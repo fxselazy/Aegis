@@ -11,9 +11,9 @@ import policy.Policy;
 public class StudentAccount extends Account implements Policy {
 
     private RegisterCourses[] registerCourses;
-    private int coursesCount =0;
+    private int coursesCount = 0;
     private Activity[] activity;
-    private  PaymentBill paymentBill;
+    private PaymentBill paymentBill;
     private PaymentStatus paymentStatus;
     private int myActivityHour = 0;
     public static final int MAX_COURSES = 7;
@@ -25,7 +25,6 @@ public class StudentAccount extends Account implements Policy {
 
     public StudentAccount(int Id, String password, Person person, Position position) {
         super(Id, password, person, position);
-       
     }
 
     public void addCoursesCount() {
@@ -47,7 +46,7 @@ public class StudentAccount extends Account implements Policy {
     public boolean addActivity(Activity activity) {
         if (activity.getHour() <= 0) {
             return false;
-        }   //this.myActivityHour  = this.myActivityHour + hour;
+        }
         this.myActivityHour = this.myActivityHour + activity.getHour();
         this.activity[countActivity++] = activity;
         return true;
@@ -89,25 +88,16 @@ public class StudentAccount extends Account implements Policy {
         try {
             for (int i = 0; i < registerCourses.length; i++) {
                 return registerCourses[i];
-                
             }
-        
-    }catch(NullPointerException ex){
-        
-    }
+        } catch (NullPointerException ex) {
+        }
         return null;
-      
     }
 
     public void setRegisterCoursesList(RegisterCourses register) {
-      //  for (int i = 0; i < registerCoursesList.size(); i++) {
-            //if(!this.registerCoursesList.get(i).equals(register)){
-              this.registerCoursesList.add(register);
-                System.out.println("Register success");
-          //  }
-       // }
-       System.out.println("Register fail");
-        
+        this.registerCoursesList.add(register);
+        System.out.println("Register success");
+        System.out.println("Register fail");
     }
 
     public boolean setRegisterCourses(RegisterCourses registerCourse) {
@@ -125,51 +115,53 @@ public class StudentAccount extends Account implements Policy {
     @Override
     public String toString() {
         StringBuilder st = new StringBuilder();
-    
         try {
-        
-        st.append("               <<My profile>>");
-        st.append("\n ");    
-        
-        st.append(this.getPerson().toString());
-        st.append("\n");
-        st.append("                <My Courses>");
-        st.append(" \n");
-        st.append(this.getRegisterCourses().toString());
-         }catch(NullPointerException ex){
+            st.append("               <<My profile>>");
+            st.append("\n ");
+            st.append(this.getPerson().toString());
+            st.append("\n");
+            st.append("                <My Courses>");
+            st.append(" \n");
+            st.append(this.getRegisterCourses().toString());
+        } catch (NullPointerException ex) {
             System.out.println("Error: " + ex + "\n");
-         }try{
-        st.append("Dept of register course: " + this.deptOfRegisterCoures + "\n");
-        }catch(NullPointerException ex){
+        }
+        try {
+            st.append("Dept of register course: " + this.deptOfRegisterCoures + "\n");
+        } catch (NullPointerException ex) {
             System.out.println("Error: " + ex + "\n");
-        }try{
-        st.append("Courses to register in this term: " + this.getCountOfCourseForRegister() + "\n");
-        }catch(NullPointerException ex){
+        }
+        try {
+            st.append("Courses to register in this term: " + this.getCountOfCourseForRegister() + "\n");
+        } catch (NullPointerException ex) {
             System.out.println("Error: " + ex + "\n");
-        }try{
-        st.append("Payment Status: " + this.paymentStatus +"\n");
-        }catch(NullPointerException ex){
+        }
+        try {
+            st.append("Payment Status: " + this.paymentStatus + "\n");
+        } catch (NullPointerException ex) {
             System.out.println("Error: " + ex + "\n");
-        }try{
-        st.append("                 <My Activity>");
-        st.append(" \n");
-        st.append(this.activity.toString() + "\n");
-        }catch(NullPointerException ex){
+        }
+        try {
+            st.append("                 <My Activity>");
+            st.append(" \n");
+            st.append(this.activity.toString() + "\n");
+        } catch (NullPointerException ex) {
             System.out.println("Error: " + ex + "\n");
-    }try{
-        st.append("My total activity hour: " + this.getMyActivityHour() + "\n");
-        st.append("\n*********************************************************************************************");
-        st.append("\n");
-    }catch(NullPointerException ex){
+        }
+        try {
+            st.append("My total activity hour: " + this.getMyActivityHour() + "\n");
+            st.append("\n*********************************************************************************************");
+            st.append("\n");
+        } catch (NullPointerException ex) {
             System.out.println("Error: " + ex + "\n");
-    }
+        }
         return st.toString();
+    }
 
-}
     public static void main(String[] args) {
-        Person p = new Person(545,"6546","5456");
+        Person p = new Person(545, "6546", "5456");
         //Account a = new Account(55,"44",p,Position.STUDENT);
-        StudentAccount st = new StudentAccount(55,"qwdqw",p,Position.STUDENT);
+        StudentAccount st = new StudentAccount(55, "qwdqw", p, Position.STUDENT);
         System.out.println(st);
     }
 }

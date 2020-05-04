@@ -9,18 +9,10 @@ import payment.PaymentStatus;
 
 public interface DepartmentService {
 
-   
+    public boolean addMember(StudentAccount account);
 
-    public boolean addMember( StudentAccount account);
+    public boolean addActivityHour(Activity activity, int id);
 
-   
-
-    public boolean addActivityHour( Activity activity, int id);
-
- 
-
-    
-
-    public boolean changePaymentStatus( int id, PaymentStatus status);
+    public boolean changePaymentStatus(int id, PaymentStatus status);
 
 }

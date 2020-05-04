@@ -75,19 +75,15 @@ public class Account {
 
     @Override
     public String toString() {
-       StringBuilder st = new StringBuilder();
-    
+        StringBuilder st = new StringBuilder();
         try {
-        
-        st.append("               <<My profile>>");
-        st.append("\n ");    
-        
-        st.append(this.getPerson().toString());
-        st.append("\n");
-        st.append("---------------------------------------------------------------------\n");
-    }catch(NullPointerException ex){
-
-}
-return st.toString();
-}
+            st.append("               <<My profile>>");
+            st.append("\n ");
+            st.append(this.getPerson().toString());
+            st.append("\n");
+            st.append("---------------------------------------------------------------------\n");
+        } catch (NullPointerException ex) {
+        }
+        return st.toString();
+    }
 }

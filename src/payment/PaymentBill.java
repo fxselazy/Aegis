@@ -12,7 +12,6 @@ public class PaymentBill {
     private RegisterCourses registerCourses;
 
     public PaymentBill(double totalPay, RegisterCourses registerCourses) {
-        
         this.totalPay = totalPay;
         this.registerCourses = registerCourses;
     }

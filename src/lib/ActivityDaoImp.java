@@ -33,7 +33,6 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
         String act = "DELETE FROM activity WHERE ACode = '" + obj.getCodeAct() + "'";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(act)) {
-        //    pstm.setString(1, obj.getCodeAct());
             pstm.execute();
             System.out.println("Excecute success");
         } catch (SQLException sqlex) {
@@ -80,7 +79,6 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return act;
     }
 

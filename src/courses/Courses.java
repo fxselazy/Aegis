@@ -17,20 +17,15 @@ public class Courses {
         } finally {
             this.courseCode = courseCode;
         }
-
         try {
             this.subject = subject;
-
         } catch (NullPointerException e) {
             this.subject = "UnknowSubject";
         } finally {
             this.subject = subject;
         }
-
         this.credits = credits > 0 && credits <= 3 ? credits : -1;
         this.calculateCost(credits);
-
-
     }
 
     public Courses(String coursesCode) {

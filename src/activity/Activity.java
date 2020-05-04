@@ -11,7 +11,6 @@ public class Activity {
 
     public Activity(String codeAct, String nameOfActivity, int hour) {
         this.hour = hour;
-
         try {
             this.codeAct = codeAct;
             this.nameOfActivity = nameOfActivity;
@@ -66,7 +65,6 @@ public class Activity {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         sb.append("\n♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
         sb.append("\n");
         sb.append("Activity Code: ").append(this.codeAct);
@@ -76,7 +74,6 @@ public class Activity {
         sb.append("Activity Hour: ").append(hour);
         sb.append("\n");
         sb.append("♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠♠");
-
         return sb.toString();
     }
 

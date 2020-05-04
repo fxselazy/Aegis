@@ -34,7 +34,6 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
         String act = "DELETE FROM courses WHERE ccode = '" + obj.getCourseCode() + "' ";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(act)) {
-//            pstm.setString(1, obj.getCourseCode());
             pstm.execute();
             System.out.println("Excecute success");
         } catch (SQLException sqlex) {
@@ -82,7 +81,6 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return c;
     }
 
