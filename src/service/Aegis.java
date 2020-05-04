@@ -39,13 +39,13 @@ public class Aegis implements StudentService, DepartmentService {
 
     private StudentAccount StudentMember[];
     public static DepartmentAccount DepartmentAcc;
-    private Courses Courses[];
+    
     private RegisterCourses RegisterCourse[];
     private Activity Activity[];
-    private PaymentBill[] paymentBill;
-    private int countActivity = 0;
+    
+   
     private int countMember = 0;
-    private int countCourse = 0;
+    
     ArrayList<Courses> courseList = new ArrayList<Courses>();
     ArrayList<Activity> activityList = new ArrayList<Activity>();
     ArrayList<StudentAccount> studentList = new ArrayList<StudentAccount>();
@@ -552,16 +552,6 @@ public class Aegis implements StudentService, DepartmentService {
         System.out.println("Set max student account success");
     }
 
-    public void setMaxCourses(int maxCourse) {
-        this.Courses = new Courses[maxCourse];
-        System.out.println("Set max course success");
-    }
-
-    public void setMaxActivity(int maxActivity) {
-        this.Activity = new Activity[maxActivity];
-        System.out.println("Set max activity success");
-    }
-
     public static DepartmentAccount getDepartmentAcc() {
         return DepartmentAcc;
     }
@@ -578,22 +568,22 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
 
-    public boolean notSameCourse(String code) {
-        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM courses WHERE CCode= '" + code + "';");
-            if (rs.next()) {
-                if (!(rs.getString(1).equals(code))) {
-                    return true;
-                } else {
-                    System.out.println("This Courses has already exist, Please Try Again");
-                    return false;
-                }
-            }
-        } catch (SQLException sqlex) {
-            System.out.println("SQL Exception : " + sqlex.getMessage());
-        }
-        return false;
-    }
+//    public boolean notSameCourse(String code) {
+//        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
+//            ResultSet rs = stm.executeQuery("SELECT * FROM courses WHERE CCode= '" + code + "';");
+//            if (rs.next()) {
+//                if (!(rs.getString(1).equals(code))) {
+//                    return true;
+//                } else {
+//                    System.out.println("This Courses has already exist, Please Try Again");
+//                    return false;
+//                }
+//            }
+//        } catch (SQLException sqlex) {
+//            System.out.println("SQL Exception : " + sqlex.getMessage());
+//        }
+//        return false;
+//    }
 
     @Override
     public boolean addMember(StudentAccount student) {
@@ -623,26 +613,7 @@ public class Aegis implements StudentService, DepartmentService {
         return false;
     }
 
-//    @Override
-//    public boolean addActivity(DepartmentAccount department, Activity activity) {
-//        try {
-//            //   this.Activity[this.countActivity++] = activity;
-//            //  this.Activity.equals(activity);
-//            //  }
-//            if (!this.DepartmentAcc.equals(department) || countActivity >= Activity.length) {
-//                System.out.println("Can't add activity");
-//                return false;
-//            }
-//            this.activityList.add(activity);
-//            System.out.println("Add activity success");
-//            Activity[countActivity++] = activity;
-//            return true;
-//        } catch (NullPointerException ex) {
-//            System.out.println("Error: " + ex);
-//        }
-//        System.out.println("Can't add activity");
-//        return false;
-//    }
+
     @Override
     public boolean addActivityHour(Activity activity, int id) {
         try {
@@ -662,26 +633,7 @@ public class Aegis implements StudentService, DepartmentService {
         return true;
     }
 
-//    @Override
-//    public boolean removeCourse(DepartmentAccount department, String coursecode) {
-//        for (int i = 0; i < this.courseList.size(); i++) {
-//            if (this.courseList.get(i).getCourseCode().equals(coursecode)) {
-//                this.courseList.remove(i);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//    @Override
-//    public boolean removeActivity(DepartmentAccount department, String name) {
-//        for (int i = 0; i < this.activityList.size(); i++) {
-//            if (this.activityList.get(i).getNameOfActivity().equals(name)) {
-//                this.activityList.remove(i);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+
     @Override
     public boolean registerCourse(int id, RegisterCourses registerCourse) {
         try {
@@ -745,36 +697,7 @@ public class Aegis implements StudentService, DepartmentService {
         }
     }
 
-//    public Courses searchCourses(String courseCode) {
-//        try {
-//            for (int i = 0; i < this.courseList.size(); i++) {
-//                if (this.courseList.get(i).getCourseCode().equals(courseCode)) {
-//                    return this.courseList.get(i);
-//                }
-//            }
-//        } catch (NullPointerException ex) {
-//            System.out.println("Error: " + ex);
-//        }
-//        return null;
-//    }
-//    public int searchMember(StudentAccount student) {
-//        int i;
-//        for (i = 0; i < StudentMember.length; i++) {
-//            if (StudentMember[i].equals(student)) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
-//
-//    @Override
-//    public double checkTotalCost(StudentAccount student) { //check StudentAccount or RegisterCourses
-//        int std = searchMember(student);
-//        if (std == -1) {
-//            return -1;
-//        }
-//        return RegisterCourse[std].getTotalPay();
-//    }
+
     @Override
     public String pay(StudentAccount student, double money) {
         if (money <= 0) {
