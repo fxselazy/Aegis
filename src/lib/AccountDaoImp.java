@@ -99,10 +99,11 @@ public class AccountDaoImp implements LibraryDao<Account> {
     public ArrayList<Account> getAll() {
         ArrayList<Account> acc = new ArrayList<Account>();
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement()) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM account");
-            Position position = Position.valueOf(rs.getString("State"));
+            ResultSet rs = stm.executeQuery("SELECT * FROM account where state = 'STUDENT'"  );
+           // Position position = Position.valueOf(rs.getString("State"));
+           
             while (rs.next()) {
-                acc.add(new Account(rs.getInt(1), rs.getString(2), new Person(rs.getInt(1), rs.getString(4), rs.getString(5)), position));
+                acc.add(new Account(rs.getInt(1), rs.getString(2), new Person(rs.getInt(1), rs.getString(4), rs.getString(5)), Position.STUDENT));
             }
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, ex);
