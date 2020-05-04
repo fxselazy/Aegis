@@ -18,8 +18,10 @@ import lib.model.LibraryDao;
 //import java
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,7 +94,7 @@ public class Aegis implements StudentService, DepartmentService {
 //                    }
 //                    if (ag.departmentLogin(Id, password) == "Login success") {
                     if (ag.LogIn(Id, password)) {
-                       DepartmentAccount da = getDepartmentAcc();
+                        DepartmentAccount da = getDepartmentAcc();
                         int number = 0;
 
                         do {
@@ -128,17 +130,17 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("");
                                     System.out.print("Please insert Course code: ");
                                     String courseCode = scan.next();
-                                  //  if (ag.notSameCourse(courseCode)) {
-                                        System.out.println("");
-                                        System.out.print("Please insert Course name: ");
-                                        String courseSub = scan.next();
-                                        System.out.println("");
-                                        System.out.print("Please insert Course creadit: ");
-                                        int cre = scan.nextInt();
-                                        Courses c = new Courses(courseCode, courseSub, cre);
-                                        ag.cdb.delete(c);
-                                        ag.cdb.insert(c);
-                                    
+                                    //  if (ag.notSameCourse(courseCode)) {
+                                    System.out.println("");
+                                    System.out.print("Please insert Course name: ");
+                                    String courseSub = scan.next();
+                                    System.out.println("");
+                                    System.out.print("Please insert Course creadit: ");
+                                    int cre = scan.nextInt();
+                                    Courses c = new Courses(courseCode, courseSub, cre);
+                                    ag.cdb.delete(c);
+                                    ag.cdb.insert(c);
+
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 3:
@@ -180,7 +182,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println("");
                                     Person person = new Person(ID, stf, stl);
                                     StudentAccount sta = new StudentAccount(ID, pass, person, Position.STUDENT);
-                                    System.out.println(ag.addMember( sta));
+                                    System.out.println(ag.addMember(sta));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 5:
@@ -198,7 +200,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     int IDs = scan.nextInt();
                                     System.out.println("");
                                     Activity acti = new Activity(acc, acn, ach);
-                                    System.out.println(ag.addActivityHour( acti, IDs));
+                                    System.out.println(ag.addActivityHour(acti, IDs));
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 6:
@@ -251,15 +253,15 @@ public class Aegis implements StudentService, DepartmentService {
                                     scan.nextLine();
                                     System.out.println("");
                                     if (ps.toUpperCase().equals("PAID")) {
-                                        System.out.println(ag.changePaymentStatus( id, PaymentStatus.PAID));
+                                        System.out.println(ag.changePaymentStatus(id, PaymentStatus.PAID));
                                         System.out.println("Change into PAID");
                                     }
                                     if (ps.toUpperCase().equals("PENDING")) {
-                                        System.out.println(ag.changePaymentStatus( id, PaymentStatus.PENDING));
+                                        System.out.println(ag.changePaymentStatus(id, PaymentStatus.PENDING));
                                         System.out.println("Change into PENDING");
                                     }
                                     if (ps.toUpperCase().equals("EXPIRES")) {
-                                        System.out.println(ag.changePaymentStatus( id, PaymentStatus.EXPIRES));
+                                        System.out.println(ag.changePaymentStatus(id, PaymentStatus.EXPIRES));
                                         System.out.println("Change into EXPIRES");
                                     }
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
@@ -279,12 +281,11 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 11:
                                     System.out.println("                ❤❤Remove Member in database❤❤");
                                     System.out.println("");
-                                 //   System.out.println(ag.accdb.getAll().toString());
+                                    //   System.out.println(ag.accdb.getAll().toString());
                                     System.out.print("Please insert student ID: ");
                                     int ids = scan.nextInt();
                                     System.out.println("");
-                                    
-                                    
+
                                     ag.accdb.delete2(ids);
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
@@ -467,6 +468,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     }
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
+                                    
                             }
                         } while (numS != 0);
                     } else {
@@ -623,7 +625,6 @@ public class Aegis implements StudentService, DepartmentService {
 //        }
 //        return false;
 //    }
-
     public boolean notSameCourse(String code) {
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM courses WHERE CCode= '" + code + "';");
@@ -642,27 +643,26 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     @Override
-    public boolean addMember( StudentAccount student) {
+    public boolean addMember(StudentAccount student) {
         try {
             //  this.StudentMember[this.countMember++] = new StudentAccount(0, null, null, null);
-           
-                //    for (int i = 0; i <= this.countMember; i++) {
-                //      if ((this.StudentMember[i].getId() == student.getId())) {
-                //this.StudentMember[this.countMember++] = student;
+
+            //    for (int i = 0; i <= this.countMember; i++) {
+            //      if ((this.StudentMember[i].getId() == student.getId())) {
+            //this.StudentMember[this.countMember++] = student;
 //                    System.out.println("Add student account success");
-                //     return false;
-                int  x = student.getId();
-                Person p = student.getPerson();
-                String pp = student.getPassword();
-                Position ppp = student.getPosition();
-                Account a = new Account(x,pp,p,ppp);
-                this.accdb.delete(a);
-                 accdb.insert(a);
-                this.StudentMember[this.countMember++] = student;
-        
-            
+            //     return false;
+            int x = student.getId();
+            Person p = student.getPerson();
+            String pp = student.getPassword();
+            Position ppp = student.getPosition();
+            Account a = new Account(x, pp, p, ppp);
+            this.accdb.delete(a);
+            accdb.insert(a);
+            this.StudentMember[this.countMember++] = student;
+
             System.out.println("Add student account success");
-            
+
             return true;
         } catch (NullPointerException ex) {
             System.out.println("Error: " + ex);
@@ -690,11 +690,10 @@ public class Aegis implements StudentService, DepartmentService {
 //        System.out.println("Can't add activity");
 //        return false;
 //    }
-
     @Override
-    public boolean addActivityHour( Activity activity, int id) {
+    public boolean addActivityHour(Activity activity, int id) {
         try {
-            if ( activity.getHour() <= 0) {
+            if (activity.getHour() <= 0) {
                 System.out.println("Can't add hour");
                 return false;
             }
@@ -720,7 +719,6 @@ public class Aegis implements StudentService, DepartmentService {
 //        }
 //        return false;
 //    }
-
 //    @Override
 //    public boolean removeActivity(DepartmentAccount department, String name) {
 //        for (int i = 0; i < this.activityList.size(); i++) {
@@ -731,7 +729,6 @@ public class Aegis implements StudentService, DepartmentService {
 //        }
 //        return false;
 //    }
-
     @Override
     public boolean registerCourse(int id, RegisterCourses registerCourse) {
         try {
@@ -753,9 +750,9 @@ public class Aegis implements StudentService, DepartmentService {
     }
 
     @Override
-    public boolean changePaymentStatus( int id, PaymentStatus status) {
+    public boolean changePaymentStatus(int id, PaymentStatus status) {
         try {
-            
+
             for (int i = 0; i < StudentMember.length; i++) {
                 if (this.StudentMember[i].getId() == id) {
                     this.StudentMember[i].setPaymentStatus(status);
@@ -807,7 +804,6 @@ public class Aegis implements StudentService, DepartmentService {
 //        }
 //        return null;
 //    }
-
 //    public int searchMember(StudentAccount student) {
 //        int i;
 //        for (i = 0; i < StudentMember.length; i++) {
@@ -826,7 +822,6 @@ public class Aegis implements StudentService, DepartmentService {
 //        }
 //        return RegisterCourse[std].getTotalPay();
 //    }
-
     @Override
     public String pay(StudentAccount student, double money) {
         if (money <= 0) {
@@ -851,9 +846,8 @@ public class Aegis implements StudentService, DepartmentService {
         file.getParentFile().mkdirs();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         try (PrintWriter b = new PrintWriter(file)) {
-            b.println(" SIT@KMUTT ");
+            b.println("SIT@AEGIS ");
             b.println("Time: " + LocalDateTime.now().format(format));
-            b.println("----------------------------------------");
             b.println("Name: " + sa.getPerson().getFirstName() + " " + sa.getPerson().getLastName());
             b.println("ID : " + sa.getPerson().getId());
             b.println("----------------------------------------");
@@ -863,6 +857,13 @@ public class Aegis implements StudentService, DepartmentService {
             b.println("Total Cost ");
             b.println("----------------------------------------");
         }
+        
+        Scanner sc = new Scanner(file);
+
+        while (sc.hasNextLine()) {
+            System.out.println(sc.nextLine());
+        }
+ 
     }
 
 }
