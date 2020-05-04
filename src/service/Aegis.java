@@ -33,6 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.function.UnaryOperator;
 
 public class Aegis implements StudentService, DepartmentService {
 
@@ -47,6 +48,7 @@ public class Aegis implements StudentService, DepartmentService {
     private int countCourse = 0;
     ArrayList<Courses> courseList = new ArrayList<Courses>();
     ArrayList<Activity> activityList = new ArrayList<Activity>();
+    ArrayList<StudentAccount> studentList = new ArrayList<StudentAccount>();
 
     LibraryDao accdb = new AccountDaoImp();
     LibraryDao actdb = new ActivityDaoImp();
@@ -122,6 +124,8 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.print("Number of Max student:");
                                     int maxS = scan.nextInt();
                                     ag.setMaxMember(maxS);
+                                    //ag.addStudentInArray();
+                                    System.out.println(ag.studentList.toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
 
@@ -167,7 +171,7 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 4:
                                     System.out.println("               ❤❤Add Member❤❤");
                                     System.out.println("");
-                                    ag.getStudentMember();
+//                                    ag.getStudentMember();
                                     System.out.print("Please insert student ID: ");
                                     int ID = scan.nextInt();
                                     System.out.println("");
@@ -269,19 +273,19 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 9:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    ag.getCourses();
+                                    System.out.println(ag.cdb.getAll().toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 10:
                                     System.out.println("               ❤❤Check Activity list❤❤");
                                     System.out.println("");
-                                    ag.getActivity();
+                                    System.out.println(ag.actdb.getAll().toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 11:
                                     System.out.println("                ❤❤Remove Member in database❤❤");
                                     System.out.println("");
-                                    //   System.out.println(ag.accdb.getAll().toString());
+                                      System.out.println(ag.accdb.getAll().toString());
                                     System.out.print("Please insert student ID: ");
                                     int ids = scan.nextInt();
                                     System.out.println("");
@@ -335,6 +339,8 @@ public class Aegis implements StudentService, DepartmentService {
                     int numS = 0;
                     System.out.print("Student Id : ");
                     int IdS = scan.nextInt();
+                    String ids = scan.next();
+                    
                     System.out.println("");
                     System.out.print("Student password : ");
                     String passwordS = scan.next();
@@ -521,44 +527,6 @@ public class Aegis implements StudentService, DepartmentService {
         }
         return false;
     }
-//    public String departmentLogin(int Id, String password) {
-//        try {
-//
-//            if (accdb. == Id && this.DepartmentAcc.getPassword().equals(password)) {
-//                return "Login success";
-//            }
-//            if (this.DepartmentAcc.getId() != Id && this.DepartmentAcc.getPassword().equals(password)) {
-//                return "ID failed";
-//            }
-//            if (this.DepartmentAcc.getId() == Id && !(this.DepartmentAcc.getPassword().equals(password))) {
-//                return "Password failed";
-//            }
-//
-//        } catch (NullPointerException ex) {
-//        }
-//        return "Login failed";
-//    }
-//    public boolean StudentLogin(int Id, String password) {
-//        try {
-//            for (int i = 0; i < StudentMember.length; i++) {
-//                if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
-//                    return true;
-//                }
-//            }
-//            for (int i = 0; i < StudentMember.length; i++) {
-//                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword().equals(password)) {
-//                    return false;
-//                }
-//            }
-//            for (int i = 0; i < StudentMember.length; i++) {
-//                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword() != password) {
-//                    return false;
-//                }
-//            }
-//        } catch (NullPointerException ex) {
-//        }
-//        return false;
-//    }
 
     public StudentAccount getStudentAccount(int id) {
         int x = 0;
@@ -609,22 +577,7 @@ public class Aegis implements StudentService, DepartmentService {
         System.out.println(student.getRegisterCoursesList().toString());
     }
 
-//    @Override
-//    public boolean addCourses(DepartmentAccount department, Courses course) {
-//        try {
-//            if (!this.DepartmentAcc.equals(department) || this.countCourse >= this.Courses.length) {
-//                System.out.println("Error404 Can't add course");
-//                return false;
-//            } else {
-//                this.Courses[this.countCourse++] = course;
-//            }
-//            this.courseList.add(course);
-//            return true;
-//        } catch (NullPointerException ex) {
-//            System.out.println("Error: " + ex);
-//        }
-//        return false;
-//    }
+
     public boolean notSameCourse(String code) {
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM courses WHERE CCode= '" + code + "';");
@@ -865,5 +818,7 @@ public class Aegis implements StudentService, DepartmentService {
         }
  
     }
+    
+
 
 }
