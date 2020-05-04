@@ -23,6 +23,7 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
             pstm.setInt(3, obj.getCredits());
             pstm.setInt(4, obj.getCalCost());
             pstm.execute();
+            System.out.println("Add success");
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
         }
@@ -30,11 +31,12 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
     @Override
     public void delete(Courses obj) {
-        String act = "DELETE FROM activity WHERE CCode = ? ";
+        String act = "DELETE FROM courses WHERE ccode = '" + obj.getCourseCode() + "' ";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(act)) {
-            pstm.setString(1, obj.getCourseCode());
+//            pstm.setString(1, obj.getCourseCode());
             pstm.execute();
+            System.out.println("Excecute success");
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
         }
@@ -82,5 +84,10 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
         }
 
         return c;
+    }
+
+    @Override
+    public void delete2(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
