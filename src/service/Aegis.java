@@ -20,6 +20,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -31,7 +35,7 @@ import java.util.InputMismatchException;
 public class Aegis implements StudentService, DepartmentService {
 
     private StudentAccount StudentMember[];
-    public static DepartmentAccount DatabaseManagement;
+    public static DepartmentAccount DepartmentAcc;
     private Courses Courses[];
     private RegisterCourses RegisterCourse[];
     private Activity Activity[];
@@ -48,6 +52,7 @@ public class Aegis implements StudentService, DepartmentService {
 
     public Aegis() {
     }
+    Scanner scan = new Scanner(System.in);
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int menuNumber = 0;
@@ -67,7 +72,6 @@ public class Aegis implements StudentService, DepartmentService {
             } catch (InputMismatchException ex) {
                 ex.printStackTrace();
             }
-
             System.out.println("");
             switch (menuNumber) {
                 case 1:
@@ -79,16 +83,15 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Department password : ");
                     String password = scan.next();
                     System.out.println("");
-
-                    try {
-                        String login = ag.departmentLogin(Id, password);
-                        System.out.println(login);
-                    } catch (NullPointerException ex) {
-                        System.out.println("Error: " + ex);
-
-                    }
-                    if (ag.departmentLogin(Id, password) == "Login success") {
-                        DepartmentAccount da = getDatabaseManagement();
+//                    try {
+//                        String login = ag.departmentLogin(Id, password);
+//                        System.out.println(login);
+//                    } catch (NullPointerException ex) {
+//                        System.out.println("Error: " + ex);
+//                    }
+//                    if (ag.departmentLogin(Id, password) == "Login success") {
+                    if (ag.LogIn(Id, password)) {
+                        DepartmentAccount da = getDepartmentAcc();
                         int number = 0;
 
                         do {
@@ -313,24 +316,26 @@ public class Aegis implements StudentService, DepartmentService {
 //                    try {
                     System.out.print("Enter Id: ");
                     int id = scan.nextInt();
-                    System.out.println("");
-                    System.out.print("Enter Password: ");
-                    String pass = scan.next();
-                    System.out.println("");
-
-                    System.out.print("Enter First name: ");
-                    String fn = scan.next();
-                    System.out.println("");
-                    System.out.print("Enter Surname: ");
-                    String ln = scan.next();
-                    System.out.println("");
-                    Position position;
-                    Person p = new Person(id, fn, ln);
-                    DepartmentAccount d = new DepartmentAccount(id, pass, p, Position.DEPARTMENT);
-                    setDatabaseManagement(d);
-                    ag.accdb.insert(d);
-                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                    if (ag.Regis(id)) {
+                        System.out.println("");
+                        System.out.print("Enter Password: ");
+                        String pass = scan.next();
+                        System.out.println("");
+                        System.out.print("Enter First name: ");
+                        String fn = scan.next();
+                        System.out.println("");
+                        System.out.print("Enter Surname: ");
+                        String ln = scan.next();
+                        System.out.println("");
+                        Position position;
+                        Person p = new Person(id, fn, ln);
+                        DepartmentAccount d = new DepartmentAccount(id, pass, p, Position.DEPARTMENT);
+                        setDepartmentAcc(d);
+                        ag.accdb.insert(d);
+                        System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+                    }
                     break;
+
 //                    } catch (InputMismatchException ex) {
 //                        ex.printStackTrace();
 //                    }
@@ -343,8 +348,10 @@ public class Aegis implements StudentService, DepartmentService {
                     System.out.print("Student password : ");
                     String passwordS = scan.next();
                     System.out.println("");
-                    System.out.println(ag.StudentLogin(IdS, passwordS));
-                    if (ag.StudentLogin(IdS, passwordS)) {
+//                    System.out.println(ag.StudentLogin(IdS, passwordS));
+//                    System.out.println(ag.LogIn(IdS, passwordS));
+//                    if (ag.StudentLogin(IdS, passwordS)) {
+                    if (ag.LogIn(IdS, passwordS)) {
                         StudentAccount StA = ag.getStudentAccount(IdS);
                         do {
                             System.out.println("               ❤❤Student Menu❤❤");
@@ -485,44 +492,81 @@ public class Aegis implements StudentService, DepartmentService {
         } while (menuNumber != 0);
     }
 
-    public String departmentLogin(int Id, String password) {
-        try {
-            if (this.DatabaseManagement.getId() == Id && this.DatabaseManagement.getPassword().equals(password)) {
-                return "Login success";
-            }
-            if (this.DatabaseManagement.getId() != Id && this.DatabaseManagement.getPassword().equals(password)) {
-                return "ID failed";
-            }
-            if (this.DatabaseManagement.getId() == Id && !(this.DatabaseManagement.getPassword().equals(password))) {
-                return "Password failed";
-            }
-
-        } catch (NullPointerException ex) {
-        }
-        return "Login failed";
-    }
-
-    public boolean StudentLogin(int Id, String password) {
-        try {
-            for (int i = 0; i < StudentMember.length; i++) {
-                if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
+    public boolean LogIn(int Iddb, String passworddb) {
+        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
+            ResultSet rs = stm.executeQuery("SELECT * FROM account WHERE Id= '" + Iddb + "' AND Password= '" + passworddb + "';");
+            if (rs.next()) {
+                if (rs.getString(3).equals("DEPARTMENT")) {
+                    System.out.println("Login as Department Success");
+                    return true;
+                } else if (rs.getString(3).equals("STUDENT")) {
+                    System.out.println("Login as Student Success");
                     return true;
                 }
+            } else {
+                System.out.println("Id and/or Password is Incorrect, Please Try again");
+                return false;
             }
-            for (int i = 0; i < StudentMember.length; i++) {
-                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword().equals(password)) {
-                    return false;
-                }
-            }
-            for (int i = 0; i < StudentMember.length; i++) {
-                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword() != password) {
-                    return false;
-                }
-            }
-        } catch (NullPointerException ex) {
+        } catch (SQLException sqlex) {
+            System.out.println("SQL Exception : " + sqlex.getMessage());
         }
         return false;
     }
+
+    public boolean Regis(int idr) {
+        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
+            ResultSet rs = stm.executeQuery("SELECT * FROM account WHERE Id= '" + idr + "';");
+            if (rs.next()) {
+                if (!(rs.getString(1).equals(idr))) {
+                    return true;
+                }
+            } else {
+                System.out.println("This Id has already exist, Please Try Again");
+                return false;
+            }
+        } catch (SQLException sqlex) {
+            System.out.println("SQL Exception : " + sqlex.getMessage());
+        }
+        return false;
+    }
+//    public String departmentLogin(int Id, String password) {
+//        try {
+//
+//            if (accdb. == Id && this.DepartmentAcc.getPassword().equals(password)) {
+//                return "Login success";
+//            }
+//            if (this.DepartmentAcc.getId() != Id && this.DepartmentAcc.getPassword().equals(password)) {
+//                return "ID failed";
+//            }
+//            if (this.DepartmentAcc.getId() == Id && !(this.DepartmentAcc.getPassword().equals(password))) {
+//                return "Password failed";
+//            }
+//
+//        } catch (NullPointerException ex) {
+//        }
+//        return "Login failed";
+//    }
+//    public boolean StudentLogin(int Id, String password) {
+//        try {
+//            for (int i = 0; i < StudentMember.length; i++) {
+//                if (this.StudentMember[i].getId() == Id && this.StudentMember[i].getPassword().equals(password)) {
+//                    return true;
+//                }
+//            }
+//            for (int i = 0; i < StudentMember.length; i++) {
+//                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword().equals(password)) {
+//                    return false;
+//                }
+//            }
+//            for (int i = 0; i < StudentMember.length; i++) {
+//                if (this.StudentMember[i].getId() != Id && this.StudentMember[i].getPassword() != password) {
+//                    return false;
+//                }
+//            }
+//        } catch (NullPointerException ex) {
+//        }
+//        return false;
+//    }
 
     public StudentAccount getStudentAccount(int id) {
         int x = 0;
@@ -558,12 +602,12 @@ public class Aegis implements StudentService, DepartmentService {
         System.out.println("Set max activity success");
     }
 
-    public static DepartmentAccount getDatabaseManagement() {
-        return DatabaseManagement;
+    public static DepartmentAccount getDepartmentAcc() {
+        return DepartmentAcc;
     }
 
-    public static void setDatabaseManagement(DepartmentAccount DatabaseManagement) {
-        Aegis.DatabaseManagement = DatabaseManagement;
+    public static void setDepartmentAcc(DepartmentAccount DepartmentAcc) {
+        Aegis.DepartmentAcc = DepartmentAcc;
         System.out.println("❤❤Set Department account success❤❤");
     }
 
@@ -576,7 +620,7 @@ public class Aegis implements StudentService, DepartmentService {
     @Override
     public boolean addCourses(DepartmentAccount department, Courses course) {
         try {
-            if (!this.DatabaseManagement.equals(department) || this.countCourse >= this.Courses.length) {
+            if (!this.DepartmentAcc.equals(department) || this.countCourse >= this.Courses.length) {
                 System.out.println("Error404 Can't add course");
                 return false;
             } else {
@@ -595,7 +639,7 @@ public class Aegis implements StudentService, DepartmentService {
     public boolean addMember(DepartmentAccount department, StudentAccount student) {
         try {
             //  this.StudentMember[this.countMember++] = new StudentAccount(0, null, null, null);
-            if (!this.DatabaseManagement.equals(department) || this.countMember >= this.StudentMember.length) {
+            if (!this.DepartmentAcc.equals(department) || this.countMember >= this.StudentMember.length) {
                 System.out.println("Can't add member");
                 return false;
                 //    for (int i = 0; i <= this.countMember; i++) {
@@ -621,7 +665,7 @@ public class Aegis implements StudentService, DepartmentService {
             //   this.Activity[this.countActivity++] = activity;
             //  this.Activity.equals(activity);
             //  }
-            if (!this.DatabaseManagement.equals(department) || countActivity >= Activity.length) {
+            if (!this.DepartmentAcc.equals(department) || countActivity >= Activity.length) {
                 System.out.println("Can't add activity");
                 return false;
             }
@@ -639,7 +683,7 @@ public class Aegis implements StudentService, DepartmentService {
     @Override
     public boolean addActivityHour(DepartmentAccount department, Activity activity, int id) {
         try {
-            if (!this.DatabaseManagement.equals(department) || activity.getHour() <= 0) {
+            if (!this.DepartmentAcc.equals(department) || activity.getHour() <= 0) {
                 System.out.println("Can't add hour");
                 return false;
             }
@@ -700,7 +744,7 @@ public class Aegis implements StudentService, DepartmentService {
     @Override
     public boolean changePaymentStatus(DepartmentAccount department, int id, PaymentStatus status) {
         try {
-            if (!this.DatabaseManagement.equals(department)) {
+            if (!this.DepartmentAcc.equals(department)) {
                 System.out.println("Error404 Can't change status");
                 return false;
             }
@@ -805,7 +849,6 @@ public class Aegis implements StudentService, DepartmentService {
             b.println("ID : " + sa.getPerson().getId());
             b.println("----------------------------------------");
             b.println(sa.getRegisterCoursesList().toString());
-
             b.println("Total Courses : " + sa.getCountOfCourseForRegister());
             b.println("Total Credit  : ");
             b.println("Total Cost ");
