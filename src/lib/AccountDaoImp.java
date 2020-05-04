@@ -36,13 +36,27 @@ public class AccountDaoImp implements LibraryDao<Account> {
 
     @Override
     public void delete(Account obj) {
-        String acc = "DELETE FROM account WHERE Id = ?";
+         String act = "DELETE FROM account WHERE id = '" + obj.getId() + "'";
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setInt(1, obj.getId());
+                PreparedStatement pstm = conn.prepareStatement(act)) {
+        //    pstm.setString(1, obj.getCodeAct());
             pstm.execute();
+            System.out.println("Excecute success");
         } catch (SQLException sqlex) {
-            java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
+            java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
+        }
+    }
+    
+    
+    public void delete2(int id) {
+         String act = "DELETE FROM account WHERE id = '" + id + "'";
+        try (Connection conn = ConnectDB.getConnection();
+                PreparedStatement pstm = conn.prepareStatement(act)) {
+        //    pstm.setString(1, obj.getCodeAct());
+            pstm.execute();
+            System.out.println("Excecute success");
+        } catch (SQLException sqlex) {
+            java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
         }
     }
 
