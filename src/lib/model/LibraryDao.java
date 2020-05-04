@@ -13,4 +13,6 @@ public interface LibraryDao<dbd> {
     dbd findById(String id);
 
     ArrayList<dbd> getAll();
+    
+    void delete2(int id);
 }
