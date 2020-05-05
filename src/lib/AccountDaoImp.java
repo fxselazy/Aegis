@@ -59,21 +59,14 @@ public class AccountDaoImp implements LibraryDao<Account> {
 
     @Override
     public void update(Account obj) {
-        String acc = "UPDATE account SET Id = ?, Password = ?, State = ?, FName = ? , Lname = ? ";
+    //    String acc = "UPDATE account set password = '?' where id = ?";
+       String act = "UPDATE account set password = '"+ obj.getPassword()+ "' where id = " + obj.getId();
         try (Connection conn = ConnectDB.getConnection();
-                PreparedStatement pstm = conn.prepareStatement(acc)) {
-            pstm.setInt(1, obj.getId());
-            pstm.setString(2, obj.getPassword());
-            if (obj.getPosition().equals(Position.DEPARTMENT)) {
-                pstm.setString(3, "DEPARTMENT");
-            } else {
-                pstm.setString(3, "STUDENT");
-            }
-            pstm.setString(4, obj.getPerson().getFirstName());
-            pstm.setString(5, obj.getPerson().getLastName());
+                PreparedStatement pstm = conn.prepareStatement(act)) {
             pstm.execute();
+            System.out.println("Excecute success");
         } catch (SQLException sqlex) {
-            java.util.logging.Logger.getLogger(AccountDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
+            java.util.logging.Logger.getLogger(ActivityDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
         }
     }
 
