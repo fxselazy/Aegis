@@ -1,4 +1,4 @@
-// ผู้รับผิดชอบ 62130500046 นาย ตรัยธวัช จิตต์ชะนะ
+// ผู้รับผิดชอบ 62130500027 นาย ตรัยธวัช จิตต์ชะนะ
 package service;
 
 //import class
@@ -603,7 +603,7 @@ public class Aegis implements StudentService, DepartmentService {
         return " ";
     }
 
-    // ผู้รับผิดชอบ 62130500046 นาย ภูสิทธิ อัศวธีระเกียรติ์
+    // ผู้รับผิดชอบ 62130500076 นาย ภูสิทธิ อัศวธีระเกียรติ์
     public void printBill(StudentAccount sa) throws IOException {
         File file = new File("PaymentBill/" + LocalDate.now() + "/Bill_" + sa.getId() + ".txt");
         file.getParentFile().mkdirs();
