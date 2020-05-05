@@ -21,13 +21,13 @@ public class Activity {
         }
     }
 
-    public Activity(String codeAct) {
-        try {
-            this.codeAct = codeAct;
-        } catch (NullPointerException e) {
-            System.out.println("Unknown Activity");
-        }
-    }
+//    public Activity(String codeAct) {
+//        try {
+//            this.codeAct = codeAct;
+//        } catch (NullPointerException e) {
+//            System.out.println("Unknown Activity");
+//        }
+//    }
 
     public String getNameOfActivity() {
         return nameOfActivity;

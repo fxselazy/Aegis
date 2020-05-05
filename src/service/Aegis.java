@@ -34,24 +34,17 @@ public class Aegis implements StudentService, DepartmentService {
 
     private StudentAccount StudentMember[];
     public static DepartmentAccount DepartmentAcc;
-
-    private RegisterCourses RegisterCourse[];
-    private Activity Activity[];
-
     private int countMember = 0;
-
     ArrayList<Courses> courseList = new ArrayList<Courses>();
     ArrayList<Activity> activityList = new ArrayList<Activity>();
     ArrayList<StudentAccount> studentList = new ArrayList<StudentAccount>();
-
     LibraryDao accdb = new AccountDaoImp();
     LibraryDao actdb = new ActivityDaoImp();
     LibraryDao cdb = new CoursesDaoImp();
-
+    Scanner scan = new Scanner(System.in);
+   
     public Aegis() {
     }
-    Scanner scan = new Scanner(System.in);
-
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int menuNumber = 0;
         Aegis ag = new Aegis();
@@ -95,10 +88,10 @@ public class Aegis implements StudentService, DepartmentService {
                             System.out.println("8. Change PaymentStatus of student");
                             System.out.println("9. Check Courses list");
                             System.out.println("10. Check Activity list");
-                            System.out.println("11. Remove Member in database");
+                            //System.out.println("11. Remove Member in database");
                             System.out.println("0. Exit");
                             System.out.println("");
-                            System.out.print("Enter Your Menu[0-11]: ");
+                            System.out.print("Enter Your Menu[0-10]: ");
                             number = scan.nextInt();
                             switch (number) {
                                 case 1:
@@ -169,6 +162,7 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 5:
                                     System.out.println("               ❤❤Add Activity Hour❤❤");
                                     System.out.println("");
+                                    System.out.println(ag.StudentMember.toString());
                                     System.out.print("Please insert Activity code: ");
                                     String acc = scan.next();
                                     System.out.println("");
@@ -258,17 +252,17 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println(ag.actdb.getAll().toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
-                                case 11:
-                                    System.out.println("                ❤❤Remove Member in database❤❤");
-                                    System.out.println("");
-                                    System.out.println(ag.accdb.getAll().toString());
-                                    System.out.print("Please insert student ID: ");
-                                    int ids = scan.nextInt();
-                                    System.out.println("");
-
-                                    ag.accdb.delete2(ids);
-                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-                                    break;
+//                                case 11:
+//                                    System.out.println("                ❤❤Remove Member in database❤❤");
+//                                    System.out.println("");
+//                                    System.out.println(ag.accdb.getAll().toString());
+//                                    System.out.print("Please insert student ID: ");
+//                                    int ids = scan.nextInt();
+//                                    System.out.println("");
+//
+//                                    ag.accdb.delete2(ids);
+//                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
+//                                    break;
                             }
                         } while (number != 0);
                     } else {
@@ -461,22 +455,22 @@ public class Aegis implements StudentService, DepartmentService {
         return false;
     }
 
-    public boolean Regis(int idr) {
-        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM account WHERE Id= '" + idr + "';");
-            if (rs.next()) {
-                if (!(rs.getString(1).equals(idr))) {
-                    return true;
-                }
-            } else {
-                System.out.println("This Id has already exist, Please Try Again");
-                return false;
-            }
-        } catch (SQLException sqlex) {
-            System.out.println("SQL Exception : " + sqlex.getMessage());
-        }
-        return false;
-    }
+//    public boolean Regis(int idr) {
+//        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
+//            ResultSet rs = stm.executeQuery("SELECT * FROM account WHERE Id= '" + idr + "';");
+//            if (rs.next()) {
+//                if (!(rs.getString(1).equals(idr))) {
+//                    return true;
+//                }
+//            } else {
+//                System.out.println("This Id has already exist, Please Try Again");
+//                return false;
+//            }
+//        } catch (SQLException sqlex) {
+//            System.out.println("SQL Exception : " + sqlex.getMessage());
+//        }
+//        return false;
+//    }
 
     public StudentAccount getStudentAccount(int id) {
         int x = 0;

@@ -27,6 +27,8 @@ public class StudentAccount extends Account implements Policy {
         super(Id, password, person, position);
     }
 
+  
+
     public void addCoursesCount() {
         this.coursesCount++;
     }
