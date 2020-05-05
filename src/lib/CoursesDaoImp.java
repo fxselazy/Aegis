@@ -43,13 +43,12 @@ public class CoursesDaoImp implements LibraryDao<Courses> {
 
     @Override
     public void update(Courses obj) {
-        String c = "UPDATE courses SET CCode = ?, CName = ?, Credit = ?, Cost = ?";
+        String c = "UPDATE courses SET  CName = '?', Credit = ?, Cost = ? WHERE CCode = ' " + obj.getCourseCode() + " ' ; ";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(c)) {
-            pstm.setString(1, obj.getCourseCode());
-            pstm.setString(2, obj.getSubject());
-            pstm.setInt(3, obj.getCredits());
-            pstm.setInt(4, obj.getCalCost());
+            pstm.setString(1, obj.getSubject());
+            pstm.setInt(2, obj.getCredits());
+            pstm.setInt(3, obj.getCalCost());
             pstm.execute();
         } catch (SQLException sqlex) {
             java.util.logging.Logger.getLogger(CoursesDaoImp.class.getName()).log(Level.SEVERE, null, sqlex);
