@@ -1,3 +1,4 @@
+// ผู้รับผิดชอบ 62130500046 นาย ภูสิทธิ อัศวธีระเกียรติ์
 package activity;
 
 import java.time.LocalDate;
@@ -28,7 +29,6 @@ public class Activity {
 //            System.out.println("Unknown Activity");
 //        }
 //    }
-
     public String getNameOfActivity() {
         return nameOfActivity;
     }

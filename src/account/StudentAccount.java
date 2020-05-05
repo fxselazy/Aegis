@@ -1,3 +1,4 @@
+// ผู้รับผิดชอบ 62130500046 นาย ตรัยธวัช จิตต์ชะนะ
 package account;
 
 import activity.Activity;
@@ -26,8 +27,6 @@ public class StudentAccount extends Account implements Policy {
     public StudentAccount(int Id, String password, Person person, Position position) {
         super(Id, password, person, position);
     }
-
-  
 
     public void addCoursesCount() {
         this.coursesCount++;
