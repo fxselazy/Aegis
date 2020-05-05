@@ -112,7 +112,7 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.print("Please insert Course name: ");
                                     String courseSub = scan.next();
                                     System.out.println("");
-                                    System.out.print("Please insert Course creadit: ");
+                                    System.out.print("Please insert Course credit: ");
                                     int cre = scan.nextInt();
                                     Courses c = new Courses(courseCode, courseSub, cre);
                                     ag.cdb.delete(c);
