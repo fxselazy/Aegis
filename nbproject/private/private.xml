@@ -3,8 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< Updated upstream
             <file>file:/C:/Users/Administrator/Desktop/Aegis/Aegis/src/account/StudentAccount.java</file>
             <file>file:/C:/Users/Administrator/Desktop/Aegis/Aegis/src/service/Aegis.java</file>
+=======
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/account/StudentAccount.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/lib/AccountDaoImp.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/service/DepartmentService.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/courses/Courses.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/lib/ConnectDB.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/payment/PaymentStatus.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/account/Account.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/lib/ActivityDaoImp.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/service/StudentService.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/lib/CoursesDaoImp.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/account/Position.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/service/Aegis.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/payment/PaymentBill.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/service/RegisterCourses.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/person/Person.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/lib/StudentDaoImp.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/activity/Activity.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/lib/model/LibraryDao.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/policy/Policy.java</file>
+            <file>file:/C:/Users/Fovex/Desktop/Dev/Aegis/src/account/DepartmentAccount.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>

@@ -42,7 +42,7 @@ public class ActivityDaoImp implements LibraryDao<Activity> {
 
     @Override
     public void update(Activity obj) {
-        String act = "UPDATE activity SET ACode = ?, AName = ?,AHour = ?";
+        String act = "UPDATE activity SET AName = '?',AHour = ? WHERE ACode = ' " + obj.getCodeAct() + " ' ";
         try (Connection conn = ConnectDB.getConnection();
                 PreparedStatement pstm = conn.prepareStatement(act)) {
             pstm.setString(1, obj.getCodeAct());
