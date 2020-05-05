@@ -357,13 +357,13 @@ public class Aegis implements StudentService, DepartmentService {
                                 case 4:
                                     System.out.println("               ❤❤Check Courses list❤❤");
                                     System.out.println("");
-                                    ag.getCourses();
+                                    System.out.println(ag.cdb.getAll().toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 5:
                                     System.out.println("               ❤❤Check Activity list❤❤");
                                     System.out.println("");
-                                    ag.getActivity();
+                                    System.out.println(ag.actdb.getAll().toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
                                 case 6:
@@ -640,8 +640,7 @@ public class Aegis implements StudentService, DepartmentService {
             b.println("----------------------------------------");
             b.println(sa.getRegisterCoursesList().toString());
             b.println("Total Courses : " + sa.getCountOfCourseForRegister());
-            b.println("Total Credit  : ");
-            b.println("Total Cost ");
+            b.println("Total Cost : " + sa.getDeptOfRegisterCoures());
             b.println("----------------------------------------");
         }
         Scanner sc = new Scanner(file);
