@@ -590,7 +590,8 @@ public class Aegis implements StudentService, DepartmentService {
             for (int i = 0; i < StudentMember.length; i++) {
                 if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(oldPassword)) {
                     this.StudentMember[i].setPassword(newPassword);
-                    this.accdb.update(this.StudentMember[i]);
+                    Account a =new Account(this.StudentMember[i].getId(),this.StudentMember[i].getPassword(),this.StudentMember[i].getPerson(),this.StudentMember[i].getPosition());
+                    this.accdb.update(a);
                     return true;
                 }
             }
