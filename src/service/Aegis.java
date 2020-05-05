@@ -1,3 +1,4 @@
+// ผู้รับผิดชอบ 62130500046 นาย ตรัยธวัช จิตต์ชะนะ
 package service;
 
 //import class
@@ -42,9 +43,10 @@ public class Aegis implements StudentService, DepartmentService {
     LibraryDao actdb = new ActivityDaoImp();
     LibraryDao cdb = new CoursesDaoImp();
     Scanner scan = new Scanner(System.in);
-   
+
     public Aegis() {
     }
+
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int menuNumber = 0;
         Aegis ag = new Aegis();
@@ -88,7 +90,6 @@ public class Aegis implements StudentService, DepartmentService {
                             System.out.println("8. Change PaymentStatus of student");
                             System.out.println("9. Check Courses list");
                             System.out.println("10. Check Activity list");
-                            //System.out.println("11. Remove Member in database");
                             System.out.println("0. Exit");
                             System.out.println("");
                             System.out.print("Enter Your Menu[0-10]: ");
@@ -252,17 +253,6 @@ public class Aegis implements StudentService, DepartmentService {
                                     System.out.println(ag.actdb.getAll().toString());
                                     System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
                                     break;
-//                                case 11:
-//                                    System.out.println("                ❤❤Remove Member in database❤❤");
-//                                    System.out.println("");
-//                                    System.out.println(ag.accdb.getAll().toString());
-//                                    System.out.print("Please insert student ID: ");
-//                                    int ids = scan.nextInt();
-//                                    System.out.println("");
-//
-//                                    ag.accdb.delete2(ids);
-//                                    System.out.println("❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤");
-//                                    break;
                             }
                         } while (number != 0);
                     } else {
@@ -434,6 +424,7 @@ public class Aegis implements StudentService, DepartmentService {
         } while (menuNumber != 0);
     }
 
+    // ผู้รับผิดชอบ 62130500046 นาย นิรวัชร์ ปรมธรรมสกุล
     public boolean LogIn(int Iddb, String passworddb) {
         try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
             ResultSet rs = stm.executeQuery("SELECT * FROM account WHERE Id= '" + Iddb + "' AND Password= '" + passworddb + "';");
@@ -454,23 +445,6 @@ public class Aegis implements StudentService, DepartmentService {
         }
         return false;
     }
-
-//    public boolean Regis(int idr) {
-//        try (Connection conn = ConnectDB.getConnection(); Statement stm = conn.createStatement();) {
-//            ResultSet rs = stm.executeQuery("SELECT * FROM account WHERE Id= '" + idr + "';");
-//            if (rs.next()) {
-//                if (!(rs.getString(1).equals(idr))) {
-//                    return true;
-//                }
-//            } else {
-//                System.out.println("This Id has already exist, Please Try Again");
-//                return false;
-//            }
-//        } catch (SQLException sqlex) {
-//            System.out.println("SQL Exception : " + sqlex.getMessage());
-//        }
-//        return false;
-//    }
 
     public StudentAccount getStudentAccount(int id) {
         int x = 0;
@@ -590,7 +564,7 @@ public class Aegis implements StudentService, DepartmentService {
             for (int i = 0; i < StudentMember.length; i++) {
                 if (StudentMember[i].getId() == id && this.StudentMember[i].getPassword().equals(oldPassword)) {
                     this.StudentMember[i].setPassword(newPassword);
-                    Account a =new Account(this.StudentMember[i].getId(),this.StudentMember[i].getPassword(),this.StudentMember[i].getPerson(),this.StudentMember[i].getPosition());
+                    Account a = new Account(this.StudentMember[i].getId(), this.StudentMember[i].getPassword(), this.StudentMember[i].getPerson(), this.StudentMember[i].getPosition());
                     this.accdb.update(a);
                     return true;
                 }
@@ -629,6 +603,7 @@ public class Aegis implements StudentService, DepartmentService {
         return " ";
     }
 
+    // ผู้รับผิดชอบ 62130500046 นาย ภูสิทธิ อัศวธีระเกียรติ์
     public void printBill(StudentAccount sa) throws IOException {
         File file = new File("PaymentBill/" + LocalDate.now() + "/Bill_" + sa.getId() + ".txt");
         file.getParentFile().mkdirs();
