@@ -639,9 +639,9 @@ public class Aegis implements StudentService, DepartmentService {
             b.println("ID : " + sa.getPerson().getId());
             b.println("----------------------------------------");
             b.println(sa.getRegisterCoursesList().toString());
-            b.println("Total Courses : " + sa.getCountOfCourseForRegister());
+            b.println("Courses Requirement : " + sa.getCountOfCourseForRegister());
             b.println("Total Cost : " + sa.getDeptOfRegisterCoures());
-            b.println("----------------------------------------");
+            b.println("----------------------------------------\n");
         }
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
