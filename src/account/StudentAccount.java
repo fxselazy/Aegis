@@ -98,8 +98,8 @@ public class StudentAccount extends Account implements Policy {
 
     public void setRegisterCoursesList(RegisterCourses register) {
         this.registerCoursesList.add(register);
-        System.out.println("Register success");
-        System.out.println("Register fail");
+//        System.out.println("Register success");
+//        System.out.println("Register fail");
     }
 
     public boolean setRegisterCourses(RegisterCourses registerCourse) {
